@@ -9,7 +9,6 @@ export class ToastService {
   toast$ = this.toastSubject.asObservable();
 
   showToast(message: string, type: 'success' | 'error' | 'info' | 'warning') {
-    console.log('🔥 Emitting Toast:', { message, type });
     this.toastSubject.next({ message, type });
 
     setTimeout(() => {

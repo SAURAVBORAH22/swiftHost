@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AuthResponseModel } from 'src/app/models/authResponseModel';
+import { ToastService } from 'src/app/shared/toast.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,7 +16,8 @@ export class SignUpComponent implements OnInit {
   loading: boolean = false;
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -36,17 +38,25 @@ export class SignUpComponent implements OnInit {
     })
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const email = this.signUpForm.value.email;
     const password = this.signUpForm.value.password;
     this.loading = true;
-    this.authService.loginOrSignUp(email, password, false).subscribe((authResponseModel: AuthResponseModel) => {
-      if (authResponseModel) {
-        const user = this.authService.formatUser(authResponseModel);
-        this.authService.setUserInLocalStorage(user);
-        this.router.navigate(['home']);
+
+    this.authService.loginOrSignUp(email, password, false).subscribe({
+      next: (authResponseModel: AuthResponseModel) => {
+        if (authResponseModel) {
+          const user = this.authService.formatUser(authResponseModel);
+          this.authService.setUserInLocalStorage(user);
+          this.router.navigate(['home']);
+          this.toastService.showToast('Your account has been created successfully.', 'error');
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        this.toastService.showToast('Error creating user.Please try again.', 'error');
+        this.loading = false;
       }
-      this.loading = false;
     });
   }
 
