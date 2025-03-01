@@ -73,4 +73,11 @@ export class AuthService {
         }
         return null
     }
+
+    isAuthenticated(): boolean {
+        if (this.getUserFromLocalStore() !== null) {
+            return true;
+        }
+        return false;
+    }
 }
