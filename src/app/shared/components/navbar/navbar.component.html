@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg fixed-top gradient-custom-2">
+    <div class="container-fluid">
+        <!-- Left Section: Logo & Search -->
+        <div class="d-flex align-items-center me-auto">
+            <a class="navbar-brand" [routerLink]="['/home']">
+                <img src="../../../assets/img/swifthost-logo.webp" alt="SwiftHost Logo">
+            </a>
+
+            <form class="input-group search-box ms-3">
+                <input type="search" class="form-control" placeholder="Search" aria-label="Search">
+                <button class="btn btn-search" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Navbar Toggler for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" [routerLink]="['/home']">
+                        <i class="fas fa-home"></i> <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/network']">
+                        <i class="fas fa-user-friends"></i> <span>My Network</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/jobs']">
+                        <i class="fas fa-briefcase"></i> <span>Jobs</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/messaging']">
+                        <i class="fas fa-comment-dots"></i> <span>Messaging</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/notifications']">
+                        <i class="fas fa-bell"></i> <span>Notifications</span>
+                    </a>
+                </li>
+
+                <!-- Profile Dropdown -->
+                <li class="nav-item dropdown" ngbDropdown>
+                    <a class="nav-link dropdown-toggle profile-dropdown" id="navbarDropdownMenuLink" ngbDropdownToggle
+                        role="button">
+                        <img src="../../../assets/img/empty-user.webp" class="avatar-img" alt="User Avatar">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                        <li><a class="dropdown-item" [routerLink]="['/profile']">My Profile</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/settings']">Settings</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['']" (click)="onLogout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
