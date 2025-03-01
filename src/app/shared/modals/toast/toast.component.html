@@ -1,0 +1,6 @@
+<div *ngIf="toast" class="toast-container">
+    <div class="toast" [ngClass]="toast.type">
+        <span class="toast-message">{{ toast.message }}</span>
+        <button class="close-btn" (click)="closeToast()">✖</button>
+    </div>
+</div>

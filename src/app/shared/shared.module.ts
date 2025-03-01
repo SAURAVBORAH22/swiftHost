@@ -4,10 +4,19 @@ import { PageLoaderComponent } from './components/page-loader/page-loader.compon
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ToastComponent } from './modals/toast/toast.component';
 
 @NgModule({
-    declarations: [PageLoaderComponent, NavbarComponent],
-    exports: [PageLoaderComponent, NavbarComponent],
+    declarations: [
+        PageLoaderComponent,
+        NavbarComponent,
+        ToastComponent
+    ],
+    exports: [
+        PageLoaderComponent,
+        NavbarComponent,
+        ToastComponent
+    ],
     imports: [
         CommonModule,
         RouterModule,
