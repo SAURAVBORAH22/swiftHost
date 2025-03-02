@@ -8,47 +8,67 @@
                         <div class="col-lg-6">
                             <div class="card-body p-md-5 mx-md-4">
 
+                                <!-- Language selection dropdown -->
+                                <div class="text-end mb-3 language-button">
+                                    <div ngbDropdown>
+                                        <button class="btn btn-outline-secondary" id="dropdownMenuButton"
+                                            ngbDropdownToggle>
+                                            {{'LANGUAGE' | translate}}
+                                        </button>
+                                        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+                                            <li><a class="dropdown-item" (click)="changeLanguage('en')">English</a></li>
+                                            <li><a class="dropdown-item" (click)="changeLanguage('fr')">Français</a>
+                                            </li>
+                                            <li><a class="dropdown-item" (click)="changeLanguage('bn')">Bengali</a></li>
+                                            <li><a class="dropdown-item" (click)="changeLanguage('hi')">Hindi</a></li>
+                                            <li><a class="dropdown-item" (click)="changeLanguage('ar')">Arabic</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
                                 <div class="text-center">
                                     <img src="../../../assets/img/swifthost-logo.webp" style="width: 185px;" alt="logo">
-                                    <h4 class="mt-4 mb-5 pb-1">We are The SwiftHost Team</h4>
+                                    <h4 class="mt-4 mb-5 pb-1">{{'WE_ARE_THE_SWIFTHOST_TEAM' | translate}}</h4>
                                 </div>
 
                                 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-                                    <p><strong>Create a new account</strong></p>
+                                    <p><strong>{{'CREATE_NEW_ACCOUNT' | translate}}</strong></p>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form2Example11">Email</label>
+                                        <label class="form-label" for="form2Example11">{{'EMAIL' | translate}}</label>
                                         <input type="email" id="form2Example11" class="form-control"
-                                            placeholder="Please enter your email" formControlName="email" />
+                                            placeholder="{{'PLEASE_ENTER_YOUR_EMAIL' | translate}}"
+                                            formControlName="email" />
                                         <div
                                             *ngIf="signUpForm.get('email')?.touched && !signUpForm.get('email')?.valid">
                                             <div class="form-errors" *ngIf="signUpForm.get('email')?.errors?.required">
-                                                Email
-                                                is required
+                                                {{'EMAIL_IS_REQUIRED' | translate}}
                                             </div>
                                             <div class="form-errors" *ngIf="signUpForm.get('email')?.errors?.email">
-                                                Invalid
-                                                email</div>
+                                                {{'INVALID_EMAIL' | translate}}
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form2Example22">Password</label>
+                                        <label class="form-label" for="form2Example22">{{'PASSWORD' |
+                                            translate}}</label>
                                         <input type="password" id="form2Example22" class="form-control"
-                                            placeholder="Please enter your password" formControlName="password" />
+                                            placeholder="{{'PLEASE_ENTER_YOUR_PASSWORD' | translate}}"
+                                            formControlName="password" />
                                         <div
                                             *ngIf="signUpForm.get('password')?.touched && !signUpForm.get('password')?.valid">
                                             <div class="form-errors"
                                                 *ngIf="signUpForm.get('password')?.errors?.required">
-                                                Password is
-                                                required</div>
+                                                {{'PASSWORD_IS_REQUIRED' | translate}}
+                                            </div>
                                             <div class="form-errors"
                                                 *ngIf="signUpForm.get('password')?.errors?.minlength">
-                                                Password should be minimum 8 characters</div>
+                                                {{'PASSWORD_CHARACTER_LIMIT_ERROR' | translate}}
+                                            </div>
                                             <div class="form-errors"
                                                 *ngIf="signUpForm.get('password')?.errors?.pattern">
-                                                Password should have least one uppercase letter, one digit, and one
-                                                special character
+                                                {{'PASSWORD_PATTERN_ERROR' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -56,13 +76,14 @@
                                     <div class="text-center pt-1 mb-5 pb-1">
                                         <button data-mdb-button-init data-mdb-ripple-init
                                             class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit"
-                                            [disabled]="!signUpForm.valid">Sign Up</button>
+                                            [disabled]="!signUpForm.valid">{{'SIGN_UP' | translate}}</button>
                                     </div>
 
                                     <div class="d-flex align-items-center justify-content-center pb-4">
-                                        <p class="mb-0 me-2">Already having an account?</p>
+                                        <p class="mb-0 me-2">{{'ALREADY_HAVE_ACCOUNT' | translate}}</p>
                                         <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-outline-danger" (click)="goToLogin()">Log In</button>
+                                            class="btn btn-outline-danger" (click)="goToLogin()">{{'LOG_IN' |
+                                            translate}}</button>
                                     </div>
 
                                 </form>
@@ -71,12 +92,8 @@
                         </div>
                         <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
                             <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                                <h2 class="mb-4">Welcome to SwiftHost</h2>
-                                <h6 class="mb-0">Access your business hosting account with ease and security.
-                                    Sign Up
-                                    to manage your website, track performance, and leverage our high-speed hosting
-                                    solutions. Get started with the power of SwiftHost, where reliability and security
-                                    meet convenience.</h6>
+                                <h2 class="mb-4">{{'WELCOME_TO_SWIFTHOST' | translate}}</h2>
+                                <h6 class="mb-0">{{'WELCOME_DESCRIPTION' | translate}}</h6>
                             </div>
                         </div>
                     </div>

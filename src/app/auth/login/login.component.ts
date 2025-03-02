@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AuthResponseModel } from 'src/app/models/authResponseModel';
 import { ToastService } from 'src/app/shared/toast.service';
+import { TranslationService } from 'src/app/shared/translation.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private translationService: TranslationService
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +63,10 @@ export class LoginComponent implements OnInit {
 
   goToSignup(): void {
     this.router.navigate(['signup']);
+  }
+
+  changeLanguage(language: string) {
+    this.translationService.changeLanguage(language);
   }
 
 }

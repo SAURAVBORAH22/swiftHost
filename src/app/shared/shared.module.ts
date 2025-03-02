@@ -5,22 +5,29 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToastComponent } from './modals/toast/toast.component';
+import { TranslationPipe } from './pipes/translation.pipe';
+import { TranslationService } from './translation.service';
 
 @NgModule({
     declarations: [
         PageLoaderComponent,
         NavbarComponent,
-        ToastComponent
+        ToastComponent,
+        TranslationPipe
     ],
     exports: [
         PageLoaderComponent,
         NavbarComponent,
-        ToastComponent
+        ToastComponent,
+        TranslationPipe
     ],
     imports: [
         CommonModule,
         RouterModule,
         NgbModule
-    ]
+    ],
+    providers: [
+        TranslationService
+    ],
 })
 export class SharedModule { }
