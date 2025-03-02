@@ -1,0 +1,13 @@
+<div class="file-actions">
+    <button *ngIf="file" (click)="openModal()" class="view-btn">View</button>
+</div>
+
+<div class="modal-overlay" *ngIf="isOpen" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeModal()">✖</button>
+
+        <img *ngIf="file?.type?.includes('image')" [src]="fileUrl" class="file-preview">
+        <iframe *ngIf="file?.type?.includes('pdf')" [src]="fileUrl" class="file-preview"></iframe>
+        <pre *ngIf="file?.type?.includes('text')" class="file-text">{{ fileUrl }}</pre>
+    </div>
+</div>

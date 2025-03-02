@@ -1,0 +1,26 @@
+<div class="file-uploader">
+    <!-- Drag & Drop Area -->
+    <div class="drop-zone" [ngClass]="{'dragging': dragging, dropZoneClass: dropZoneClass}"
+        (dragover)="dragging = true; $event.preventDefault()" (dragleave)="dragging = false" (drop)="onDrop($event)">
+        <p *ngIf="!selectedFiles.length">Drag & Drop files here or</p>
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" [multiple]="allowMultiple" hidden>
+        <label for="fileInput" class="upload-btn">Browse Files</label>
+    </div>
+
+    <!-- File List -->
+    <div *ngIf="selectedFiles.length">
+        <p>Selected Files:</p>
+        <ul class="file-list">
+            <li *ngFor="let file of selectedFiles; let i = index">
+                <span class="file-name">{{ file.name }}</span>
+                <div class="file-actions">
+                    <file-viewer [file]="file"></file-viewer>
+                    <button (click)="removeFile(i)" class="remove-btn">✖</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Upload Button -->
+    <button (click)="uploadFiles()" [disabled]="selectedFiles.length === 0">Upload</button>
+</div>

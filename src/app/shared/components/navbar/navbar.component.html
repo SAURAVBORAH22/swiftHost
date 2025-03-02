@@ -51,19 +51,15 @@
                         <i class="fas fa-comment-dots"></i> <span>{{'LANGUAGE' | translate}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                        <li><a class="dropdown-item" [routerLink]="['/home']" (click)="changeLanguage('en')">English</a>
+                        <li><a class="dropdown-item" (click)="changeLanguage('en')">English</a>
                         </li>
-                        <li><a class="dropdown-item" [routerLink]="['/home']"
-                                (click)="changeLanguage('fr')">Français</a>
+                        <li><a class="dropdown-item" (click)="changeLanguage('fr')">Français</a>
                         </li>
-                        <li><a class="dropdown-item" [routerLink]="['/home']"
-                                (click)="changeLanguage('hindi')">Hindi</a>
+                        <li><a class="dropdown-item" (click)="changeLanguage('hindi')">Hindi</a>
                         </li>
-                        <li><a class="dropdown-item" [routerLink]="['/home']"
-                                (click)="changeLanguage('bengali')">Bengali</a>
+                        <li><a class="dropdown-item" (click)="changeLanguage('bengali')">Bengali</a>
                         </li>
-                        <li><a class="dropdown-item" [routerLink]="['/home']"
-                                (click)="changeLanguage('arabic')">Arabic</a>
+                        <li><a class="dropdown-item" (click)="changeLanguage('arabic')">Arabic</a>
                         </li>
                     </ul>
                 </li>
@@ -75,7 +71,9 @@
                         <img src="../../../assets/img/empty-user.webp" class="avatar-img" alt="User Avatar">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                        <li><a class="dropdown-item" [routerLink]="['/profile']">{{'MY_PROFILE' | translate}}</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/userProfile/edit']">{{'MY_PROFILE' |
+                                translate}}</a>
+                        </li>
                         <li><a class="dropdown-item" [routerLink]="['/settings']">{{'SETTINGS' | translate}}</a></li>
                         <li><a class="dropdown-item" [routerLink]="['']" (click)="onLogout()">{{'LOGOUT' |
                                 translate}}</a>

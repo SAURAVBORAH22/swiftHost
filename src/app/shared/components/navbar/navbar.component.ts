@@ -20,6 +20,7 @@ export class NavbarComponent {
 
   changeLanguage(language: string) {
     this.translationService.changeLanguage(language);
+    window.location.reload();
   }
 
   onLogout() {

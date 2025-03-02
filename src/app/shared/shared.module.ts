@@ -7,19 +7,24 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToastComponent } from './modals/toast/toast.component';
 import { TranslationPipe } from './pipes/translation.pipe';
 import { TranslationService } from './translation.service';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
+import { FileViewerComponent } from './modals/file-viewer/file-viewer.component';
 
 @NgModule({
     declarations: [
         PageLoaderComponent,
         NavbarComponent,
         ToastComponent,
-        TranslationPipe
+        TranslationPipe,
+        FileUploaderComponent,
+        FileViewerComponent
     ],
     exports: [
         PageLoaderComponent,
         NavbarComponent,
         ToastComponent,
-        TranslationPipe
+        TranslationPipe,
+        FileUploaderComponent
     ],
     imports: [
         CommonModule,

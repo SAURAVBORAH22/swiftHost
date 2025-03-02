@@ -1,0 +1,68 @@
+.file-uploader {
+    width: 350px;
+    margin: auto;
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Drag & Drop Zone */
+.drop-zone {
+    border: 2px dashed #007bff;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.drop-zone.dragging {
+    background: rgba(0, 123, 255, 0.1);
+    border-color: #0056b3;
+    border-width: 3px;
+}
+
+/* File List */
+.file-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.file-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f1f1f1;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.file-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Remove Button */
+.remove-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* Upload Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}

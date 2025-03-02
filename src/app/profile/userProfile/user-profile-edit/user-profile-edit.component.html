@@ -1,0 +1,135 @@
+<div class="content-bg">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <!-- Personal Section -->
+        <div class="form-section-header">{{'PERSONAL_INFORMATION' | translate}}</div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>{{'FIRST_NAME' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_YOUR_FIRST_NAME' | translate}}"
+                    formControlName="firstName" />
+                <div *ngIf="profileForm.get('firstName')?.touched && !profileForm.get('firstName')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('firstName')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>{{'MIDDLE_NAME' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_YOUR_MIDDLE_NAME' | translate}}"
+                    formControlName="middleName" />
+            </div>
+            <div class="col-md-4">
+                <label>{{'LAST_NAME' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_YOUR_LAST_NAME' | translate}}"
+                    formControlName="lastName" />
+                <div *ngIf="profileForm.get('lastName')?.touched && !profileForm.get('lastName')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('lastName')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <label>{{'PROFILE_PICTURE' | translate}}</label>
+                <div>
+                    <file-uploader [allowedTypes]="['image/png', 'image/jpeg']" [maxFileSize]="2 * 1024 * 1024"
+                        [maxFiles]="3" (filesUploaded)="handleFileUpload($event)">
+                    </file-uploader>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{'EMAIL' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="email" id="form2Example11" class="form-control"
+                    placeholder="{{'PLEASE_ENTER_YOUR_EMAIL' | translate}}" formControlName="email" />
+                <div *ngIf="profileForm.get('email')?.touched && !profileForm.get('email')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('email')?.errors?.required">
+                        {{'EMAIL_IS_REQUIRED' | translate}}
+                    </div>
+                    <div class="form-errors" *ngIf="profileForm.get('email')?.errors?.email">
+                        {{'INVALID_EMAIL' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>{{ 'DATE_OF_BIRTH' | translate }}</label>
+                <span class="form-required">*</span>
+                <input type="date" class="form-control" formControlName="dateOfBirth" />
+                <div *ngIf="profileForm.get('dateOfBirth')?.touched && !profileForm.get('dateOfBirth')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('dateOfBirth')?.errors?.required">
+                        {{ 'THIS_FIELD_IS_MANDATORY' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Personal Section -->
+        <div class="form-section-header mt-4">{{'ADDRESS_INFORMATION' | translate}}</div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>{{'ADDRESS_LINE_1' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" formControlName="addressLine1" />
+                <div *ngIf="profileForm.get('addressLine1')?.touched && !profileForm.get('addressLine1')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('addressLine1')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>{{'ADDRESS_LINE_2' | translate}}</label>
+                <input type="text" class="form-control" formControlName="addressLine2" />
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <label>{{'CITY' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_CITY' | translate}}"
+                    formControlName="city" />
+                <div *ngIf="profileForm.get('city')?.touched && !profileForm.get('city')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('city')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>{{'STATE' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_STATE' | translate}}"
+                    formControlName="state" />
+                <div *ngIf="profileForm.get('state')?.touched && !profileForm.get('state')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('state')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>{{'COUNTRY' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_COUNTRY' | translate}}"
+                    formControlName="country" />
+                <div *ngIf="profileForm.get('country')?.touched && !profileForm.get('country')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('country')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <label>{{'ZIPCODE' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_ZIPCODE' | translate}}"
+                    formControlName="zipcode" />
+                <div *ngIf="profileForm.get('zipcode')?.touched && !profileForm.get('zipcode')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('zipcode')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
