@@ -5,12 +5,13 @@ import { AuthService } from '../auth.service';
 import { AuthResponseModel } from 'src/app/models/authResponseModel';
 import { ToastService } from 'src/app/shared/toast.service';
 import { TranslationService } from 'src/app/shared/translation.service';
+import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthService]
+  providers: [AuthService, TranslationPipe]
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private toastService: ToastService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private translate: TranslationPipe
   ) { }
 
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.toastService.showToast('Invalid login credentials', 'error');
+        this.toastService.showToast(this.translate.transform('ACCOUNT_HAS_BEEN_CREATED_SUCCESSFULLY'), 'error');
         this.loading = false;
       }
     });

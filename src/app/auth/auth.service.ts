@@ -55,6 +55,7 @@ export class AuthService {
 
     logoutUserFromSession(): void {
         localStorage.removeItem('userData');
+        localStorage.removeItem('localisation');
         if (this.timeoutInterval) {
             clearTimeout(this.timeoutInterval);
             this.timeoutInterval = null;

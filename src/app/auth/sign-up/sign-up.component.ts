@@ -5,12 +5,13 @@ import { AuthService } from '../auth.service';
 import { AuthResponseModel } from 'src/app/models/authResponseModel';
 import { ToastService } from 'src/app/shared/toast.service';
 import { TranslationService } from 'src/app/shared/translation.service';
+import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
-  providers: [AuthService]
+  providers: [AuthService, TranslationPipe]
 })
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup = new FormGroup({});
@@ -19,7 +20,8 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private toastService: ToastService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private translate: TranslationPipe
   ) { }
 
   ngOnInit(): void {
@@ -51,12 +53,12 @@ export class SignUpComponent implements OnInit {
           const user = this.authService.formatUser(authResponseModel);
           this.authService.setUserInLocalStorage(user);
           this.router.navigate(['home']);
-          this.toastService.showToast('Your account has been created successfully.', 'error');
+          this.toastService.showToast(this.translate.transform('INVALID_LOGIN_CREDENTIALS'), 'error');
         }
         this.loading = false;
       },
       error: (err) => {
-        this.toastService.showToast('Error creating user.Please try again.', 'error');
+        this.toastService.showToast(this.translate.transform('ERROR_CREATING_USER'), 'error');
         this.loading = false;
       }
     });

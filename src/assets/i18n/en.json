@@ -23,5 +23,8 @@
     "DONT_HAVE_AN_ACCOUNT": "Don't have an account?",
     "CREATE_NEW": "Create new",
     "WELCOME_TO_SWIFTHOST": "Welcome to SwiftHost",
-    "WELCOME_DESCRIPTION": "Access your business hosting account with ease and security. Login to manage your website, track performance, and leverage our high-speed hosting solutions. Get started with the power of SwiftHost, where reliability and security meet convenience."
+    "WELCOME_DESCRIPTION": "Access your business hosting account with ease and security. Login to manage your website, track performance, and leverage our high-speed hosting solutions. Get started with the power of SwiftHost, where reliability and security meet convenience.",
+    "INVALID_LOGIN_CREDENTIALS": "Invalid login credentials",
+    "ACCOUNT_HAS_BEEN_CREATED_SUCCESSFULLY": "Your account has been created successfully.",
+    "ERROR_CREATING_USER": "Error creating user. Please try again."
 }
