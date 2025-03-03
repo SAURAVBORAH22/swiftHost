@@ -43,7 +43,7 @@
             <div class="col-md-4">
                 <label class="form-label">{{'EMAIL' | translate}}</label>
                 <span class="form-required">*</span>
-                <input type="email" id="form2Example11" class="form-control"
+                <input type="email" class="form-control"
                     placeholder="{{'PLEASE_ENTER_YOUR_EMAIL' | translate}}" formControlName="email" />
                 <div *ngIf="profileForm.get('email')?.touched && !profileForm.get('email')?.valid">
                     <div class="form-errors" *ngIf="profileForm.get('email')?.errors?.required">
@@ -65,9 +65,7 @@
                 </div>
             </div>
         </div>
-        <!-- Personal Section -->
-        <div class="form-section-header mt-4">{{'ADDRESS_INFORMATION' | translate}}</div>
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-md-6">
                 <label>{{'ADDRESS_LINE_1' | translate}}</label>
                 <span class="form-required">*</span>
@@ -126,6 +124,146 @@
                     formControlName="zipcode" />
                 <div *ngIf="profileForm.get('zipcode')?.touched && !profileForm.get('zipcode')?.valid">
                     <div class="form-errors" *ngIf="profileForm.get('zipcode')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-section-header mt-4">{{'BUSINESS_DETAILS' | translate}}</div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="form-label">{{'BUSINESS_NAME' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control"
+                    placeholder="{{'PLEASE_ENTER_BUSINESS_NAME' | translate}}" formControlName="businessName" />
+                <div *ngIf="profileForm.get('businessName')?.touched && !profileForm.get('businessName')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('businessName')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{'BUSINESS_TYPE' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control"
+                    placeholder="{{'PLEASE_ENTER_BUSINESS_TYPE' | translate}}" formControlName="businessType" />
+                <div *ngIf="profileForm.get('businessType')?.touched && !profileForm.get('businessType')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('businessType')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{'INDUSTRY' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control"
+                    placeholder="{{'PLEASE_ENTER_INDUSTRY' | translate}}" formControlName="industry" />
+                <div *ngIf="profileForm.get('industry')?.touched && !profileForm.get('industry')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('industry')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <label class="form-label">{{'DOMAIN' | translate}}</label>
+                <input type="text" class="form-control"
+                    placeholder="{{'PLEASE_ENTER_DOMAIN' | translate}}" formControlName="domain" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{'REGISTRATION_NUMBER' | translate}}</label>
+                <input type="text" class="form-control"
+                    placeholder="{{'PLEASE_ENTER_REGISTRATION_NUMBER' | translate}}" formControlName="registrationNumber" />
+            </div>
+        </div>
+        <div class="form-section-header mt-4">{{'CONTACT_AND_LOCATION' | translate}}</div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="form-label">{{'BUSINESS_EMAIL' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="email" class="form-control"
+                    placeholder="{{'PLEASE_ENTER_YOUR_BUSINESS_EMAIL' | translate}}" formControlName="businessEmail" />
+                <div *ngIf="profileForm.get('businessEmail')?.touched && !profileForm.get('businessEmail')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('businessEmail')?.errors?.required">
+                        {{'EMAIL_IS_REQUIRED' | translate}}
+                    </div>
+                    <div class="form-errors" *ngIf="profileForm.get('businessEmail')?.errors?.email">
+                        {{'INVALID_EMAIL' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{'BUSINESS_PHONE_NUMBER' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control"
+                    placeholder="{{'PLEASE_ENTER_BUSINESS_PHONE_NUMBER' | translate}}" formControlName="industry" />
+                <div *ngIf="profileForm.get('industry')?.touched && !profileForm.get('industry')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('industry')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <label>{{'ADDRESS_LINE_1' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" formControlName="businessAddressLine1" />
+                <div *ngIf="profileForm.get('businessAddressLine1')?.touched && !profileForm.get('businessAddressLine1')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('businessAddressLine1')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>{{'ADDRESS_LINE_2' | translate}}</label>
+                <input type="text" class="form-control" formControlName="businessAddressLine2" />
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <label>{{'CITY' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_CITY' | translate}}"
+                    formControlName="businessCity" />
+                <div *ngIf="profileForm.get('businessCity')?.touched && !profileForm.get('businessCity')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('businessCity')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>{{'STATE' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_STATE' | translate}}"
+                    formControlName="businessState" />
+                <div *ngIf="profileForm.get('businessState')?.touched && !profileForm.get('businessState')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('businessState')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>{{'COUNTRY' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_COUNTRY' | translate}}"
+                    formControlName="businessCountry" />
+                <div *ngIf="profileForm.get('businessCountry')?.touched && !profileForm.get('businessCountry')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('businessCountry')?.errors?.required">
+                        {{'THIS_FIELD_IS_MANDATORY' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <label>{{'ZIPCODE' | translate}}</label>
+                <span class="form-required">*</span>
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_ZIPCODE' | translate}}"
+                    formControlName="businessZipcode" />
+                <div *ngIf="profileForm.get('businessZipcode')?.touched && !profileForm.get('businessZipcode')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('businessZipcode')?.errors?.required">
                         {{'THIS_FIELD_IS_MANDATORY' | translate}}
                     </div>
                 </div>

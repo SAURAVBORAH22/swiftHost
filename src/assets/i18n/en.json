@@ -47,5 +47,21 @@
     "PLEASE_ENTER_CITY": "Please enter city",
     "PLEASE_ENTER_STATE": "Please enter state",
     "PLEASE_ENTER_COUNTRY": "Please enter country",
-    "PLEASE_ENTER_ZIPCODE": "Please enter zipcode"
+    "PLEASE_ENTER_ZIPCODE": "Please enter zipcode",
+    "BUSINESS_DETAILS": "Business details",
+    "BUSINESS_NAME": "Business name",
+    "BUSINESS_TYPE": "Business type",
+    "INDUSTRY": "Industry",
+    "DOMAIN": "Domain",
+    "REGISTRATION_NUMBER": "Registration number",
+    "PLEASE_ENTER_BUSINESS_NAME": "Please enter business name",
+    "PLEASE_ENTER_BUSINESS_TYPE": "Please enter business type(Sole Proprietorship, Partnership, LLC, Corporation, etc.)",
+    "PLEASE_ENTER_INDUSTRY": "Please enter industry",
+    "PLEASE_ENTER_DOMAIN": "Please enter business website/domain",
+    "PLEASE_ENTER_REGISTRATION_NUMBER": "Please enter registration number",
+    "CONTACT_AND_LOCATION": "Contact & Location",
+    "BUSINESS_EMAIL": "Business email",
+    "BUSINESS_PHONE_NUMBER": "Business phone number",
+    "PLEASE_ENTER_BUSINESS_PHONE_NUMBER": "Please enter business phone number",
+    "PLEASE_ENTER_BUSINESS_EMAIL": "Please enter business email"
 }
