@@ -63,5 +63,13 @@
   "BUSINESS_EMAIL": "E-mail professionnel",
   "BUSINESS_PHONE_NUMBER": "Numéro de téléphone professionnel",
   "PLEASE_ENTER_BUSINESS_PHONE_NUMBER": "Veuillez entrer le numéro de téléphone professionnel",
-  "PLEASE_ENTER_BUSINESS_EMAIL": "Veuillez entrer l'e-mail professionnel"
+  "PLEASE_ENTER_BUSINESS_EMAIL": "Veuillez entrer l'e-mail professionnel",
+  "ADDITIONAL_BUSINESS_INFORMATION": "Informations commerciales supplémentaires",
+    "COMPANY_LOGO": "Logo de l'entreprise",
+    "LINKED_IN": "LinkedIn",
+    "FACEBOOK": "Facebook",
+    "INSTAGRAM": "Instagram",
+    "TWITTER": "Twitter",
+    "YOUTUBE": "YouTube",
+    "BUSINESS_DESCRIPTION": "Description de l'entreprise"
 }

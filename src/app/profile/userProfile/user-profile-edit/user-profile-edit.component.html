@@ -269,6 +269,45 @@
                 </div>
             </div>
         </div>
+        <div class="form-section-header mt-4">{{'ADDITIONAL_BUSINESS_INFORMATION' | translate}}</div>
+        <div class="col-md-4">
+            <label>{{'COMPANY_LOGO' | translate}}</label>
+            <div>
+                <file-uploader [allowedTypes]="['image/png', 'image/jpeg']" [maxFileSize]="2 * 1024 * 1024"
+                    [maxFiles]="3" (filesUploaded)="handleFileUpload($event)">
+                </file-uploader>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <label class="form-label">{{'LINKED_IN' | translate}}</label>
+                <input type="text" class="form-control" formControlName="linkedIn" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{'FACEBOOK' | translate}}</label>
+                <input type="text" class="form-control" formControlName="facebook" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{'TWITTER' | translate}}</label>
+                <input type="text" class="form-control" formControlName="twitter" />
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <label class="form-label">{{'INSTAGRAM' | translate}}</label>
+                <input type="text" class="form-control" formControlName="instagram" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{'YOUTUBE' | translate}}</label>
+                <input type="text" class="form-control" formControlName="youtube" />
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <label class="form-label">{{'BUSINESS_DESCRIPTION' | translate}}</label>
+                <textarea class="form-control" formControlName="businessDescription"></textarea>
+            </div>
+        </div>
         <div class="text-center pt-1 mb-5 pb-1">
             <button data-mdb-button-init data-mdb-ripple-init
                 class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit"

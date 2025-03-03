@@ -63,5 +63,13 @@
     "BUSINESS_EMAIL": "Business email",
     "BUSINESS_PHONE_NUMBER": "Business phone number",
     "PLEASE_ENTER_BUSINESS_PHONE_NUMBER": "Please enter business phone number",
-    "PLEASE_ENTER_BUSINESS_EMAIL": "Please enter business email"
+    "PLEASE_ENTER_BUSINESS_EMAIL": "Please enter business email",
+    "ADDITIONAL_BUSINESS_INFORMATION": "Additional business information",
+    "COMPANY_LOGO": "Company logo",
+    "LINKED_IN": "LinkedIn",
+    "FACEBOOK": "Facebook",
+    "INSTAGRAM": "Instagram",
+    "TWITTER": "Twitter",
+    "YOUTUBE": "Youtube",
+    "BUSINESS_DESCRIPTION": "Business description"
 }

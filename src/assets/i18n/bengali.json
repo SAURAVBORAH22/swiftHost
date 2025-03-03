@@ -63,5 +63,13 @@
     "BUSINESS_EMAIL": "ব্যবসার ইমেইল",
     "BUSINESS_PHONE_NUMBER": "ব্যবসার ফোন নম্বর",
     "PLEASE_ENTER_BUSINESS_PHONE_NUMBER": "অনুগ্রহ করে ব্যবসার ফোন নম্বর লিখুন",
-    "PLEASE_ENTER_BUSINESS_EMAIL": "অনুগ্রহ করে ব্যবসার ইমেইল লিখুন"
+    "PLEASE_ENTER_BUSINESS_EMAIL": "অনুগ্রহ করে ব্যবসার ইমেইল লিখুন",
+    "ADDITIONAL_BUSINESS_INFORMATION": "অতিরিক্ত ব্যবসায়িক তথ্য",
+    "COMPANY_LOGO": "কোম্পানির লোগো",
+    "LINKED_IN": "লিংকডইন",
+    "FACEBOOK": "ফেসবুক",
+    "INSTAGRAM": "ইনস্টাগ্রাম",
+    "TWITTER": "টুইটার",
+    "YOUTUBE": "ইউটিউব",
+    "BUSINESS_DESCRIPTION": "ব্যবসার বিবরণ"
 }

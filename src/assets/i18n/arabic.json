@@ -63,5 +63,13 @@
     "BUSINESS_EMAIL": "البريد الإلكتروني للعمل",
     "BUSINESS_PHONE_NUMBER": "رقم هاتف العمل",
     "PLEASE_ENTER_BUSINESS_PHONE_NUMBER": "يرجى إدخال رقم هاتف العمل",
-    "PLEASE_ENTER_BUSINESS_EMAIL": "يرجى إدخال البريد الإلكتروني للعمل"
+    "PLEASE_ENTER_BUSINESS_EMAIL": "يرجى إدخال البريد الإلكتروني للعمل",
+    "ADDITIONAL_BUSINESS_INFORMATION": "معلومات إضافية عن العمل",
+    "COMPANY_LOGO": "شعار الشركة",
+    "LINKED_IN": "لينكدإن",
+    "FACEBOOK": "فيسبوك",
+    "INSTAGRAM": "إنستجرام",
+    "TWITTER": "تويتر",
+    "YOUTUBE": "يوتيوب",
+    "BUSINESS_DESCRIPTION": "وصف العمل"
 }

@@ -63,5 +63,13 @@
     "BUSINESS_EMAIL": "व्यवसाय ईमेल",
     "BUSINESS_PHONE_NUMBER": "व्यवसाय फोन नंबर",
     "PLEASE_ENTER_BUSINESS_PHONE_NUMBER": "कृपया व्यवसाय फोन नंबर दर्ज करें",
-    "PLEASE_ENTER_BUSINESS_EMAIL": "कृपया व्यवसाय ईमेल दर्ज करें"
+    "PLEASE_ENTER_BUSINESS_EMAIL": "कृपया व्यवसाय ईमेल दर्ज करें",
+    "ADDITIONAL_BUSINESS_INFORMATION": "अतिरिक्त व्यावसायिक जानकारी",
+    "COMPANY_LOGO": "कंपनी का लोगो",
+    "LINKED_IN": "लिंक्डइन",
+    "FACEBOOK": "फेसबुक",
+    "INSTAGRAM": "इंस्टाग्राम",
+    "TWITTER": "ट्विटर",
+    "YOUTUBE": "यूट्यूब",
+    "BUSINESS_DESCRIPTION": "व्यवसाय का विवरण"
 }

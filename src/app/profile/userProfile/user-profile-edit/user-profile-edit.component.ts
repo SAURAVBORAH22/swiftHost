@@ -40,6 +40,12 @@ export class UserProfileEditComponent implements OnInit {
       businessState: new FormControl('',[Validators.required]),
       businessCountry: new FormControl('',[Validators.required]),
       businessZipcode: new FormControl('',[Validators.required]),
+      linkedIn: new FormControl(''),
+      facebook: new FormControl(''),
+      instagram: new FormControl(''),
+      twitter: new FormControl(''),
+      youtube: new FormControl(''),
+      businessDescription: new FormControl('')
     })
   }
 
