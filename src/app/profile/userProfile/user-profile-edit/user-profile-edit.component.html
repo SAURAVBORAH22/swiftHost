@@ -36,7 +36,7 @@
                 <label>{{'PROFILE_PICTURE' | translate}}</label>
                 <div>
                     <file-uploader [allowedTypes]="['image/png', 'image/jpeg']" [maxFileSize]="2 * 1024 * 1024"
-                        [maxFiles]="3" (filesUploaded)="handleFileUpload($event)">
+                        [maxFiles]="1" (filesUploaded)="handleFileUpload($event)">
                     </file-uploader>
                 </div>
             </div>
@@ -197,9 +197,9 @@
                 <label class="form-label">{{'BUSINESS_PHONE_NUMBER' | translate}}</label>
                 <span class="form-required">*</span>
                 <input type="text" class="form-control"
-                    placeholder="{{'PLEASE_ENTER_BUSINESS_PHONE_NUMBER' | translate}}" formControlName="industry" />
-                <div *ngIf="profileForm.get('industry')?.touched && !profileForm.get('industry')?.valid">
-                    <div class="form-errors" *ngIf="profileForm.get('industry')?.errors?.required">
+                    placeholder="{{'PLEASE_ENTER_BUSINESS_PHONE_NUMBER' | translate}}" formControlName="businessPhoneNumber" />
+                <div *ngIf="profileForm.get('businessPhoneNumber')?.touched && !profileForm.get('businessPhoneNumber')?.valid">
+                    <div class="form-errors" *ngIf="profileForm.get('businessPhoneNumber')?.errors?.required">
                         {{'THIS_FIELD_IS_MANDATORY' | translate}}
                     </div>
                 </div>
@@ -274,7 +274,7 @@
             <label>{{'COMPANY_LOGO' | translate}}</label>
             <div>
                 <file-uploader [allowedTypes]="['image/png', 'image/jpeg']" [maxFileSize]="2 * 1024 * 1024"
-                    [maxFiles]="3" (filesUploaded)="handleFileUpload($event)">
+                    [maxFiles]="1" (filesUploaded)="handleFileUpload($event)">
                 </file-uploader>
             </div>
         </div>
