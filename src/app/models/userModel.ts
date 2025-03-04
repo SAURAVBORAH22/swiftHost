@@ -13,4 +13,8 @@ export class User {
     get userToken() {
         return this.refreshToken;
     }
+
+    get registeredEmail(){
+        return this.email;
+    }
 }

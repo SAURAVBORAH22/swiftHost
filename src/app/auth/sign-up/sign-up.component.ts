@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { AuthResponseModel } from 'src/app/models/authResponseModel';
-import { ToastService } from 'src/app/shared/toast.service';
-import { TranslationService } from 'src/app/shared/translation.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { TranslationService } from 'src/app/services/translation.service';
 import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
 
 @Component({

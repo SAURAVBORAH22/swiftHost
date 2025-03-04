@@ -71,5 +71,12 @@
     "INSTAGRAM": "Instagram",
     "TWITTER": "Twitter",
     "YOUTUBE": "Youtube",
-    "BUSINESS_DESCRIPTION": "Business description"
+    "BUSINESS_DESCRIPTION": "Business description",
+    "PROFILE_UPDATED_SUCCESSFULLY": "Your profile was updated successfully.",
+    "PROFILE_UPDATION_FAILED": "Failed to update profile.",
+    "ERROR_FETCHING_USER_PROFILE": "Error fetching user profile.",
+    "PERSONAL_DETAILS": "Personal details",
+    "ADDRESS": "Address",
+    "BUSINESS_ADDRESS": "Business address",
+    "SOCIAL_PROFILES": "Social profiles"
 }

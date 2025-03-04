@@ -10,7 +10,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthTokenInterceptor } from './interceptor/authToken.interceptor';
-import { ToastService } from './shared/toast.service';
+import { ToastService } from './services/toast.service';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ToastService } from './shared/toast.service';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    SharedModule
+    SharedModule,
+    AngularFirestoreModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true }, ToastService],
   bootstrap: [AppComponent]

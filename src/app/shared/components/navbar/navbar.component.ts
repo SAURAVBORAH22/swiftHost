@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from 'src/app/auth/auth.service';
-import { TranslationService } from '../../translation.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { TranslationService } from '../../../services/translation.service';
 
 @Component({
   selector: 'navbar',

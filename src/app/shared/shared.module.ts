@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToastComponent } from './modals/toast/toast.component';
 import { TranslationPipe } from './pipes/translation.pipe';
-import { TranslationService } from './translation.service';
+import { TranslationService } from '../services/translation.service';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { FileViewerComponent } from './modals/file-viewer/file-viewer.component';
 

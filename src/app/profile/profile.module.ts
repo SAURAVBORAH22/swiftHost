@@ -4,6 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { SharedModule } from "../shared/shared.module";
 import { UserProfileEditComponent } from "./userProfile/user-profile-edit/user-profile-edit.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { UserProfileViewComponent } from './userProfile/user-profile-view/user-profile-view.component';
 
 const routes: Routes = [
     {
@@ -11,6 +12,9 @@ const routes: Routes = [
         children: [
             {
                 path: 'edit', component: UserProfileEditComponent
+            },
+            {
+                path: 'view', component: UserProfileViewComponent
             }
         ]
     }
@@ -23,7 +27,8 @@ const routes: Routes = [
         ReactiveFormsModule
     ],
     declarations: [
-        UserProfileEditComponent
+        UserProfileEditComponent,
+        UserProfileViewComponent
     ]
 })
 export class ProfileModule { }
