@@ -71,5 +71,14 @@
     "INSTAGRAM": "ইনস্টাগ্রাম",
     "TWITTER": "টুইটার",
     "YOUTUBE": "ইউটিউব",
-    "BUSINESS_DESCRIPTION": "ব্যবসার বিবরণ"
+    "BUSINESS_DESCRIPTION": "ব্যবসার বিবরণ",
+    "PROFILE_UPDATED_SUCCESSFULLY": "আপনার প্রোফাইল সফলভাবে আপডেট হয়েছে।",
+    "PROFILE_UPDATION_FAILED": "প্রোফাইল আপডেট করতে ব্যর্থ হয়েছে।",
+    "ERROR_FETCHING_USER_PROFILE": "ব্যবহারকারীর প্রোফাইল আনতে সমস্যা হয়েছে।",
+    "PERSONAL_DETAILS": "ব্যক্তিগত বিবরণ",
+    "ADDRESS": "ঠিকানা",
+    "BUSINESS_ADDRESS": "ব্যবসার ঠিকানা",
+    "SOCIAL_PROFILES": "সামাজিক প্রোফাইল",
+    "EDIT": "সম্পাদনা করুন",
+    "FILE_UPLOAD_FAILED": "আপনার ফাইল আপলোড করতে ব্যর্থ হয়েছে।"
 }

@@ -71,5 +71,14 @@
     "INSTAGRAM": "इंस्टाग्राम",
     "TWITTER": "ट्विटर",
     "YOUTUBE": "यूट्यूब",
-    "BUSINESS_DESCRIPTION": "व्यवसाय का विवरण"
+    "BUSINESS_DESCRIPTION": "व्यवसाय का विवरण",
+    "PROFILE_UPDATED_SUCCESSFULLY": "आपकी प्रोफ़ाइल सफलतापूर्वक अपडेट हो गई है।",
+    "PROFILE_UPDATION_FAILED": "प्रोफ़ाइल अपडेट करने में विफल।",
+    "ERROR_FETCHING_USER_PROFILE": "उपयोगकर्ता प्रोफ़ाइल प्राप्त करने में त्रुटि।",
+    "PERSONAL_DETAILS": "व्यक्तिगत विवरण",
+    "ADDRESS": "पता",
+    "BUSINESS_ADDRESS": "व्यावसायिक पता",
+    "SOCIAL_PROFILES": "सामाजिक प्रोफाइल",
+    "EDIT": "संपादित करें",
+    "FILE_UPLOAD_FAILED": "आपकी फ़ाइल अपलोड करने में विफल।"
 }

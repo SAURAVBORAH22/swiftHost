@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserProfileDetails } from 'src/app/models/userProfileDetails';
 import { AuthService } from 'src/app/services/auth.service';
+import { FileUploadService } from 'src/app/services/fileUploadService';
 import { ToastService } from 'src/app/services/toast.service';
 import { UserProfileService } from 'src/app/services/userProfileService.service';
 import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
@@ -11,18 +12,20 @@ import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
   selector: 'app-user-profile-edit',
   templateUrl: './user-profile-edit.component.html',
   styleUrls: ['./user-profile-edit.component.css'],
-  providers: [TranslationPipe]
+  providers: [TranslationPipe, FileUploadService]
 })
 export class UserProfileEditComponent implements OnInit {
   profileForm: FormGroup = new FormGroup({});
   registeredEmail: string | null = null;
+  loading: boolean = false;
 
   constructor(
     private authService: AuthService,
     private userProfileService: UserProfileService,
     private toastService: ToastService,
     private translate: TranslationPipe,
-    private router: Router
+    private router: Router,
+    private fileUploadService: FileUploadService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +64,9 @@ export class UserProfileEditComponent implements OnInit {
       instagram: new FormControl(''),
       twitter: new FormControl(''),
       youtube: new FormControl(''),
-      businessDescription: new FormControl('')
+      businessDescription: new FormControl(''),
+      profilePicture: new FormControl(''),
+      companyLogo: new FormControl('')
     });
   }
 
@@ -80,10 +85,23 @@ export class UserProfileEditComponent implements OnInit {
     }
   }
 
-  handleFileUpload(files: File[]): void {
-    console.log('Files uploaded:', files);
-    // Handle API upload here
+  async handleFileUpload(files: File[], type: string): Promise<void> {
+    this.loading = true;
+    if (files.length && this.registeredEmail) {
+      try {
+        const imageUrl = await this.fileUploadService.uploadFile(files[0]);
+        if (type === 'profile') {
+          this.profileForm.patchValue({ profilePicture: imageUrl });
+        } else {
+          this.profileForm.patchValue({ companyLogo: imageUrl });
+        }
+      } catch (error) {
+        this.toastService.showToast(this.translate.transform('FILE_UPLOAD_FAILED'), 'error');
+      }
+    }
+    this.loading = false;
   }
+
 
   onSubmit(): void {
     if (this.profileForm.valid) {

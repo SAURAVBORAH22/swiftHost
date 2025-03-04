@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserProfileDetails } from 'src/app/models/userProfileDetails';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -14,11 +15,13 @@ import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
 export class UserProfileViewComponent implements OnInit {
   user!: UserProfileDetails;
   registeredEmail: string | null = null;
+  loading: boolean = false;
   constructor(
     private authService: AuthService,
     private userProfileService: UserProfileService,
     private toastService: ToastService,
     private translate: TranslationPipe,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +29,7 @@ export class UserProfileViewComponent implements OnInit {
   }
 
   private loadUserProfile(): void {
+    this.loading = true;
     this.registeredEmail = this.authService.getUserFromLocalStore()?.registeredEmail || null;
     if (this.registeredEmail) {
       this.userProfileService.getUserProfileDetailsByEmail(this.registeredEmail)
@@ -33,9 +37,15 @@ export class UserProfileViewComponent implements OnInit {
           if (profile) {
             this.user = profile;
           }
+          this.loading = false;
         }, (error: any) => {
           this.toastService.showToast(this.translate.transform('ERROR_FETCHING_USER_PROFILE'), 'error');
+          this.loading = false;
         });
     }
+  }
+
+  navigateToEdit() {
+    this.router.navigate(['/userProfile/edit']);
   }
 }

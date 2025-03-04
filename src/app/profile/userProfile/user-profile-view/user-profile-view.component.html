@@ -1,62 +1,64 @@
+<page-loader *ngIf="loading"></page-loader>
 <div class="content-bg">
     <div class="profile-container">
         <!-- Profile Header -->
         <div class="profile-header">
-            <img src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-pic" />
+            <img [src]="user.profilePicture" alt="Profile Picture" class="profile-pic" />
             <div class="profile-info">
                 <h2>{{ user.firstName }} {{ user.middleName ? user.middleName + ' ' : '' }}{{ user.lastName }}</h2>
                 <p class="email">{{ user.email }}</p>
             </div>
+            <button class="edit-btn" (click)="navigateToEdit()">{{ 'EDIT' | translate }}</button>
         </div>
 
         <!-- Main Content Grid -->
         <div class="content-grid">
             <!-- Personal Details -->
             <div class="card">
-                <div class="form-section-header">{{'PERSONAL_DETAILS' | translate}}</div>
-                <p><strong>{{'DATE_OF_BIRTH' | translate}}:</strong> {{ user.dateOfBirth }}</p>
-                <p><strong>{{'ADDRESS' | translate}}:</strong> {{ user.addressLine1 }}{{ user.addressLine2 ? ', ' +
-                    user.addressLine2 : ''
-                    }}, {{ user.city }}, {{ user.state }}, {{ user.country }} - {{ user.zipcode }}</p>
+                <div class="form-section-header">{{ 'PERSONAL_DETAILS' | translate }}</div>
+                <p><strong>{{ 'DATE_OF_BIRTH' | translate }}:</strong> {{ user.dateOfBirth }}</p>
+                <p><strong>{{ 'ADDRESS' | translate }}:</strong> {{ user.addressLine1 }}{{ user.addressLine2 ? ', '
+                    + user.addressLine2 : '' }}, {{ user.city }}, {{ user.state }}, {{ user.country }} - {{
+                    user.zipcode }}</p>
             </div>
 
             <!-- Business Details -->
             <div class="card">
-                <div class="form-section-header">{{'BUSINESS_DETAILS' | translate}}</div>
-                <p><strong>{{'BUSINESS_NAME' | translate}}:</strong> {{ user.businessName }}</p>
-                <p><strong>{{'BUSINESS_TYPE' | translate}}:</strong> {{ user.businessType }}</p>
-                <p><strong>{{'INDUSTRY' | translate}}:</strong> {{ user.industry }}</p>
-                <p><strong>{{'DOMAIN' | translate}}:</strong> {{ user.domain || 'N/A' }}</p>
-                <p><strong>{{'REGISTRATION_NUMBER' | translate}}:</strong> {{ user.registrationNumber || 'N/A' }}</p>
-                <p><strong>{{'BUSINESS_EMAIL' | translate}}:</strong> {{ user.businessEmail }}</p>
-                <p><strong>{{'BUSINESS_PHONE_NUMBER' | translate}}:</strong> {{ user.businessPhoneNumber }}</p>
-                <p><strong>{{'BUSINESS_ADDRESS' | translate}}:</strong> {{ user.businessAddressLine1 }}{{
-                    user.businessAddressLine2 ? ', '
-                    + user.businessAddressLine2 : '' }}, {{ user.businessCity }}, {{ user.businessState }}, {{
-                    user.businessCountry }} - {{ user.businessZipcode }}</p>
+                <div class="form-section-header">{{ 'BUSINESS_DETAILS' | translate }}</div>
+                <p><strong>{{ 'BUSINESS_NAME' | translate }}:</strong> {{ user.businessName }}</p>
+                <p><strong>{{ 'BUSINESS_TYPE' | translate }}:</strong> {{ user.businessType }}</p>
+                <p><strong>{{ 'INDUSTRY' | translate }}:</strong> {{ user.industry }}</p>
+                <p><strong>{{ 'DOMAIN' | translate }}:</strong> {{ user.domain || 'N/A' }}</p>
+                <p><strong>{{ 'REGISTRATION_NUMBER' | translate }}:</strong> {{ user.registrationNumber || 'N/A' }}
+                </p>
+                <p><strong>{{ 'BUSINESS_EMAIL' | translate }}:</strong> {{ user.businessEmail }}</p>
+                <p><strong>{{ 'BUSINESS_PHONE_NUMBER' | translate }}:</strong> {{ user.businessPhoneNumber }}</p>
+                <p><strong>{{ 'BUSINESS_ADDRESS' | translate }}:</strong> {{ user.businessAddressLine1 }}{{
+                    user.businessAddressLine2 ? ', ' + user.businessAddressLine2 : '' }}, {{ user.businessCity }},
+                    {{ user.businessState }}, {{ user.businessCountry }} - {{ user.businessZipcode }}</p>
             </div>
         </div>
 
         <!-- Business Description -->
         <div class="card full-width mt-4">
-            <div class="form-section-header">{{'BUSINESS_DESCRIPTION' | translate}}</div>
+            <div class="form-section-header">{{ 'BUSINESS_DESCRIPTION' | translate }}</div>
             <p>{{ user.businessDescription || 'No description provided.' }}</p>
         </div>
 
         <!-- Social Media Links -->
         <div class="social-links">
-            <div class="form-section-header">{{'SOCIAL_PROFILES' | translate}}</div>
+            <div class="form-section-header">{{ 'SOCIAL_PROFILES' | translate }}</div>
             <div class="social-buttons">
-                <a *ngIf="user.linkedIn" [href]="user.linkedIn" target="_blank"
-                    class="social-btn linkedin">{{'LINKED_IN' | translate}}</a>
-                <a *ngIf="user.facebook" [href]="user.facebook" target="_blank" class="social-btn facebook">{{'FACEBOOK'
-                    | translate}}</a>
-                <a *ngIf="user.instagram" [href]="user.instagram" target="_blank"
-                    class="social-btn instagram">{{'INSTAGRAM' | translate}}</a>
-                <a *ngIf="user.twitter" [href]="user.twitter" target="_blank" class="social-btn twitter">{{'TWITTER' |
-                    translate}}</a>
-                <a *ngIf="user.youtube" [href]="user.youtube" target="_blank" class="social-btn youtube">{{'YOUTUBE' |
-                    translate}}</a>
+                <a *ngIf="user.linkedIn" [href]="user.linkedIn" target="_blank" class="social-btn linkedin">{{
+                    'LINKED_IN' | translate }}</a>
+                <a *ngIf="user.facebook" [href]="user.facebook" target="_blank" class="social-btn facebook">{{
+                    'FACEBOOK' | translate }}</a>
+                <a *ngIf="user.instagram" [href]="user.instagram" target="_blank" class="social-btn instagram">{{
+                    'INSTAGRAM' | translate }}</a>
+                <a *ngIf="user.twitter" [href]="user.twitter" target="_blank" class="social-btn twitter">{{
+                    'TWITTER' | translate }}</a>
+                <a *ngIf="user.youtube" [href]="user.youtube" target="_blank" class="social-btn youtube">{{
+                    'YOUTUBE' | translate }}</a>
             </div>
         </div>
     </div>

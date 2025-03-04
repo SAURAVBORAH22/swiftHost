@@ -71,5 +71,14 @@
     "INSTAGRAM": "إنستجرام",
     "TWITTER": "تويتر",
     "YOUTUBE": "يوتيوب",
-    "BUSINESS_DESCRIPTION": "وصف العمل"
+    "BUSINESS_DESCRIPTION": "وصف العمل",
+    "PROFILE_UPDATED_SUCCESSFULLY": "تم تحديث ملفك الشخصي بنجاح.",
+    "PROFILE_UPDATION_FAILED": "فشل تحديث الملف الشخصي.",
+    "ERROR_FETCHING_USER_PROFILE": "خطأ في جلب ملف المستخدم.",
+    "PERSONAL_DETAILS": "التفاصيل الشخصية",
+    "ADDRESS": "العنوان",
+    "BUSINESS_ADDRESS": "عنوان العمل",
+    "SOCIAL_PROFILES": "الملفات الاجتماعية",
+    "EDIT": "تعديل",
+    "FILE_UPLOAD_FAILED": "فشل في تحميل ملفك."
 }

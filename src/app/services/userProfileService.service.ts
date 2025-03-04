@@ -10,7 +10,7 @@ import { UserProfileDetails } from '../models/userProfileDetails';
 export class UserProfileService {
   collection: string = 'USER_INFO';
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) { }
 
   getUserProfileDetailsByEmail(registeredEmail: string): Observable<UserProfileDetails | null> {
     return this.firestore

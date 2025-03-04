@@ -1,4 +1,5 @@
 <div class="content-bg">
+    <page-loader *ngIf="loading"></page-loader>
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <!-- Personal Section -->
         <div class="form-section-header">{{'PERSONAL_INFORMATION' | translate}}</div>
@@ -36,15 +37,15 @@
                 <label>{{'PROFILE_PICTURE' | translate}}</label>
                 <div>
                     <file-uploader [allowedTypes]="['image/png', 'image/jpeg']" [maxFileSize]="2 * 1024 * 1024"
-                        [maxFiles]="1" (filesUploaded)="handleFileUpload($event)">
+                        [maxFiles]="1" (filesUploaded)="handleFileUpload($event, 'profile')">
                     </file-uploader>
                 </div>
             </div>
             <div class="col-md-4">
                 <label class="form-label">{{'EMAIL' | translate}}</label>
                 <span class="form-required">*</span>
-                <input type="email" class="form-control"
-                    placeholder="{{'PLEASE_ENTER_YOUR_EMAIL' | translate}}" formControlName="email" />
+                <input type="email" class="form-control" placeholder="{{'PLEASE_ENTER_YOUR_EMAIL' | translate}}"
+                    formControlName="email" />
                 <div *ngIf="profileForm.get('email')?.touched && !profileForm.get('email')?.valid">
                     <div class="form-errors" *ngIf="profileForm.get('email')?.errors?.required">
                         {{'EMAIL_IS_REQUIRED' | translate}}
@@ -134,8 +135,8 @@
             <div class="col-md-4">
                 <label class="form-label">{{'BUSINESS_NAME' | translate}}</label>
                 <span class="form-required">*</span>
-                <input type="text" class="form-control"
-                    placeholder="{{'PLEASE_ENTER_BUSINESS_NAME' | translate}}" formControlName="businessName" />
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_BUSINESS_NAME' | translate}}"
+                    formControlName="businessName" />
                 <div *ngIf="profileForm.get('businessName')?.touched && !profileForm.get('businessName')?.valid">
                     <div class="form-errors" *ngIf="profileForm.get('businessName')?.errors?.required">
                         {{'THIS_FIELD_IS_MANDATORY' | translate}}
@@ -145,8 +146,8 @@
             <div class="col-md-4">
                 <label class="form-label">{{'BUSINESS_TYPE' | translate}}</label>
                 <span class="form-required">*</span>
-                <input type="text" class="form-control"
-                    placeholder="{{'PLEASE_ENTER_BUSINESS_TYPE' | translate}}" formControlName="businessType" />
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_BUSINESS_TYPE' | translate}}"
+                    formControlName="businessType" />
                 <div *ngIf="profileForm.get('businessType')?.touched && !profileForm.get('businessType')?.valid">
                     <div class="form-errors" *ngIf="profileForm.get('businessType')?.errors?.required">
                         {{'THIS_FIELD_IS_MANDATORY' | translate}}
@@ -156,8 +157,8 @@
             <div class="col-md-4">
                 <label class="form-label">{{'INDUSTRY' | translate}}</label>
                 <span class="form-required">*</span>
-                <input type="text" class="form-control"
-                    placeholder="{{'PLEASE_ENTER_INDUSTRY' | translate}}" formControlName="industry" />
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_INDUSTRY' | translate}}"
+                    formControlName="industry" />
                 <div *ngIf="profileForm.get('industry')?.touched && !profileForm.get('industry')?.valid">
                     <div class="form-errors" *ngIf="profileForm.get('industry')?.errors?.required">
                         {{'THIS_FIELD_IS_MANDATORY' | translate}}
@@ -168,13 +169,13 @@
         <div class="row mt-4">
             <div class="col-md-4">
                 <label class="form-label">{{'DOMAIN' | translate}}</label>
-                <input type="text" class="form-control"
-                    placeholder="{{'PLEASE_ENTER_DOMAIN' | translate}}" formControlName="domain" />
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_DOMAIN' | translate}}"
+                    formControlName="domain" />
             </div>
             <div class="col-md-4">
                 <label class="form-label">{{'REGISTRATION_NUMBER' | translate}}</label>
-                <input type="text" class="form-control"
-                    placeholder="{{'PLEASE_ENTER_REGISTRATION_NUMBER' | translate}}" formControlName="registrationNumber" />
+                <input type="text" class="form-control" placeholder="{{'PLEASE_ENTER_REGISTRATION_NUMBER' | translate}}"
+                    formControlName="registrationNumber" />
             </div>
         </div>
         <div class="form-section-header mt-4">{{'CONTACT_AND_LOCATION' | translate}}</div>
@@ -197,8 +198,10 @@
                 <label class="form-label">{{'BUSINESS_PHONE_NUMBER' | translate}}</label>
                 <span class="form-required">*</span>
                 <input type="text" class="form-control"
-                    placeholder="{{'PLEASE_ENTER_BUSINESS_PHONE_NUMBER' | translate}}" formControlName="businessPhoneNumber" />
-                <div *ngIf="profileForm.get('businessPhoneNumber')?.touched && !profileForm.get('businessPhoneNumber')?.valid">
+                    placeholder="{{'PLEASE_ENTER_BUSINESS_PHONE_NUMBER' | translate}}"
+                    formControlName="businessPhoneNumber" />
+                <div
+                    *ngIf="profileForm.get('businessPhoneNumber')?.touched && !profileForm.get('businessPhoneNumber')?.valid">
                     <div class="form-errors" *ngIf="profileForm.get('businessPhoneNumber')?.errors?.required">
                         {{'THIS_FIELD_IS_MANDATORY' | translate}}
                     </div>
@@ -210,7 +213,8 @@
                 <label>{{'ADDRESS_LINE_1' | translate}}</label>
                 <span class="form-required">*</span>
                 <input type="text" class="form-control" formControlName="businessAddressLine1" />
-                <div *ngIf="profileForm.get('businessAddressLine1')?.touched && !profileForm.get('businessAddressLine1')?.valid">
+                <div
+                    *ngIf="profileForm.get('businessAddressLine1')?.touched && !profileForm.get('businessAddressLine1')?.valid">
                     <div class="form-errors" *ngIf="profileForm.get('businessAddressLine1')?.errors?.required">
                         {{'THIS_FIELD_IS_MANDATORY' | translate}}
                     </div>
@@ -274,7 +278,7 @@
             <label>{{'COMPANY_LOGO' | translate}}</label>
             <div>
                 <file-uploader [allowedTypes]="['image/png', 'image/jpeg']" [maxFileSize]="2 * 1024 * 1024"
-                    [maxFiles]="1" (filesUploaded)="handleFileUpload($event)">
+                    [maxFiles]="1" (filesUploaded)="handleFileUpload($event, 'company')">
                 </file-uploader>
             </div>
         </div>

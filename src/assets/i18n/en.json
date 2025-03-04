@@ -78,5 +78,7 @@
     "PERSONAL_DETAILS": "Personal details",
     "ADDRESS": "Address",
     "BUSINESS_ADDRESS": "Business address",
-    "SOCIAL_PROFILES": "Social profiles"
+    "SOCIAL_PROFILES": "Social profiles",
+    "EDIT": "Edit",
+    "FILE_UPLOAD_FAILED": "Failed to upload your file."
 }
