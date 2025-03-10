@@ -1,0 +1,27 @@
+<nav [ngClass]="{'collapsed': isCollapsed}" id="sidebar">
+    <div class="sidebar-header d-flex align-items-center">
+        <h4 *ngIf="!isCollapsed">Categories</h4>
+        <button class="toggle-btn" (click)="toggleSidebar()">
+            <i class="bi bi-list"></i>
+        </button>
+    </div>
+
+    <ul class="list-unstyled">
+        <li *ngFor="let category of categories">
+            <a class="nav-link d-flex align-items-center" (click)="toggleCategory(category)">
+                <i class="bi" [ngClass]="category.icon"></i>
+                <span *ngIf="!isCollapsed">{{ category.name }}</span>
+                <i class="bi ms-auto" [ngClass]="category.expanded ? 'bi-chevron-up' : 'bi-chevron-down'"
+                    *ngIf="!isCollapsed"></i>
+            </a>
+            <ul class="list-unstyled sub-menu" *ngIf="category.expanded">
+                <li *ngFor="let sub of category.subcategories">
+                    <a class="nav-link d-flex align-items-center" routerLink="{{sub.link}}">
+                        <i class="bi" [ngClass]="sub.icon"></i>
+                        <span *ngIf="!isCollapsed">{{ sub.name }}</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

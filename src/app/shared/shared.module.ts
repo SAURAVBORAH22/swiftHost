@@ -8,7 +8,8 @@ import { TranslationPipe } from './pipes/translation.pipe';
 import { TranslationService } from '../services/translation.service';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { FileViewerComponent } from './modals/file-viewer/file-viewer.component';
-import { MainNavbarComponent } from './components/main-navbar/main-navbar.component';
+import { MainNavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
     declarations: [
@@ -17,14 +18,16 @@ import { MainNavbarComponent } from './components/main-navbar/main-navbar.compon
         TranslationPipe,
         FileUploaderComponent,
         FileViewerComponent,
-        MainNavbarComponent
+        MainNavbarComponent,
+        SidebarComponent
     ],
     exports: [
         PageLoaderComponent,
         ToastComponent,
         TranslationPipe,
         FileUploaderComponent,
-        MainNavbarComponent
+        MainNavbarComponent,
+        SidebarComponent
     ],
     imports: [
         CommonModule,

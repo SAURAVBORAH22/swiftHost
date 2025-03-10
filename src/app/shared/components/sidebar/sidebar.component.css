@@ -1,0 +1,95 @@
+/* Sidebar Styles */
+#sidebar {
+    width: 250px;
+    height: 100vh;
+    background: white;
+    color: black;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: fixed;
+    border-right: 1px solid #ddd;
+}
+
+#sidebar.collapsed {
+    width: 70px;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    font-size: 18px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Toggle Button */
+.toggle-btn {
+    background: transparent;
+    border: none;
+    color: black;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Sidebar Links */
+#sidebar .nav-link {
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s;
+    border-radius: 5px;
+}
+
+#sidebar .nav-link i {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+/* Sidebar Hover Effect */
+#sidebar .nav-link:hover {
+    background: #f1f1f1;
+}
+
+/* Active Category */
+#sidebar .nav-link.active {
+    background: #007bff;
+    color: white;
+}
+
+/* Collapsed Sidebar */
+#sidebar.collapsed .nav-link span {
+    display: none;
+}
+
+/* Subcategory Styles */
+.sub-menu {
+    padding-left: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.sub-menu .nav-link {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+.sub-menu .nav-link:hover {
+    background: #e9ecef;
+}
+
+/* Main Content */
+.content {
+    flex-grow: 1;
+    margin-left: 250px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+#sidebar.collapsed~.content {
+    margin-left: 70px;
+}

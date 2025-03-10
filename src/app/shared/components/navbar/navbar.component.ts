@@ -5,8 +5,8 @@ import { TranslationService } from 'src/app/services/translation.service';
 
 @Component({
   selector: 'navbar',
-  templateUrl: './main-navbar.component.html',
-  styleUrls: ['./main-navbar.component.css']
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
 export class MainNavbarComponent implements OnInit {
   activeTab: string = '';
@@ -24,7 +24,6 @@ export class MainNavbarComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.activeTab = event.urlAfterRedirects;
-        console.log(this.activeTab);
         this.closeDropdowns();
       }
     });
