@@ -80,5 +80,14 @@
     "BUSINESS_ADDRESS": "ব্যবসার ঠিকানা",
     "SOCIAL_PROFILES": "সামাজিক প্রোফাইল",
     "EDIT": "সম্পাদনা করুন",
-    "FILE_UPLOAD_FAILED": "আপনার ফাইল আপলোড করতে ব্যর্থ হয়েছে।"
+    "FILE_UPLOAD_FAILED": "আপনার ফাইল আপলোড করতে ব্যর্থ হয়েছে।",
+    "PLEASE_COMPLETE_YOUR_PROFILE": "শুরু করতে, অনুগ্রহ করে আপনার প্রোফাইল সম্পূর্ণ করুন।",
+    "CONTACT": "যোগাযোগ",
+    "ABOUT": "সম্পর্কে",
+    "SIGN_UP": "সাইন আপ করুন",
+    "NAVBAR_SEARCH": "আপনি কী খুঁজছেন?",
+    "MANAGE_MY_ACCOUNT": "আমার অ্যাকাউন্ট পরিচালনা করুন",
+    "MY_ORDERS": "আমার অর্ডার",
+    "MY_CANCELLATIONS": "আমার বাতিলকরণ",
+    "MY_REVIEWS": "আমার পর্যালোচনা"
 }

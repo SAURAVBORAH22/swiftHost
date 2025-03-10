@@ -12,9 +12,9 @@ export class UserProfileService {
 
   constructor(private firestore: AngularFirestore) { }
 
-  getUserProfileDetailsByEmail(registeredEmail: string): Observable<UserProfileDetails | null> {
+  getUserProfileDetails(userId: string): Observable<UserProfileDetails | null> {
     return this.firestore
-      .collection<UserProfileDetails>(this.collection, ref => ref.where('registeredEmail', '==', registeredEmail).limit(1))
+      .collection<UserProfileDetails>(this.collection, ref => ref.where('userId', '==', userId).limit(1))
       .snapshotChanges()
       .pipe(
         map(actions => {
@@ -29,9 +29,9 @@ export class UserProfileService {
       );
   }
 
-  updateOrCreateUserProfileDetailsByEmail(registeredEmail: string, updatedData: Partial<UserProfileDetails>): Observable<boolean> {
+  updateOrCreateUserProfileDetails(userId: string, updatedData: Partial<UserProfileDetails>): Observable<boolean> {
     return this.firestore
-      .collection<UserProfileDetails>(this.collection, ref => ref.where('registeredEmail', '==', registeredEmail).limit(1))
+      .collection<UserProfileDetails>(this.collection, ref => ref.where('userId', '==', userId).limit(1))
       .snapshotChanges()
       .pipe(
         first(),
@@ -42,7 +42,7 @@ export class UserProfileService {
               map(() => true)
             );
           } else {
-            return from(this.firestore.collection(this.collection).add({ registeredEmail, ...updatedData })).pipe(
+            return from(this.firestore.collection(this.collection).add({ userId, ...updatedData })).pipe(
               map(() => true)
             );
           }

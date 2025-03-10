@@ -1,0 +1,33 @@
+.navbar-container {
+    height: 70px;
+    padding: 36px 100px;
+    border-bottom: 1px solid black;
+
+    .navbar-brand {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .navbar-links-container {
+        padding: 0 100px;
+
+        .nav-item {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 16px;
+        }
+    }
+
+    .active {
+        color: blue !important;
+        font-weight: bold;
+    }
+
+    .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+    }
+}

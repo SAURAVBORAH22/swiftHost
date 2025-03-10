@@ -36,8 +36,9 @@
             <div class="col-md-4">
                 <label>{{'PROFILE_PICTURE' | translate}}</label>
                 <div>
-                    <file-uploader [allowedTypes]="['image/png', 'image/jpeg']" [maxFileSize]="2 * 1024 * 1024"
-                        [maxFiles]="1" (filesUploaded)="handleFileUpload($event, 'profile')">
+                    <file-uploader id="profile" [allowedTypes]="['image/png', 'image/jpeg']"
+                        [maxFileSize]="2 * 1024 * 1024" [maxFiles]="1"
+                        (filesUploaded)="handleProfilePictureUpload($event)">
                     </file-uploader>
                 </div>
             </div>
@@ -277,8 +278,8 @@
         <div class="col-md-4">
             <label>{{'COMPANY_LOGO' | translate}}</label>
             <div>
-                <file-uploader [allowedTypes]="['image/png', 'image/jpeg']" [maxFileSize]="2 * 1024 * 1024"
-                    [maxFiles]="1" (filesUploaded)="handleFileUpload($event, 'company')">
+                <file-uploader id="company" [allowedTypes]="['image/png', 'image/jpeg']" [maxFileSize]="2 * 1024 * 1024"
+                    [maxFiles]="1" (filesUploaded)="handleCompanyLogoUpload($event)">
                 </file-uploader>
             </div>
         </div>

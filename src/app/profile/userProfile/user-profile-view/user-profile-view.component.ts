@@ -14,7 +14,7 @@ import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
 })
 export class UserProfileViewComponent implements OnInit {
   user!: UserProfileDetails;
-  registeredEmail: string | null = null;
+  userId: string | null = '';
   loading: boolean = false;
   constructor(
     private authService: AuthService,
@@ -30,9 +30,9 @@ export class UserProfileViewComponent implements OnInit {
 
   private loadUserProfile(): void {
     this.loading = true;
-    this.registeredEmail = this.authService.getUserFromLocalStore()?.registeredEmail || null;
-    if (this.registeredEmail) {
-      this.userProfileService.getUserProfileDetailsByEmail(this.registeredEmail)
+    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+    if (this.userId) {
+      this.userProfileService.getUserProfileDetails(this.userId)
         .subscribe((profile: UserProfileDetails | null) => {
           if (profile) {
             this.user = profile;

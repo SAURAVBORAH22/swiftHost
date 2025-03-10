@@ -80,5 +80,14 @@
     "BUSINESS_ADDRESS": "व्यावसायिक पता",
     "SOCIAL_PROFILES": "सामाजिक प्रोफाइल",
     "EDIT": "संपादित करें",
-    "FILE_UPLOAD_FAILED": "आपकी फ़ाइल अपलोड करने में विफल।"
+    "FILE_UPLOAD_FAILED": "आपकी फ़ाइल अपलोड करने में विफल।",
+    "PLEASE_COMPLETE_YOUR_PROFILE": "शुरू करने के लिए, कृपया अपनी प्रोफ़ाइल पूरी करें।",
+    "CONTACT": "संपर्क",
+    "ABOUT": "के बारे में",
+    "SIGN_UP": "साइन अप करें",
+    "NAVBAR_SEARCH": "आप क्या ढूंढ रहे हैं?",
+    "MANAGE_MY_ACCOUNT": "मेरा खाता प्रबंधित करें",
+    "MY_ORDERS": "मेरे ऑर्डर",
+    "MY_CANCELLATIONS": "मेरी रद्दीकरण",
+    "MY_REVIEWS": "मेरी समीक्षाएं"
 }

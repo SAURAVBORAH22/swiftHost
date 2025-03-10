@@ -16,7 +16,7 @@ import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
 })
 export class UserProfileEditComponent implements OnInit {
   profileForm: FormGroup = new FormGroup({});
-  registeredEmail: string | null = null;
+  userId: string | null = null;
   loading: boolean = false;
 
   constructor(
@@ -71,30 +71,39 @@ export class UserProfileEditComponent implements OnInit {
   }
 
   private loadUserProfile(): void {
-    this.registeredEmail = this.authService.getUserFromLocalStore()?.registeredEmail || null;
+    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
 
-    if (this.registeredEmail) {
-      this.userProfileService.getUserProfileDetailsByEmail(this.registeredEmail)
+    if (this.userId) {
+      this.userProfileService.getUserProfileDetails(this.userId)
         .subscribe((profile: UserProfileDetails | null) => {
           if (profile) {
             this.profileForm.patchValue(profile);
           }
-        }, error => {
+        }, () => {
           this.toastService.showToast(this.translate.transform('ERROR_FETCHING_USER_PROFILE'), 'error');
         });
     }
   }
 
-  async handleFileUpload(files: File[], type: string): Promise<void> {
+  async handleProfilePictureUpload(files: File[]): Promise<void> {
     this.loading = true;
-    if (files.length && this.registeredEmail) {
+    if (files.length && this.userId) {
       try {
         const imageUrl = await this.fileUploadService.uploadFile(files[0]);
-        if (type === 'profile') {
-          this.profileForm.patchValue({ profilePicture: imageUrl });
-        } else {
-          this.profileForm.patchValue({ companyLogo: imageUrl });
-        }
+        this.profileForm.patchValue({ profilePicture: imageUrl });
+      } catch (error) {
+        this.toastService.showToast(this.translate.transform('FILE_UPLOAD_FAILED'), 'error');
+      }
+    }
+    this.loading = false;
+  }
+
+  async handleCompanyLogoUpload(files: File[]): Promise<void> {
+    this.loading = true;
+    if (files.length && this.userId) {
+      try {
+        const imageUrl = await this.fileUploadService.uploadFile(files[0]);
+        this.profileForm.patchValue({ companyLogo: imageUrl });
       } catch (error) {
         this.toastService.showToast(this.translate.transform('FILE_UPLOAD_FAILED'), 'error');
       }
@@ -107,9 +116,9 @@ export class UserProfileEditComponent implements OnInit {
     if (this.profileForm.valid) {
       const userProfile: UserProfileDetails = this.profileForm.value;
 
-      if (this.registeredEmail) {
-        userProfile.registeredEmail = this.registeredEmail;
-        this.userProfileService.updateOrCreateUserProfileDetailsByEmail(this.registeredEmail, userProfile)
+      if (this.userId) {
+        userProfile.userId = this.userId;
+        this.userProfileService.updateOrCreateUserProfileDetails(this.userId, userProfile)
           .subscribe(success => {
             if (success) {
               this.toastService.showToast(this.translate.transform('PROFILE_UPDATED_SUCCESSFULLY'), 'success');

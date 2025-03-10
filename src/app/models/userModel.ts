@@ -14,7 +14,11 @@ export class User {
         return this.refreshToken;
     }
 
-    get registeredEmail(){
+    get registeredEmail() {
         return this.email;
+    }
+
+    get userId() {
+        return this.localId;
     }
 }

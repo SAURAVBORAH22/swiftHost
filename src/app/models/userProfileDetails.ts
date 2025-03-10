@@ -1,4 +1,5 @@
 export interface UserProfileDetails {
+  userId?: string;
   registeredEmail?: string;
   firstName: string;
   middleName?: string;

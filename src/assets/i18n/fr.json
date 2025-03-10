@@ -80,5 +80,14 @@
   "BUSINESS_ADDRESS": "Adresse professionnelle",
   "SOCIAL_PROFILES": "Profils sociaux",
   "EDIT": "Modifier",
-  "FILE_UPLOAD_FAILED": "Échec du téléversement de votre fichier."
+  "FILE_UPLOAD_FAILED": "Échec du téléversement de votre fichier.",
+  "PLEASE_COMPLETE_YOUR_PROFILE": "Pour commencer, veuillez compléter votre profil.",
+  "CONTACT": "Contact",
+  "ABOUT": "À propos",
+  "SIGN_UP": "S'inscrire",
+  "NAVBAR_SEARCH": "Que recherchez-vous ?",
+  "MANAGE_MY_ACCOUNT": "Gérer mon compte",
+  "MY_ORDERS": "Mes commandes",
+  "MY_CANCELLATIONS": "Mes annulations",
+  "MY_REVIEWS": "Mes avis"
 }

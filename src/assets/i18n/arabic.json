@@ -80,5 +80,14 @@
     "BUSINESS_ADDRESS": "عنوان العمل",
     "SOCIAL_PROFILES": "الملفات الاجتماعية",
     "EDIT": "تعديل",
-    "FILE_UPLOAD_FAILED": "فشل في تحميل ملفك."
+    "FILE_UPLOAD_FAILED": "فشل في تحميل ملفك.",
+    "PLEASE_COMPLETE_YOUR_PROFILE": "للبدء، يرجى إكمال ملفك الشخصي.",
+    "CONTACT": "اتصال",
+    "ABOUT": "حول",
+    "SIGN_UP": "اشترك",
+    "NAVBAR_SEARCH": "ماذا تبحث عن؟",
+    "MANAGE_MY_ACCOUNT": "إدارة حسابي",
+    "MY_ORDERS": "طلباتي",
+    "MY_CANCELLATIONS": "إلغاءاتي",
+    "MY_REVIEWS": "تقييماتي"
 }

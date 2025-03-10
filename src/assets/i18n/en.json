@@ -80,5 +80,14 @@
     "BUSINESS_ADDRESS": "Business address",
     "SOCIAL_PROFILES": "Social profiles",
     "EDIT": "Edit",
-    "FILE_UPLOAD_FAILED": "Failed to upload your file."
+    "FILE_UPLOAD_FAILED": "Failed to upload your file.",
+    "PLEASE_COMPLETE_YOUR_PROFILE": "To begin, Please complete your profile.",
+    "CONTACT": "Contact",
+    "ABOUT": "About",
+    "SIGN_UP": "Sign Up",
+    "NAVBAR_SEARCH": "What are you looking for?",
+    "MANAGE_MY_ACCOUNT": "Manage My Account",
+    "MY_ORDERS": "MY Orders",
+    "MY_CANCELLATIONS": "My Cancellations",
+    "MY_REVIEWS": "My Reviews"
 }
