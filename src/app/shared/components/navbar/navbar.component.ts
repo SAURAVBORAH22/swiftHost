@@ -8,7 +8,7 @@ import { TranslationService } from 'src/app/services/translation.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class MainNavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit {
   activeTab: string = '';
   dropdownOpen: boolean = false;
   cartItemCount: number = 0;

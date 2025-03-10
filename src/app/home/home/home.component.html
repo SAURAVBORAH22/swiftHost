@@ -1,7 +1,5 @@
 <page-loader *ngIf="loading"></page-loader>
-<div class="d-flex">
-    <sidebar [categories]="categoriesList"></sidebar>
-    <div class="content p-4">
-        <router-outlet></router-outlet>
-    </div>
+<sidebar [categories]="categoriesList"></sidebar>
+<div class="content-section">
+    <carousel [products]="productsList" [autoSlide]="true" [slideInterval]="4000"></carousel>
 </div>

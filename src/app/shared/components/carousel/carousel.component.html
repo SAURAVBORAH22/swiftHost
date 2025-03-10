@@ -1,0 +1,24 @@
+<div class="carousel">
+    <button class="prev" (click)="prevSlide()">&#10094;</button>
+
+    <div class="carousel-inner">
+        <div *ngFor="let product of products; let i = index" class="carousel-item" [class.active]="i === currentIndex"
+            [style.backgroundImage]="'url(' + currentImages[i] + ')'">
+
+            <!-- Overlay Text -->
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <p class="description">{{ product.description }}</p>
+                <p class="price">{{ product.price }}</p>
+                <a [href]="product.link" class="buy-button">View Product</a>
+            </div>
+        </div>
+    </div>
+
+    <button class="next" (click)="nextSlide()">&#10095;</button>
+
+    <div class="dots">
+        <span *ngFor="let product of products; let i = index" (click)="goToSlide(i)"
+            [class.active]="i === currentIndex"></span>
+    </div>
+</div>

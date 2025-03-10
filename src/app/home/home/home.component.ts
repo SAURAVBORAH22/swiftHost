@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
   loading: boolean = false;
   userId: string | null = '';
   categoriesList: any[] = [];
+  productsList: any[] = [];
+
+
   constructor(
     private authService: AuthService,
     private userProfileService: UserProfileService,
@@ -29,6 +32,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserProfile();
     this.fetchCategories();
+    this.getRecommendations();
   }
 
   private loadUserProfile(): void {
@@ -55,4 +59,18 @@ export class HomeComponent implements OnInit {
       this.categoriesList.sort((a, b) => a.sequence - b.sequence);
     });
   }
+
+  getRecommendations(): void {
+    this.homePageService.getAllProducts().subscribe(products => {
+      this.productsList = this.getRandomProducts(products, 5);
+    });
+  }
+
+  private getRandomProducts(products: any[], count: number): any[] {
+    if (products.length <= count) {
+      return products;
+    }
+    return products.sort(() => Math.random() - 0.5).slice(0, count);
+  }
+
 }
