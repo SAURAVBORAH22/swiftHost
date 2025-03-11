@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { HomePageService } from 'src/app/services/homePage.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { TranslationPipe } from '../../pipes/translation.pipe';
 
 @Component({
   selector: 'app-product-card',
@@ -13,7 +15,9 @@ export class ProductCardComponent {
 
   constructor(
     private homePageService: HomePageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastService: ToastService,
+    private translate: TranslationPipe
   ) { }
 
   addToCart() {
@@ -23,37 +27,33 @@ export class ProductCardComponent {
   toggleWishlist() {
     this.isWishlisted = !this.isWishlisted;
     const userId = this.authService.getUserFromLocalStore()?.userId;
-
     if (!userId) {
-      console.error("User not found!");
       return;
     }
-
     if (this.isWishlisted) {
-      // Add to wishlist only if not already added
       const data = {
         productId: this.product.id,
         userId: userId
       };
       this.homePageService.addToWishlist(data).subscribe(
         isSuccess => {
-          console.log("Added to wishlist:", isSuccess);
           if (!isSuccess) {
-            this.isWishlisted = false; // Revert UI state if already exists
+            this.isWishlisted = false;
           }
         },
-        error => console.error("Error adding to wishlist:", error)
+        error => {
+          this.toastService.showToast(this.translate.transform('Error occured while adding product to wishlist'), 'error');
+        }
       );
     } else {
-      // Remove from wishlist
       this.homePageService.removeFromWishlist(this.product.id, userId).subscribe(
         isSuccess => {
           console.log("Removed from wishlist:", isSuccess);
           if (!isSuccess) {
-            this.isWishlisted = true; // Revert UI state if deletion fails
+            this.isWishlisted = true;
           }
         },
-        error => console.error("Error removing from wishlist:", error)
+        error => { this.toastService.showToast(this.translate.transform('Error occured while removing product from wishlist'), 'error'); }
       );
     }
   }

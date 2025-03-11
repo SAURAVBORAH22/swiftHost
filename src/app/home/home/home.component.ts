@@ -65,12 +65,17 @@ export class HomeComponent implements OnInit {
 
   getRecommendations(): void {
     this.homePageService.getAllProducts().subscribe(products => {
-      this.recommendationList = this.getRandomProducts(products);
+      this.recommendationList = this.getRandomProducts(products, 5);
     });
   }
 
-  private getRandomProducts(products: any[]): any[] {
-    return products.sort(() => Math.random() - 0.5);
+  private getRandomProducts(products: any[], count: number): any[] {
+    const shuffled = [...products];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.slice(0, count);
   }
 
   getAllProducts(): void {
