@@ -56,7 +56,7 @@
     right: 10px;
 }
 
-app-product-card {
+product-card {
     flex: 0 0 250px;
     /* Set each card's fixed width */
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
+import { HomePageService } from 'src/app/services/homePage.service';
 import { TranslationService } from 'src/app/services/translation.service';
 
 @Component({
@@ -17,7 +19,9 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private cartService: CartService,
+    private homePageService: HomePageService
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +30,13 @@ export class NavbarComponent implements OnInit {
         this.activeTab = event.urlAfterRedirects;
         this.closeDropdowns();
       }
+    });
+    // Fetch initial cart count on load
+    this.loadCartCount();
+
+    // Listen for updates to cart count
+    this.cartService.cartCount$.subscribe(count => {
+      this.cartItemCount = count;
     });
   }
 
@@ -59,5 +70,15 @@ export class NavbarComponent implements OnInit {
     if (!targetElement.closest('.dropdown')) {
       this.closeDropdowns();
     }
+  }
+
+  loadCartCount() {
+    const userId = this.authService.getUserFromLocalStore()?.userId;
+    if (!userId) {
+      return;
+    }
+    this.homePageService.getCartItemCount(userId).subscribe(cartCount => {
+      this.cartService.updateCartCount(cartCount);
+    });
   }
 }

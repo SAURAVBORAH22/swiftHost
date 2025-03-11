@@ -1,18 +1,30 @@
 <page-loader *ngIf="loading"></page-loader>
-<sidebar [categories]="categoriesList"></sidebar>
+<sidebar (dataEvent)="receiveData($event)" [categories]="categoriesList"></sidebar>
 
 <div class="content-section">
     <carousel [products]="recommendationList" [autoSlide]="true" [slideInterval]="4000"></carousel>
+
+    <div *ngIf="isCategorySelected" class="product-section">
+        <div class="form-section-header">{{selectedCategory.name}}</div>
+
+        <div class="product-carousel">
+            <button class="scroll-btn left" (click)="scrollLeft(categoryProductContainer)">&#10094;</button>
+            <div class="product-container" #categoryProductContainer>
+                <product-card *ngFor="let product of productByCategoryList" [product]="product"></product-card>
+            </div>
+            <button class="scroll-btn right" (click)="scrollRight(categoryProductContainer)">&#10095;</button>
+        </div>
+    </div>
 
     <div class="product-section">
         <div class="form-section-header">All Products</div>
 
         <div class="product-carousel">
-            <button class="scroll-btn left" (click)="scrollLeft()">&#10094;</button>
-            <div class="product-container" #productContainer>
-                <app-product-card *ngFor="let product of productsList" [product]="product"></app-product-card>
+            <button class="scroll-btn left" (click)="scrollLeft(allProductContainer)">&#10094;</button>
+            <div class="product-container" #allProductContainer>
+                <product-card *ngFor="let product of productsList" [product]="product"></product-card>
             </div>
-            <button class="scroll-btn right" (click)="scrollRight()">&#10095;</button>
+            <button class="scroll-btn right" (click)="scrollRight(allProductContainer)">&#10095;</button>
         </div>
     </div>
 </div>

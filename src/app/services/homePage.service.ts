@@ -10,6 +10,7 @@ export class HomePageService {
     category_collection: string = 'CATEGORIES';
     product_collection: string = 'PRODUCT';
     wishlist_collection: string = 'WISHLIST';
+    cart_collection: string = 'CART';
 
     constructor(private firestore: AngularFirestore) { }
 
@@ -46,11 +47,11 @@ export class HomePageService {
         return this.isProductWishlisted(wishlistProduct.productId, wishlistProduct.userId).pipe(
             switchMap(exists => {
                 if (exists) {
-                    return from(Promise.resolve(false)); // Already exists, return false
+                    return from(Promise.resolve(false));
                 }
-                const id = this.firestore.createId(); // Generate a unique document ID
+                const id = this.firestore.createId();
                 return from(this.firestore.collection(this.wishlist_collection).doc(id).set(wishlistProduct)).pipe(
-                    map(() => true) // Successfully added
+                    map(() => true)
                 );
             })
         );
@@ -65,12 +66,76 @@ export class HomePageService {
             .pipe(
                 switchMap(snapshot => {
                     if (snapshot.empty) {
-                        return from(Promise.resolve(false)); // No matching entry, return false
+                        return from(Promise.resolve(false));
                     }
                     const batch = this.firestore.firestore.batch();
                     snapshot.forEach(doc => batch.delete(doc.ref));
-                    return from(batch.commit()).pipe(map(() => true)); // Successfully deleted
+                    return from(batch.commit()).pipe(map(() => true));
                 })
+            );
+    }
+
+    addToCart(cartProduct: any): Observable<boolean> {
+        const cartRef = this.firestore.collection(this.cart_collection, ref =>
+            ref.where('productId', '==', cartProduct.productId).where('userId', '==', cartProduct.userId)
+        );
+
+        return cartRef.get().pipe(
+            switchMap(snapshot => {
+                if (!snapshot.empty) {
+                    const doc = snapshot.docs[0];
+                    const existingData: any = doc.data();
+                    const newQuantity = (existingData.quantity || 0) + cartProduct.quantity;
+
+                    return from(doc.ref.update({ quantity: newQuantity })).pipe(map(() => true));
+                } else {
+                    const id = this.firestore.createId();
+                    return from(this.firestore.collection(this.cart_collection).doc(id).set(cartProduct)).pipe(
+                        map(() => true)
+                    );
+                }
+            })
+        );
+    }
+
+
+    removeFromCart(productId: string, userId: string): Observable<boolean> {
+        return this.firestore
+            .collection(this.cart_collection, ref =>
+                ref.where('productId', '==', productId).where('userId', '==', userId)
+            )
+            .get()
+            .pipe(
+                switchMap(snapshot => {
+                    if (snapshot.empty) {
+                        return from(Promise.resolve(false));
+                    }
+                    const batch = this.firestore.firestore.batch();
+                    snapshot.forEach(doc => batch.delete(doc.ref));
+                    return from(batch.commit()).pipe(map(() => true));
+                })
+            );
+    }
+
+    getCartItemCount(userId: string): Observable<number> {
+        return this.firestore
+            .collection(this.cart_collection, ref => ref.where('userId', '==', userId))
+            .get()
+            .pipe(map(snapshot => snapshot.size));
+    }
+
+    getProductsByCategory(categoryId: string, subcategory: string): Observable<any[]> {
+        return this.firestore
+            .collection(this.product_collection, ref =>
+                ref.where('categoryId', '==', categoryId).where('subcategory', '==', subcategory)
+            )
+            .snapshotChanges()
+            .pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as { [key: string]: any };
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
             );
     }
 }

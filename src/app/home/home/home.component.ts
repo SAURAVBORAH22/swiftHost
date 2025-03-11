@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserProfileDetails } from 'src/app/models/userProfileDetails';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,13 +14,17 @@ import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
   providers: [TranslationPipe]
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('productContainer', { static: false }) productContainer!: ElementRef;
-
+  @ViewChild('categoryProductContainer', { static: false }) categoryProductContainer!: ElementRef;
+  @ViewChild('allProductContainer', { static: false }) allProductContainer!: ElementRef;
+  @Output() cartUpdated = new EventEmitter<boolean>();
   loading: boolean = false;
   userId: string | null = '';
   categoriesList: any[] = [];
   recommendationList: any[] = [];
   productsList: any[] = [];
+  isCategorySelected: boolean = false;
+  selectedCategory: any;
+  productByCategoryList: any[] = [];
 
   constructor(
     private authService: AuthService,
@@ -84,15 +88,29 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  scrollLeft(): void {
-    if (this.productContainer) {
-      this.productContainer.nativeElement.scrollBy({ left: -260, behavior: 'smooth' });
+  scrollLeft(container: HTMLElement): void {
+    if (container) {
+      container.scrollBy({ left: -260, behavior: 'smooth' });
     }
   }
 
-  scrollRight(): void {
-    if (this.productContainer) {
-      this.productContainer.nativeElement.scrollBy({ left: 260, behavior: 'smooth' });
+  scrollRight(container: HTMLElement): void {
+    if (container) {
+      container.scrollBy({ left: 260, behavior: 'smooth' });
     }
+  }
+
+
+  updateCartCount(event: boolean) {
+    this.cartUpdated.emit(event);
+  }
+
+  receiveData(data: string) {
+    this.isCategorySelected = true;
+    this.selectedCategory = data;
+    this.homePageService.getProductsByCategory(this.selectedCategory.categoryId, this.selectedCategory.subcategory)
+      .subscribe(products => {
+        this.productByCategoryList = products;
+      });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'sidebar',
@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class SidebarComponent {
   isCollapsed = false;
   @Input() categories: any[] = [];
+  @Output() dataEvent = new EventEmitter<any>();
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
@@ -18,5 +19,13 @@ export class SidebarComponent {
 
   toggleCategory(category: any) {
     category.expanded = !category.expanded;
+  }
+
+  loadSubcategory(category: any, subcategory: string) {
+    this.dataEvent.emit({
+      'categoryId': category.id,
+      'subcategory': subcategory,
+      'name': category.name
+    });
   }
 }
