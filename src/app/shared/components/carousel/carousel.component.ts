@@ -52,6 +52,7 @@ export class CarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   stopAutoSlide() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
+      this.intervalId = null;
     }
   }
 

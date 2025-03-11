@@ -11,6 +11,7 @@ import { FileViewerComponent } from './modals/file-viewer/file-viewer.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
         FileViewerComponent,
         NavbarComponent,
         SidebarComponent,
-        CarouselComponent
+        CarouselComponent,
+        ProductCardComponent
     ],
     exports: [
         PageLoaderComponent,
@@ -30,7 +32,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
         FileUploaderComponent,
         NavbarComponent,
         SidebarComponent,
-        CarouselComponent
+        CarouselComponent,
+        ProductCardComponent
     ],
     imports: [
         CommonModule,

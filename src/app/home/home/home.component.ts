@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserProfileDetails } from 'src/app/models/userProfileDetails';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,11 +14,13 @@ import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
   providers: [TranslationPipe]
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('productContainer', { static: false }) productContainer!: ElementRef;
+
   loading: boolean = false;
   userId: string | null = '';
   categoriesList: any[] = [];
+  recommendationList: any[] = [];
   productsList: any[] = [];
-
 
   constructor(
     private authService: AuthService,
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
     this.loadUserProfile();
     this.fetchCategories();
     this.getRecommendations();
+    this.getAllProducts();
   }
 
   private loadUserProfile(): void {
@@ -62,15 +65,29 @@ export class HomeComponent implements OnInit {
 
   getRecommendations(): void {
     this.homePageService.getAllProducts().subscribe(products => {
-      this.productsList = this.getRandomProducts(products, 5);
+      this.recommendationList = this.getRandomProducts(products);
     });
   }
 
-  private getRandomProducts(products: any[], count: number): any[] {
-    if (products.length <= count) {
-      return products;
-    }
-    return products.sort(() => Math.random() - 0.5).slice(0, count);
+  private getRandomProducts(products: any[]): any[] {
+    return products.sort(() => Math.random() - 0.5);
   }
 
+  getAllProducts(): void {
+    this.homePageService.getAllProducts().subscribe(products => {
+      this.productsList = products;
+    });
+  }
+
+  scrollLeft(): void {
+    if (this.productContainer) {
+      this.productContainer.nativeElement.scrollBy({ left: -260, behavior: 'smooth' });
+    }
+  }
+
+  scrollRight(): void {
+    if (this.productContainer) {
+      this.productContainer.nativeElement.scrollBy({ left: 260, behavior: 'smooth' });
+    }
+  }
 }

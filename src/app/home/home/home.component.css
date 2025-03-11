@@ -2,3 +2,61 @@
     margin-left: 250px;
     padding: 32px;
 }
+
+.product-section {
+    margin-top: 24px;
+}
+
+.product-carousel {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.product-container {
+    display: flex;
+    gap: 16px;
+    /* Adds margin between cards */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none;
+    /* Hide scrollbar for IE/Edge */
+    white-space: nowrap;
+}
+
+/* Hide scrollbar for WebKit browsers */
+.product-container::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 20px;
+    z-index: 2;
+    border-radius: 50%;
+}
+
+.left {
+    left: 10px;
+}
+
+.right {
+    right: 10px;
+}
+
+app-product-card {
+    flex: 0 0 250px;
+    /* Set each card's fixed width */
+}

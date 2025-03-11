@@ -1,0 +1,73 @@
+/* Ensure the card has a fixed smaller height */
+.product-card {
+    width: 15rem;
+    /* Reduced width */
+    max-width: 100%;
+    min-height: 320px;
+    /* Reduced height */
+    max-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+/* Increase Image Height */
+.product-image {
+    height: 180px;
+    /* Increased image height */
+    object-fit: cover;
+}
+
+/* Reduce Card Body Size */
+.card-body {
+    padding: 8px;
+    /* Reduce padding */
+    flex-grow: 0;
+    /* Prevent unnecessary expansion */
+    text-align: center;
+}
+
+/* Truncate long product names */
+.card-title {
+    font-size: 0.9rem;
+    /* Reduce font size */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* Show full name on hover */
+.card-title:hover {
+    overflow: visible;
+    white-space: normal;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    position: absolute;
+    z-index: 10;
+    border-radius: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 90%;
+}
+
+/* Reduce Button Sizes */
+.card-footer button {
+    font-size: 0.8rem;
+    /* Reduce button text size */
+    padding: 5px 10px;
+    /* Reduce padding */
+}
+
+/* Ensure footer stays at the bottom */
+.card-footer {
+    background-color: white;
+    border-top: 1px solid #ddd;
+    padding: 8px;
+    margin-top: auto;
+}

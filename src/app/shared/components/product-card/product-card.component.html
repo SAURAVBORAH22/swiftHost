@@ -1,0 +1,29 @@
+<div class="card product-card">
+    <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div *ngFor="let img of product.images; let i = index" class="carousel-item"
+                [ngClass]="{ 'active': i === 0 }">
+                <img [src]="img" class="d-block w-100 product-image" alt="{{ product.name }}">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel' + product.id"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel' + product.id"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="card-body">
+        <h5 class="card-title" [title]="product.name">{{ product.name }}</h5>
+        <h6 class="text-primary">{{ product.price | currency:'INR' }}</h6>
+    </div>
+    <div class="card-footer d-flex justify-content-between align-items-center">
+        <button class="btn btn-primary" (click)="addToCart()">Add to Cart</button>
+        <button class="btn btn-outline-danger wishlist-btn" (click)="toggleWishlist()">
+            <i [ngClass]="{ 'bi bi-heart': !isWishlisted, 'bi bi-heart-fill text-danger': isWishlisted }"></i>
+        </button>
+    </div>
+</div>
