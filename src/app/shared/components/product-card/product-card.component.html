@@ -18,6 +18,11 @@
 
     <div class="card-body">
         <h5 class="card-title" [title]="product.name">{{ product.name }}</h5>
+        <div class="rating">
+            <ng-container *ngFor="let star of starsArray; let i = index">
+                <i [ngClass]="getStarClass(i)"></i>
+            </ng-container>
+        </div>
         <h6 class="text-primary">{{ product.price | currency:'INR' }}</h6>
     </div>
     <div class="card-footer d-flex justify-content-between align-items-center">

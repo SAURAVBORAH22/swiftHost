@@ -13,6 +13,7 @@ import { CartService } from 'src/app/services/cart.service';
 export class ProductCardComponent {
   @Input() product: any;
   isWishlisted: boolean = false;
+  starsArray: number[] = [0, 1, 2, 3, 4];
 
   constructor(
     private homePageService: HomePageService,
@@ -21,6 +22,17 @@ export class ProductCardComponent {
     private translate: TranslationPipe,
     private cartService: CartService
   ) { }
+
+  getStarClass(index: number): string {
+    const rating = this.product.rating || 0;
+    if (index < Math.floor(rating)) {
+      return 'bi bi-star-fill text-warning';
+    } else if (index < rating) {
+      return 'bi bi-star-half text-warning';
+    } else {
+      return 'bi bi-star text-secondary';
+    }
+  }
 
   addToCart() {
     const userId = this.authService.getUserFromLocalStore()?.userId;
@@ -75,7 +87,9 @@ export class ProductCardComponent {
             this.isWishlisted = true;
           }
         },
-        error => { this.toastService.showToast(this.translate.transform('Error occured while removing product from wishlist'), 'error'); }
+        error => {
+          this.toastService.showToast(this.translate.transform('Error occured while removing product from wishlist'), 'error');
+        }
       );
     }
   }
