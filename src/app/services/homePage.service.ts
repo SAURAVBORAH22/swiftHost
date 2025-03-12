@@ -151,4 +151,15 @@ export class HomePageService {
         );
     }
 
+    getAllHighRatedProducts(): Observable<any[]> {
+        return this.firestore.collection(this.product_collection, ref => ref.where('rating', '>=', 4))
+            .snapshotChanges()
+            .pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as { [key: string]: any };
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
 }

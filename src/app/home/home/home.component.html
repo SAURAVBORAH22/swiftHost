@@ -76,4 +76,16 @@
         </div>
     </div>
 
+    <div class="product-section">
+        <div class="form-section-header">Best Sellers</div>
+
+        <div class="product-carousel">
+            <button class="scroll-btn left" (click)="scrollLeft(bestSellersContainer)">&#10094;</button>
+            <div class="product-container" #bestSellersContainer>
+                <product-card *ngFor="let product of bestSellersList" [product]="product"></product-card>
+            </div>
+            <button class="scroll-btn right" (click)="scrollRight(bestSellersContainer)">&#10095;</button>
+        </div>
+    </div>
+
 </div>

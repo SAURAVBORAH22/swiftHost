@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   selectedCategory: any;
   productByCategoryList: any[] = [];
   newArrivalList: any[] = [];
+  bestSellersList: any[] = [];
 
   constructor(
     private authService: AuthService,
@@ -42,6 +43,7 @@ export class HomeComponent implements OnInit {
     this.getRecommendations();
     this.getAllProducts();
     this.getNewArrvials();
+    this.getBestSellersList();
   }
 
   private loadUserProfile(): void {
@@ -119,6 +121,12 @@ export class HomeComponent implements OnInit {
   getNewArrvials() {
     this.homePageService.getNewArrvials().subscribe(products => {
       this.newArrivalList = products;
+    });
+  }
+
+  getBestSellersList() {
+    this.homePageService.getAllHighRatedProducts().subscribe(products => {
+      this.bestSellersList = products;
     });
   }
 }
