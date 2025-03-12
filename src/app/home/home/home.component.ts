@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   isCategorySelected: boolean = false;
   selectedCategory: any;
   productByCategoryList: any[] = [];
+  newArrivalList: any[] = [];
 
   constructor(
     private authService: AuthService,
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
     this.fetchCategories();
     this.getRecommendations();
     this.getAllProducts();
+    this.getNewArrvials();
   }
 
   private loadUserProfile(): void {
@@ -112,5 +114,11 @@ export class HomeComponent implements OnInit {
       .subscribe(products => {
         this.productByCategoryList = products;
       });
+  }
+
+  getNewArrvials() {
+    this.homePageService.getNewArrvials().subscribe(products => {
+      this.newArrivalList = products;
+    });
   }
 }

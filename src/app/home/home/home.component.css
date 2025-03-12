@@ -60,3 +60,65 @@ product-card {
     flex: 0 0 250px;
     /* Set each card's fixed width */
 }
+
+/* Set max height for the container */
+.custom-container {
+    padding: 16px 48px;
+    max-width: 100%;
+    margin: auto;
+    background-color: rgb(211, 211, 211);
+}
+
+/* Image Card - common styles */
+.image-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Overlay for text */
+.overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 5px;
+    width: calc(100% - 40%);
+}
+
+/* Shop Now link */
+.shop-now {
+    display: inline-block;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 10px;
+    border-bottom: 2px solid white;
+}
+
+/* Different sizes */
+.large {
+    height: 400px;
+}
+
+.medium {
+    height: 190px;
+    margin-bottom: 10px;
+}
+
+.small {
+    height: 190px;
+}
+
+.new-arrival-header {
+    margin-top: 32px;
+}

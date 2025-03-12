@@ -138,4 +138,17 @@ export class HomePageService {
                 }))
             );
     }
+
+    getNewArrvials(): Observable<any[]> {
+        return this.firestore.collection(this.product_collection, ref =>
+            ref.orderBy('createdOn', 'desc').limit(4)
+        ).snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as { [key: string]: any };
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
+    }
+
 }

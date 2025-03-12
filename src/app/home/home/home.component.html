@@ -27,4 +27,53 @@
             <button class="scroll-btn right" (click)="scrollRight(allProductContainer)">&#10095;</button>
         </div>
     </div>
+
+    <div *ngIf="newArrivalList.length" class="form-section-header new-arrival-header">New Arrivals</div>
+    <div *ngIf="newArrivalList.length" class="container custom-container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="image-card large">
+                    <img [src]="newArrivalList[0].images[0]" alt="{{newArrivalList[0].name}}">
+                    <div class="overlay">
+                        <h3>{{newArrivalList[0].name}}</h3>
+                        <a href="#" class="shop-now">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="image-card medium">
+                            <img [src]="newArrivalList[1].images[0]" alt="{{newArrivalList[1].name}}">
+                            <div class="overlay">
+                                <h3>{{newArrivalList[1].name}}s</h3>
+                                <a href="#" class="shop-now">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="image-card small">
+                            <img [src]="newArrivalList[2].images[0]" alt="{{newArrivalList[2].name}}">
+                            <div class="overlay">
+                                <h3>{{newArrivalList[2].name}}</h3>
+                                <a href="#" class="shop-now">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="image-card small">
+                            <img [src]="newArrivalList[3].images[0]" alt="{{newArrivalList[3].name}}">
+                            <div class="overlay">
+                                <h3>{{newArrivalList[3].name}}</h3>
+                                <a href="#" class="shop-now">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
