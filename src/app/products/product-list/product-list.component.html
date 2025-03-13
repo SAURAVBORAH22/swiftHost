@@ -1,9 +1,9 @@
+<page-loader *ngIf="loading"></page-loader>
 <div class="product-list-container">
     <div *ngIf="productList && productList.length > 0; else noProducts" class="product-list">
         <product-card *ngFor="let product of productList" [product]="product"></product-card>
     </div>
 
-    <!-- Show this when there are no products -->
     <ng-template #noProducts>
         <div class="no-products">
             <span>🛒 No products available. Check back later!</span>

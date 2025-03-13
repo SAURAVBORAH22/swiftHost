@@ -59,4 +59,24 @@ export class ProductsService {
                 }))
             );
     }
+
+    getProductsByIds(productIds: string[]): Observable<any[]> {
+        const productObservables = productIds.map(id =>
+            this.firestore.collection(this.product_collection).doc(id).get()
+        );
+        return new Observable(observer => {
+            Promise.all(productObservables.map(obs => obs.toPromise()))
+                .then(snapshots => {
+                    const products = snapshots
+                        .filter(snapshot => snapshot.exists)
+                        .map(snapshot => {
+                            const data = snapshot.data() as { [key: string]: any };
+                            return { id: snapshot.id, ...data };
+                        });
+                    observer.next(products);
+                    observer.complete();
+                })
+                .catch(error => observer.error(error));
+        });
+    }
 }

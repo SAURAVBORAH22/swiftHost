@@ -64,9 +64,10 @@
             <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center justify-content-center icons-container">
                 <!-- Wishlist -->
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="'/wishlist'">
+                    <button class="nav-link btn p-0 border-0 bg-transparent"
+                        (click)="navigateToProductList('wishlist')">
                         <i class="bi bi-heart fs-5" [ngClass]="{'text-danger': activeTab === '/wishlist'}"></i>
-                    </a>
+                    </button>
                 </li>
 
                 <!-- Cart -->

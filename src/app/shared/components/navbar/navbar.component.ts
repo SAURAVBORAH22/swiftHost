@@ -79,4 +79,9 @@ export class NavbarComponent implements OnInit {
       this.cartService.updateCartCount(cartCount);
     });
   }
+
+  navigateToProductList(type: string) {
+    const query_params: any = { type };
+    this.router.navigate(['/products/list'], { queryParams: query_params });
+  }
 }
