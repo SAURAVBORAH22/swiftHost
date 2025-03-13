@@ -52,11 +52,11 @@
             <!-- Search Bar -->
             <form class="d-flex" role="search">
                 <div class="input-group">
-                    <input class="form-control" type="search" placeholder="{{'NAVBAR_SEARCH' | translate}}"
-                        aria-label="Search">
-                    <span class="input-group-text">
+                    <input class="form-control" type="search" #searchInput
+                        placeholder="{{ 'NAVBAR_SEARCH' | translate }}" aria-label="Search">
+                    <button type="button" class="input-group-text" (click)="onSearch(searchInput.value)">
                         <i class="bi bi-search"></i>
-                    </span>
+                    </button>
                 </div>
             </form>
 

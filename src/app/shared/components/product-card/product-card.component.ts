@@ -8,7 +8,8 @@ import { WishListService } from 'src/app/services/wishlist.service';
 @Component({
   selector: 'product-card',
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.css']
+  styleUrls: ['./product-card.component.css'],
+  providers: [TranslationPipe]
 })
 export class ProductCardComponent {
   @Input() product: any = {};

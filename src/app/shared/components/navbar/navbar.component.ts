@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
@@ -19,7 +19,8 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private translationService: TranslationService,
-    private cartService: CartService
+    private cartService: CartService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -83,5 +84,11 @@ export class NavbarComponent implements OnInit {
   navigateToProductList(type: string) {
     const query_params: any = { type };
     this.router.navigate(['/products/list'], { queryParams: query_params });
+  }
+
+  onSearch(searchedText: string) {
+    this.router.navigate(['/products/list'], {
+      queryParams: { type: 'search', searchedText: searchedText.trim() }
+    });
   }
 }

@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TranslationPipe } from '../../pipes/translation.pipe';
 
 @Component({
   selector: 'sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.css'],
+  providers: [TranslationPipe]
 })
 export class SidebarComponent {
   isCollapsed = false;

@@ -79,4 +79,19 @@ export class ProductsService {
                 .catch(error => observer.error(error));
         });
     }
+
+    searchProducts(searchedText: string): Observable<any[]> {
+        return this.firestore.collection(this.product_collection, ref =>
+            ref.where('keywords', 'array-contains', searchedText.toLowerCase())
+        )
+            .snapshotChanges()
+            .pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as any;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
+
 }
