@@ -1,6 +1,6 @@
-<div *ngIf="product" class="card product-card">
+<div *ngIf="product" class="card product-card" style="cursor: pointer;" (click)="goToProductDetails()">
     <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
+        <div class="carousel-inner" style="cursor: pointer;">
             <div *ngFor="let img of product.images; let i = index" class="carousel-item"
                 [ngClass]="{ 'active': i === 0 }">
                 <img [src]="img" class="d-block w-100 product-image" alt="{{ product.name }}">
@@ -15,8 +15,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
     </div>
-
-    <div class="card-body">
+    <div class="card-body" style="cursor: pointer;">
         <h5 class="card-title" [title]="product.name">{{ product.name }}</h5>
         <div class="rating">
             <ng-container *ngFor="let star of starsArray; let i = index">

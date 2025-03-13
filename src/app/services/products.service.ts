@@ -94,4 +94,13 @@ export class ProductsService {
             );
     }
 
+    getProductById(productId: string): Observable<any> {
+        return this.firestore.collection(this.product_collection).doc(productId).snapshotChanges().pipe(
+            map(a => {
+                const data = a.payload.data() as { [key: string]: any };
+                const id = a.payload.id;
+                return { id, ...data };
+            })
+        );
+    }
 }

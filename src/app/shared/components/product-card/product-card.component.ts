@@ -4,6 +4,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { TranslationPipe } from '../../pipes/translation.pipe';
 import { CartService } from 'src/app/services/cart.service';
 import { WishListService } from 'src/app/services/wishlist.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'product-card',
@@ -21,7 +22,8 @@ export class ProductCardComponent {
     private toastService: ToastService,
     private translate: TranslationPipe,
     private cartService: CartService,
-    private wishlistService: WishListService
+    private wishlistService: WishListService,
+    private router: Router
   ) { }
 
   getStarClass(index: number): string {
@@ -93,5 +95,9 @@ export class ProductCardComponent {
         }
       );
     }
+  }
+
+  goToProductDetails() {
+    this.router.navigate(['/products/', this.product.id]);
   }
 }

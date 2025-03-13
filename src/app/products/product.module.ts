@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { SharedModule } from "../shared/shared.module";
 import { ProductListComponent } from "./product-list/product-list.component";
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 const routes: Routes = [
     {
@@ -12,6 +13,10 @@ const routes: Routes = [
     {
         path: 'list',
         component: ProductListComponent
+    },
+    {
+        path: ':id',
+        component: ProductDetailsComponent
     }
 ];
 
@@ -22,7 +27,8 @@ const routes: Routes = [
         SharedModule
     ],
     declarations: [
-        ProductListComponent
+        ProductListComponent,
+        ProductDetailsComponent
     ]
 })
 export class ProductModule { }
