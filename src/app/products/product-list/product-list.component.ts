@@ -44,7 +44,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
     apiToCall.subscribe(
       (products: any[]) => {
         this.productList = products;
-        console.log(this.productList);
       },
       error => {
         console.error('Error fetching products:', error);
