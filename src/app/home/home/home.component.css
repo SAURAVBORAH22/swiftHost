@@ -122,3 +122,26 @@ product-card {
 .new-arrival-header {
     margin-top: 32px;
 }
+
+.form-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-section-header button {
+    background: white;
+    color: #007bff;
+    border: 1px solid white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-section-header button:hover {
+    background: #0056b3;
+    color: white;
+}

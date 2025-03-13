@@ -8,20 +8,24 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule)
   },
   {
-    path: '',
+    path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
     canActivate: [AuthGuard]
   },
   {
-    path: '',
+    path: 'profile',
     loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./products/product.module').then((m) => m.ProductModule),
+    canActivate: [AuthGuard]
   }
-]
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

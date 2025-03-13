@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { HomePageService } from 'src/app/services/homePage.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { TranslationPipe } from '../../pipes/translation.pipe';
 import { CartService } from 'src/app/services/cart.service';
+import { WishListService } from 'src/app/services/wishlist.service';
 
 @Component({
   selector: 'product-card',
@@ -11,20 +11,20 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
-  @Input() product: any;
+  @Input() product: any = {};
   isWishlisted: boolean = false;
   starsArray: number[] = [0, 1, 2, 3, 4];
 
   constructor(
-    private homePageService: HomePageService,
     private authService: AuthService,
     private toastService: ToastService,
     private translate: TranslationPipe,
-    private cartService: CartService
+    private cartService: CartService,
+    private wishlistService: WishListService
   ) { }
 
   getStarClass(index: number): string {
-    const rating = this.product.rating || 0;
+    const rating = this.product?.rating || 0;
     if (index < Math.floor(rating)) {
       return 'bi bi-star-fill text-warning';
     } else if (index < rating) {
@@ -44,11 +44,11 @@ export class ProductCardComponent {
       userId: userId,
       quantity: 1
     };
-    this.homePageService.addToCart(data).subscribe(
+    this.cartService.addToCart(data).subscribe(
       isSuccess => {
         if (isSuccess) {
           this.toastService.showToast(this.translate.transform('Product was added to cart'), 'success');
-          this.homePageService.getCartItemCount(userId).subscribe(cartCount => {
+          this.cartService.getCartItemCount(userId).subscribe(cartCount => {
             this.cartService.updateCartCount(cartCount);
           });
         }
@@ -70,7 +70,7 @@ export class ProductCardComponent {
         productId: this.product.id,
         userId: userId
       };
-      this.homePageService.addToWishlist(data).subscribe(
+      this.wishlistService.addToWishlist(data).subscribe(
         isSuccess => {
           if (!isSuccess) {
             this.isWishlisted = false;
@@ -81,7 +81,7 @@ export class ProductCardComponent {
         }
       );
     } else {
-      this.homePageService.removeFromWishlist(this.product.id, userId).subscribe(
+      this.wishlistService.removeFromWishlist(this.product.id, userId).subscribe(
         isSuccess => {
           if (!isSuccess) {
             this.isWishlisted = true;

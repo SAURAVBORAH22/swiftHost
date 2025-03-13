@@ -1,4 +1,4 @@
-<div class="card product-card">
+<div *ngIf="product" class="card product-card">
     <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div *ngFor="let img of product.images; let i = index" class="carousel-item"

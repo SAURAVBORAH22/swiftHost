@@ -1,0 +1,13 @@
+<div class="product-list-container">
+    <div *ngIf="productList?.length; else noProducts">
+        <product-card *ngFor="let product of productList" [product]="product">
+        </product-card>
+    </div>
+
+    <!-- Show this when there are no products -->
+    <ng-template #noProducts>
+        <div class="no-products">
+            No products available.
+        </div>
+    </ng-template>
+</div>

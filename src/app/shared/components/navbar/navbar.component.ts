@@ -2,7 +2,6 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
-import { HomePageService } from 'src/app/services/homePage.service';
 import { TranslationService } from 'src/app/services/translation.service';
 
 @Component({
@@ -20,8 +19,7 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private translationService: TranslationService,
-    private cartService: CartService,
-    private homePageService: HomePageService
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -77,7 +75,7 @@ export class NavbarComponent implements OnInit {
     if (!userId) {
       return;
     }
-    this.homePageService.getCartItemCount(userId).subscribe(cartCount => {
+    this.cartService.getCartItemCount(userId).subscribe(cartCount => {
       this.cartService.updateCartCount(cartCount);
     });
   }

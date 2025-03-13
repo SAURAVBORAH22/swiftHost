@@ -1,0 +1,15 @@
+.product-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    padding: 16px;
+}
+
+.no-products {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: gray;
+    margin-top: 20px;
+}

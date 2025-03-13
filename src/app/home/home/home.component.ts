@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserProfileDetails } from 'src/app/models/userProfileDetails';
 import { AuthService } from 'src/app/services/auth.service';
 import { HomePageService } from 'src/app/services/homePage.service';
+import { ProductsService } from 'src/app/services/products.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { UserProfileService } from 'src/app/services/userProfileService.service';
 import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
@@ -11,7 +12,7 @@ import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [TranslationPipe]
+  providers: [TranslationPipe, ProductsService]
 })
 export class HomeComponent implements OnInit {
   @ViewChild('categoryProductContainer', { static: false }) categoryProductContainer!: ElementRef;
@@ -34,10 +35,15 @@ export class HomeComponent implements OnInit {
     private toastService: ToastService,
     private translate: TranslationPipe,
     private router: Router,
-    private homePageService: HomePageService
+    private homePageService: HomePageService,
+    private productsService: ProductsService
   ) { }
 
   ngOnInit(): void {
+    this.loadAPIs();
+  }
+
+  private loadAPIs(): void {
     this.loadUserProfile();
     this.fetchCategories();
     this.getRecommendations();
@@ -72,7 +78,7 @@ export class HomeComponent implements OnInit {
   }
 
   getRecommendations(): void {
-    this.homePageService.getAllProducts().subscribe(products => {
+    this.productsService.getAllProducts().subscribe(products => {
       this.recommendationList = this.getRandomProducts(products, 5);
     });
   }
@@ -87,7 +93,7 @@ export class HomeComponent implements OnInit {
   }
 
   getAllProducts(): void {
-    this.homePageService.getAllProducts().subscribe(products => {
+    this.productsService.getAllProducts().subscribe(products => {
       this.productsList = products;
     });
   }
@@ -112,21 +118,32 @@ export class HomeComponent implements OnInit {
   receiveData(data: string) {
     this.isCategorySelected = true;
     this.selectedCategory = data;
-    this.homePageService.getProductsByCategory(this.selectedCategory.categoryId, this.selectedCategory.subcategory)
+    this.productsService.getProductsByCategory(this.selectedCategory.categoryId, this.selectedCategory.subcategory)
       .subscribe(products => {
         this.productByCategoryList = products;
       });
   }
 
   getNewArrvials() {
-    this.homePageService.getNewArrvials().subscribe(products => {
+    this.productsService.getNewArrvials().subscribe(products => {
       this.newArrivalList = products;
     });
   }
 
   getBestSellersList() {
-    this.homePageService.getAllHighRatedProducts().subscribe(products => {
+    this.productsService.getAllHighRatedProducts().subscribe(products => {
       this.bestSellersList = products;
     });
+  }
+
+  navigateToProductList(type: string) {
+    const query_params: any = { type };
+    if (type === 'category' && this.selectedCategory) {
+      Object.assign(query_params, {
+        categoryId: this.selectedCategory.categoryId,
+        subcategory: this.selectedCategory.subcategory
+      });
+    }
+    this.router.navigate(['/products/list'], { queryParams: query_params });
   }
 }

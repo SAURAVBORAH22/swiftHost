@@ -10,22 +10,22 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 const routes: Routes = [
     {
         path: '',
-        children: [
-            {
-                path: '', redirectTo: 'login', pathMatch: 'full'
-            },
-            {
-                path: 'login', component: LoginComponent
-            },
-            {
-                path: 'signup', component: SignUpComponent
-            }
-        ]
+        redirectTo: 'login',
+        pathMatch: 'full'
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'signup',
+        component: SignUpComponent
     }
-]
+];
 
 @NgModule({
-    imports: [CommonModule,
+    imports: [
+        CommonModule,
         ReactiveFormsModule,
         RouterModule.forChild(routes),
         SharedModule,
