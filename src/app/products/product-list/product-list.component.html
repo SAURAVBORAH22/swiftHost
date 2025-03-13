@@ -1,12 +1,22 @@
 <page-loader *ngIf="loading"></page-loader>
 <div class="product-list-container">
+    <div class="wishlist-actions" *ngIf="type === 'wishlist' && productList.length > 0">
+        <button (click)="moveToCart()" class="move-to-cart-btn">
+            🛒 Move All to Cart
+        </button>
+    </div>
     <div *ngIf="productList && productList.length > 0; else noProducts" class="product-list">
         <product-card *ngFor="let product of productList" [product]="product"></product-card>
     </div>
 
     <ng-template #noProducts>
         <div class="no-products">
-            <span>🛒 No products available. Check back later!</span>
+            <span *ngIf="type === 'wishlist'; else notWishlist">
+                🛒 Wishlist is empty. Add some products to your wishlist!
+            </span>
+            <ng-template #notWishlist>
+                <span>🛒 No products available. Check back later!</span>
+            </ng-template>
         </div>
     </ng-template>
 </div>
