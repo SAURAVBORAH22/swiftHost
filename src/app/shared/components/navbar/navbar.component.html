@@ -72,13 +72,13 @@
 
                 <!-- Cart -->
                 <li class="nav-item position-relative">
-                    <a class="nav-link" [routerLink]="'/cart'">
+                    <button class="nav-link btn p-0 border-0 bg-transparent" (click)="navigateToCart()">
                         <i class="bi bi-cart fs-5"></i>
                         <span *ngIf="cartItemCount > 0"
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {{ cartItemCount }}
                         </span>
-                    </a>
+                    </button>
                 </li>
 
                 <!-- Profile Dropdown -->

@@ -65,4 +65,17 @@ export class CartService {
             .get()
             .pipe(map(snapshot => snapshot.size));
     }
+
+    getAllCartItems(userId: string | null): Observable<any[]> {
+        return this.firestore
+            .collection(this.cart_collection, ref => ref.where('userId', '==', userId))
+            .snapshotChanges()
+            .pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as Record<string, any>;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
 }

@@ -91,4 +91,8 @@ export class NavbarComponent implements OnInit {
       queryParams: { type: 'search', searchedText: searchedText.trim() }
     });
   }
+
+  navigateToCart(): void {
+    this.router.navigate(['/products/cart']);
+  }
 }
