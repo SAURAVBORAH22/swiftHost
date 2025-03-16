@@ -22,8 +22,10 @@
     object-fit: cover;
     cursor: pointer;
     border: 2px solid transparent;
+    transition: border 0.3s ease;
 }
 
+.thumbnail img:hover,
 .thumbnail img.active {
     border-color: blue;
 }
@@ -54,7 +56,7 @@
     position: absolute;
     width: 120px;
     height: 120px;
-    background-size: 800px 800px;
+    background-size: cover;
     background-repeat: no-repeat;
     display: none;
     border: 2px solid black;
@@ -82,13 +84,19 @@
 
 /* Stock Status */
 .stock {
+    font-weight: bold;
     color: green;
+}
+
+.stock.out-of-stock {
+    color: red;
 }
 
 /* Price */
 .price {
     color: red;
     font-size: 24px;
+    font-weight: bold;
 }
 
 /* Size Selection */
@@ -98,6 +106,12 @@
     border: 1px solid black;
     background: white;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.size-selection button:hover {
+    background: black;
+    color: white;
 }
 
 .size-selection button.selected {
@@ -119,18 +133,42 @@
     border: 1px solid black;
     background: white;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.quantity-selector button:hover:not(:disabled) {
+    background: black;
+    color: white;
+}
+
+.quantity-selector button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Buy Now Button */
 .buy-now {
     display: block;
     width: 100%;
-    background: red;
+    background: #ff6600;
     color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
     font-size: 18px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.buy-now:hover:not(:disabled) {
+    background: #e65c00;
+}
+
+.buy-now:disabled {
+    background-color: grey;
+    cursor: not-allowed;
 }
 
 /* Delivery Info */

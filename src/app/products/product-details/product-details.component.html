@@ -22,29 +22,23 @@
         <div class="rating">
             <span *ngFor="let star of stars" class="bi"
                 [ngClass]="{'bi-star-fill': star.filled, 'bi-star': !star.filled}"></span>
-            {{ productDetails?.rating }} (150 Reviews) | <span class="stock">In Stock</span>
+            {{ productDetails?.rating }} (150 Reviews) |
+            <span class="stock" [ngClass]="{'out-of-stock': productDetails?.quantity === 0}">
+                {{ productDetails?.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
+            </span>
         </div>
 
         <h3 class="price">{{ productDetails?.price | currency:'INR'}}</h3>
         <p>{{ productDetails?.description }}</p>
 
-        <!-- Size Selection -->
-        <div class="size-selection">
-            <label>Size:</label>
-            <button *ngFor="let size of ['XS', 'S', 'M', 'L', 'XL']" [class.selected]="size === selectedSize"
-                (click)="selectSize(size)">
-                {{ size }}
-            </button>
-        </div>
-
         <!-- Quantity Selector -->
         <div class="quantity-selector">
-            <button (click)="decreaseQuantity()">-</button>
+            <button (click)="decreaseQuantity()" [disabled]="quantity <= 1">-</button>
             <span>{{ quantity }}</span>
-            <button (click)="increaseQuantity()">+</button>
+            <button (click)="increaseQuantity()" [disabled]="quantity >= productDetails?.quantity">+</button>
         </div>
 
-        <button class="buy-now">Buy Now</button>
+        <button class="buy-now" [disabled]="productDetails?.quantity === 0">Buy Now</button>
 
         <!-- Delivery Info -->
         <div class="delivery-info">
