@@ -1,1 +1,61 @@
-<p>product-details works!</p>
+<div class="product-container">
+    <!-- Thumbnail Image Gallery -->
+    <div class="image-gallery">
+        <div *ngFor="let img of productDetails?.images" class="thumbnail" (click)="changeImage(img)">
+            <img [src]="img" [class.active]="img === selectedImage" />
+        </div>
+    </div>
+
+    <!-- Main Image with Zoom Effect -->
+    <div class="main-image-container">
+        <div class="main-image" (mousemove)="zoomImage($event)" (mouseleave)="resetZoom()">
+            <img [src]="selectedImage" #mainImage />
+            <div class="zoom-lens" [ngStyle]="zoomLensStyle"></div>
+        </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="product-info">
+        <h2>{{ productDetails?.name }}</h2>
+
+        <!-- Star Rating -->
+        <div class="rating">
+            <span *ngFor="let star of stars" class="bi"
+                [ngClass]="{'bi-star-fill': star.filled, 'bi-star': !star.filled}"></span>
+            {{ productDetails?.rating }} (150 Reviews) | <span class="stock">In Stock</span>
+        </div>
+
+        <h3 class="price">{{ productDetails?.price | currency:'INR'}}</h3>
+        <p>{{ productDetails?.description }}</p>
+
+        <!-- Size Selection -->
+        <div class="size-selection">
+            <label>Size:</label>
+            <button *ngFor="let size of ['XS', 'S', 'M', 'L', 'XL']" [class.selected]="size === selectedSize"
+                (click)="selectSize(size)">
+                {{ size }}
+            </button>
+        </div>
+
+        <!-- Quantity Selector -->
+        <div class="quantity-selector">
+            <button (click)="decreaseQuantity()">-</button>
+            <span>{{ quantity }}</span>
+            <button (click)="increaseQuantity()">+</button>
+        </div>
+
+        <button class="buy-now">Buy Now</button>
+
+        <!-- Delivery Info -->
+        <div class="delivery-info">
+            <div class="free-delivery">
+                🚚 Free Delivery <br />
+                <small>Enter your postal code for Delivery Availability</small>
+            </div>
+            <div class="return-policy">
+                🔄 Return Delivery <br />
+                <small>Free 30 Days Delivery Returns. <a href="#">Details</a></small>
+            </div>
+        </div>
+    </div>
+</div>

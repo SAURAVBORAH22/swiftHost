@@ -37,7 +37,8 @@ export class ProductCardComponent {
     }
   }
 
-  addToCart() {
+  addToCart(event: Event) {
+    event.stopPropagation();
     const userId = this.authService.getUserFromLocalStore()?.userId;
     if (!userId) {
       return;
@@ -62,7 +63,8 @@ export class ProductCardComponent {
     );
   }
 
-  toggleWishlist() {
+  toggleWishlist(event: Event) {
+    event.stopPropagation();
     this.isWishlisted = !this.isWishlisted;
     const userId = this.authService.getUserFromLocalStore()?.userId;
     if (!userId) {
