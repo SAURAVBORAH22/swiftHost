@@ -39,6 +39,14 @@
         </div>
 
         <button class="buy-now" [disabled]="productDetails?.quantity === 0">Buy Now</button>
+        <div class="action-buttons">
+            <button class="add-to-cart" (click)="addToCart()" [disabled]="productDetails?.quantity === 0">
+                🛒 Add to Cart
+            </button>
+            <button class="add-to-wishlist" (click)="addToWishlist()">
+                ❤️ Add to Wishlist
+            </button>
+        </div>
 
         <!-- Delivery Info -->
         <div class="delivery-info">

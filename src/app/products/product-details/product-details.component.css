@@ -181,3 +181,75 @@
 .return-policy {
     margin-top: 10px;
 }
+
+/* Action Buttons Container */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+/* Common Button Styles */
+.add-to-cart,
+.add-to-wishlist {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-transform: uppercase;
+}
+
+/* Add to Cart Button - Light Blue */
+.add-to-cart {
+    background: #E0F2FF;
+    /* Light Blue */
+    color: #0056B3;
+    /* Dark Blue Text */
+    border-color: #80CFFA;
+    /* Soft Border */
+}
+
+.add-to-cart:hover:not(:disabled) {
+    background: #C0E4FF;
+    transform: scale(1.05);
+    box-shadow: 2px 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Add to Wishlist Button - Light Pink */
+.add-to-wishlist {
+    background: #FFE3E3;
+    /* Light Pink */
+    color: #B71C1C;
+    /* Dark Red Text */
+    border-color: #FFB6B6;
+    /* Soft Border */
+}
+
+.add-to-wishlist:hover {
+    background: #FFCCCC;
+    transform: scale(1.05);
+    box-shadow: 2px 2px 8px rgba(255, 61, 0, 0.3);
+}
+
+/* Disabled Button */
+.add-to-cart:disabled {
+    background: #F0F0F0;
+    color: grey;
+    border-color: #D0D0D0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Ensuring Icons Stand Out */
+.add-to-cart::before,
+.add-to-wishlist::before {
+    font-size: 18px;
+}

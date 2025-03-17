@@ -24,7 +24,8 @@
                                     &times;
                                 </button>
                                 <img [src]="item.images[0]" alt="{{ item.name }}" class="img-thumbnail product-img">
-                                <span class="fw-bold">{{ item.name }}</span>
+                                <span class="fw-bold cursor-pointer" (click)="navigateToDetails(item)">{{ item.name
+                                    }}</span>
                             </td>
                             <td class="text-center fw-bold">
                                 <span *ngIf="item.discountedPrice; else originalPrice">

@@ -6,6 +6,7 @@ import { ProductsService } from 'src/app/services/products.service';
 import { map } from 'rxjs/operators';
 import { CouponsService } from 'src/app/services/coupons.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -26,7 +27,8 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private productsService: ProductsService,
     private couponsService: CouponsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -138,5 +140,9 @@ export class CartComponent implements OnInit {
     this.cartService.getCartItemCount(this.userId || '').subscribe(cartCount => {
       this.cartService.updateCartCount(cartCount);
     });
+  }
+
+  navigateToDetails(item: any): void {
+    this.router.navigate(['/products/', item.id]);
   }
 }
