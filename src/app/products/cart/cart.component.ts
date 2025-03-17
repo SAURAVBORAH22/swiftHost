@@ -5,6 +5,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { map } from 'rxjs/operators';
 import { CouponsService } from 'src/app/services/coupons.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-cart',
@@ -24,10 +25,16 @@ export class CartComponent implements OnInit {
     private authService: AuthService,
     private cartService: CartService,
     private productsService: ProductsService,
-    private couponsService: CouponsService
+    private couponsService: CouponsService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
+    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+    this.loadAPIs();
+  }
+
+  loadAPIs(): void {
     this.getAllCartItems();
     this.getAllCoupons();
   }
@@ -56,7 +63,6 @@ export class CartComponent implements OnInit {
   }
 
   getAllCartProductIds(): Observable<string[]> {
-    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
     if (!this.userId) return of([]);
 
     return this.cartService.getAllCartItems(this.userId!).pipe(
@@ -79,7 +85,15 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(item: any): void {
-    this.productList = this.productList.filter(p => p !== item);
+    this.cartService.removeFromCart(item.id, this.userId || '')
+      .subscribe(success => {
+        if (!success) {
+          this.toastService.showToast('Some issue occured while removing this item from your cart. Please try again.', 'error');
+        } else {
+          this.loadAPIs();
+          this.updateCartCount();
+        }
+      });
   }
 
   applyCoupon(): void {
@@ -109,6 +123,20 @@ export class CartComponent implements OnInit {
   }
 
   clearCart(): void {
-    //clear cart logic
+    this.cartService.clearCart(this.userId)
+      .subscribe(success => {
+        if (!success) {
+          this.toastService.showToast('Some issue occured while clearing your cart', 'error');
+        } else {
+          this.loadAPIs();
+          this.updateCartCount();
+        }
+      });
+  }
+
+  updateCartCount(): void {
+    this.cartService.getCartItemCount(this.userId || '').subscribe(cartCount => {
+      this.cartService.updateCartCount(cartCount);
+    });
   }
 }

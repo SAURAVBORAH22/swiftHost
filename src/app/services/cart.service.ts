@@ -78,4 +78,20 @@ export class CartService {
                 }))
             );
     }
+
+    clearCart(userId: string | null): Observable<boolean> {
+        return this.firestore
+            .collection(this.cart_collection, ref => ref.where('userId', '==', userId))
+            .get()
+            .pipe(
+                switchMap(snapshot => {
+                    if (snapshot.empty) {
+                        return from(Promise.resolve(false));
+                    }
+                    const batch = this.firestore.firestore.batch();
+                    snapshot.forEach(doc => batch.delete(doc.ref));
+                    return from(batch.commit()).pipe(map(() => true));
+                })
+            );
+    }
 }
