@@ -1,0 +1,130 @@
+.filter-sidebar {
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    font-family: Arial, sans-serif;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #212121;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.filter-section {
+    margin-bottom: 15px;
+}
+
+.filter-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.filter-content {
+    padding-top: 10px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.price-range {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+}
+
+.range-slider {
+    width: 100%;
+}
+
+input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 6px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #ff5722;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.rating-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rating-stars {
+    color: #fdd835;
+    font-size: 16px;
+}
+
+.filter-actions {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid #ddd;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.apply-btn {
+    background: #ff5722;
+    color: white;
+}
+
+.apply-btn:hover {
+    background: #e64a19;
+}
+
+.reset-btn {
+    background: #ddd;
+    color: #333;
+}
+
+.reset-btn:hover {
+    background: #bbb;
+}

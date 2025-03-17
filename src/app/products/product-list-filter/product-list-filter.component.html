@@ -1,0 +1,43 @@
+<div class="filter-sidebar">
+    <h3>Filters</h3>
+
+    <!-- Name Filter -->
+    <div class="filter-section">
+        <div class="filter-title">Product Name</div>
+        <div class="filter-content">
+            <input type="text" [(ngModel)]="filters.name" placeholder="Search product">
+        </div>
+    </div>
+
+    <!-- Price Range Filter -->
+    <div class="filter-section">
+        <div class="filter-title">Price</div>
+        <div class="filter-content">
+            <div class="price-range">
+                <span>₹{{ filters.minPrice }}</span>
+                <span>₹{{ filters.maxPrice }}</span>
+            </div>
+            <input type="range" min="0" max="10000" [(ngModel)]="filters.minPrice" class="range-slider">
+            <input type="range" min="0" max="10000" [(ngModel)]="filters.maxPrice" class="range-slider">
+        </div>
+    </div>
+
+    <!-- Rating Filter -->
+    <div class="filter-section">
+        <div class="filter-title">Rating</div>
+        <div class="filter-content rating-dropdown">
+            <select [(ngModel)]="filters.rating">
+                <option value="">Any</option>
+                <option *ngFor="let rate of [5, 4, 3, 2, 1]" [value]="rate">
+                    <span class="rating-stars">★</span> {{ rate }} Stars & Up
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="filter-actions">
+        <button class="apply-btn" (click)="applyFilters()">Apply</button>
+        <button class="reset-btn" (click)="resetFilters()">Reset</button>
+    </div>
+</div>

@@ -19,6 +19,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   categoryId: string = '';
   subcategory: string = '';
   productList: any[] = [];
+  originalProductList: any[] = [];
   private queryParamsSubscription: Subscription | null = null;
   userId: string | null = '';
   loading: boolean = false;
@@ -60,7 +61,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
           if (wishlistedProductIds.length > 0) {
             this.productsService.getProductsByIds(wishlistedProductIds).subscribe(
               products => {
-                this.productList = products;
+                this.originalProductList = products;
+                this.productList = [...this.originalProductList];
                 this.loading = false;
               },
               error => this.handleError(error)
@@ -81,7 +83,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     apiToCall.subscribe(
       products => {
-        this.productList = products;
+        this.originalProductList = products;
+        this.productList = [...this.originalProductList];
         this.loading = false;
       },
       error => this.handleError(error)
@@ -180,6 +183,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
     window.location.reload();
   }
 
+  applyFilters(filters: any): void {
+    this.productList = this.originalProductList.filter(product => {
+      return (
+        (!filters.name || product.name.toLowerCase().includes(filters.name.toLowerCase())) &&
+        (!filters.rating || product.rating >= filters.rating) &&
+        (!filters.minPrice || product.price >= filters.minPrice) &&
+        (!filters.maxPrice || product.price <= filters.maxPrice)
+      );
+    });
+  }
 
   ngOnDestroy(): void {
     this.queryParamsSubscription?.unsubscribe();

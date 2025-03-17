@@ -6,6 +6,7 @@ import { ProductListComponent } from "./product-list/product-list.component";
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from "./cart/cart.component";
 import { FormsModule } from "@angular/forms";
+import { ProductListFilterComponent } from './product-list-filter/product-list-filter.component';
 
 const routes: Routes = [
     {
@@ -36,7 +37,8 @@ const routes: Routes = [
     declarations: [
         ProductListComponent,
         ProductDetailsComponent,
-        CartComponent
+        CartComponent,
+        ProductListFilterComponent
     ]
 })
 export class ProductModule { }
