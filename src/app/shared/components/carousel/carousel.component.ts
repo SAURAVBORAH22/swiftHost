@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, OnDestroy, ElementRef, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface Product {
+  id: string;
   images: string[];
   name: string;
   description?: string;
@@ -22,7 +24,10 @@ export class CarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   intervalId: any;
   currentImages: string[] = [];
 
-  constructor(private elRef: ElementRef) { }
+  constructor(
+    private elRef: ElementRef,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.initializeRandomImages();
@@ -90,6 +95,10 @@ export class CarouselComponent implements OnInit, OnDestroy, AfterViewInit {
         this.elRef.nativeElement.querySelector(".carousel").style.backgroundColor = bgColor;
       }
     };
+  }
+
+  navigateToProductDetails(productId: string): void {
+    this.router.navigate(['/products/', productId]);
   }
 
   ngOnDestroy() {
