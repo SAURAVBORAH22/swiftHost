@@ -13,23 +13,30 @@
     <div class="filter-section">
         <div class="filter-title">Price</div>
         <div class="filter-content">
-            <div class="price-range">
-                <span>₹{{ filters.minPrice }}</span>
-                <span>₹{{ filters.maxPrice }}</span>
+            <div class="price-inputs">
+                <input type="number" [(ngModel)]="filters.minPrice" (change)="validatePriceRange()" min="0" max="100000"
+                    placeholder="Min Price">
+                <input type="number" [(ngModel)]="filters.maxPrice" (change)="validatePriceRange()" min="0" max="100000"
+                    placeholder="Max Price">
             </div>
-            <input type="range" min="0" max="10000" [(ngModel)]="filters.minPrice" class="range-slider">
-            <input type="range" min="0" max="10000" [(ngModel)]="filters.maxPrice" class="range-slider">
+
+            <div class="range-slider-container">
+                <input type="range" min="0" max="100000" [(ngModel)]="filters.minPrice" (change)="validatePriceRange()"
+                    class="range-slider">
+                <input type="range" min="0" max="100000" [(ngModel)]="filters.maxPrice" (change)="validatePriceRange()"
+                    class="range-slider">
+            </div>
         </div>
     </div>
 
     <!-- Rating Filter -->
     <div class="filter-section">
         <div class="filter-title">Rating</div>
-        <div class="filter-content rating-dropdown">
+        <div class="filter-content">
             <select [(ngModel)]="filters.rating">
                 <option value="">Any</option>
                 <option *ngFor="let rate of [5, 4, 3, 2, 1]" [value]="rate">
-                    <span class="rating-stars">★</span> {{ rate }} Stars & Up
+                    {{ '★'.repeat(rate) }} {{ rate }} Stars & Up
                 </option>
             </select>
         </div>

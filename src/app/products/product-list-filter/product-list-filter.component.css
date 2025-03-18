@@ -1,3 +1,4 @@
+/* Sidebar Container */
 .filter-sidebar {
     width: 280px;
     height: 100vh;
@@ -11,6 +12,7 @@
     font-family: Arial, sans-serif;
 }
 
+/* Section Headings */
 h3 {
     font-size: 18px;
     font-weight: bold;
@@ -19,6 +21,7 @@ h3 {
     text-transform: uppercase;
 }
 
+/* Filter Sections */
 .filter-section {
     margin-bottom: 15px;
 }
@@ -39,6 +42,7 @@ h3 {
     padding-top: 10px;
 }
 
+/* Input and Select Fields */
 input,
 select {
     width: 100%;
@@ -48,6 +52,23 @@ select {
     border-radius: 5px;
 }
 
+/* Price Inputs */
+.price-inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.price-inputs input {
+    width: 48%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Price Range Display */
 .price-range {
     display: flex;
     justify-content: space-between;
@@ -55,6 +76,14 @@ select {
     color: #555;
 }
 
+/* Range Slider Container */
+.range-slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Range Sliders */
 .range-slider {
     width: 100%;
 }
@@ -78,6 +107,11 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
+input[type="range"]:hover {
+    background: #ccc;
+}
+
+/* Rating Dropdown */
 .rating-dropdown {
     display: flex;
     flex-direction: column;
@@ -89,6 +123,7 @@ input[type="range"]::-webkit-slider-thumb {
     font-size: 16px;
 }
 
+/* Action Buttons */
 .filter-actions {
     position: sticky;
     bottom: 0;
@@ -111,6 +146,7 @@ button {
     transition: 0.3s;
 }
 
+/* Apply Button */
 .apply-btn {
     background: #ff5722;
     color: white;
@@ -120,6 +156,7 @@ button {
     background: #e64a19;
 }
 
+/* Reset Button */
 .reset-btn {
     background: #ddd;
     color: #333;
