@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { ContactService } from 'src/app/services/contact.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-contact',
@@ -8,8 +11,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class ContactComponent implements OnInit {
   contactForm: FormGroup;
+  userId: string | null = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private contactService: ContactService,
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -18,13 +27,25 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+  }
 
   onSubmit(): void {
     if (this.contactForm.valid) {
-      console.log('Form submitted', this.contactForm.value);
+      const contactData = {
+        userId: this.userId,
+        name: this.contactForm.value.name,
+        phone: this.contactForm.value.phone,
+        message: this.contactForm.value.message
+      }
+      this.contactService.addNewQuery(contactData).subscribe(success => {
+        if (success) {
+          this.toastService.showToast('Your message was received by us. We are currently reviewing it and will contact you shortly.', 'info');
+          this.contactForm.reset();
+        }
+      });
     } else {
-      console.log('Form invalid');
       this.contactForm.markAllAsTouched();
     }
   }
