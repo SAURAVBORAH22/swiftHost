@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { HomePageService } from 'src/app/services/homePage.service';
 
 @Component({
   selector: 'app-product-list-filter',
@@ -7,13 +8,19 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ProductListFilterComponent {
   @Output() filterChanged = new EventEmitter<any>();
+  categoriesList: any[] = [];
 
   filters: any = {
     name: '',
     rating: null,
     minPrice: 0,
-    maxPrice: 100000
+    maxPrice: 100000,
+    category: {}
   };
+
+  constructor(private homePageService: HomePageService) {
+    this.fetchCategories();
+  }
 
   applyFilters(): void {
     this.validatePriceRange();
@@ -25,7 +32,8 @@ export class ProductListFilterComponent {
       name: '',
       rating: null,
       minPrice: 0,
-      maxPrice: 100000
+      maxPrice: 100000,
+      category: {}
     };
     this.filterChanged.emit({ ...this.filters });
   }
@@ -34,5 +42,12 @@ export class ProductListFilterComponent {
     if (this.filters.minPrice > this.filters.maxPrice) {
       [this.filters.minPrice, this.filters.maxPrice] = [this.filters.maxPrice, this.filters.minPrice];
     }
+  }
+
+  fetchCategories(): void {
+    this.homePageService.getCategoriesData().subscribe(categories => {
+      this.categoriesList = categories;
+      this.categoriesList.sort((a, b) => a.sequence - b.sequence);
+    });
   }
 }

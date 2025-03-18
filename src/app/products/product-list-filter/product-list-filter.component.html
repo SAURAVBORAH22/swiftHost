@@ -42,6 +42,19 @@
         </div>
     </div>
 
+    <!-- Categories Filter -->
+    <div class="filter-section">
+        <div class="filter-title">Categories</div>
+        <div class="filter-content">
+            <select [(ngModel)]="filters.category">
+                <option value="">Any</option>
+                <option *ngFor="let category of categoriesList" [value]="category.id">
+                    {{category.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+
     <!-- Action Buttons -->
     <div class="filter-actions">
         <button class="apply-btn" (click)="applyFilters()">Apply</button>

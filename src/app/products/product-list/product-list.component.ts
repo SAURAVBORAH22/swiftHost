@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Observable, of } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -189,7 +190,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
         (!filters.name || product.name.toLowerCase().includes(filters.name.toLowerCase())) &&
         (!filters.rating || product.rating >= filters.rating) &&
         (!filters.minPrice || product.price >= filters.minPrice) &&
-        (!filters.maxPrice || product.price <= filters.maxPrice)
+        (!filters.maxPrice || product.price <= filters.maxPrice) &&
+        (!filters.category || product.categoryId === filters.category)
       );
     });
   }
