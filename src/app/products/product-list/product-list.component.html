@@ -2,6 +2,15 @@
 <div class="product-page-container">
     <app-product-list-filter (filterChanged)="applyFilters($event)"></app-product-list-filter>
     <div class="product-list-container">
+        <div class="sort-container">
+            <label for="sort">Sort by:</label>
+            <select id="sort" (change)="onSortChange($event)">
+                <option value="rating_desc">Rating (High to Low)</option>
+                <option value="rating_asc">Rating (Low to High)</option>
+                <option value="price_asc">Price (Low to High)</option>
+                <option value="price_desc">Price (High to Low)</option>
+            </select>
+        </div>
         <div class="wishlist-actions" *ngIf="type === 'wishlist' && productList.length > 0">
             <button (click)="moveToCart()" class="move-to-cart-btn">
                 🛒 Move All to Cart

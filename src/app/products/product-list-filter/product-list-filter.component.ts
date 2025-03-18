@@ -15,7 +15,7 @@ export class ProductListFilterComponent {
     rating: null,
     minPrice: 0,
     maxPrice: 100000,
-    category: {}
+    category: null
   };
 
   constructor(private homePageService: HomePageService) {
@@ -33,7 +33,7 @@ export class ProductListFilterComponent {
       rating: null,
       minPrice: 0,
       maxPrice: 100000,
-      category: {}
+      category: null
     };
     this.filterChanged.emit({ ...this.filters });
   }

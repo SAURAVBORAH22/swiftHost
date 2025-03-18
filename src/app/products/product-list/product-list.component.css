@@ -60,3 +60,39 @@
 .move-to-cart-btn:active {
     transform: scale(0.95);
 }
+
+.sort-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.sort-container label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #555;
+}
+
+.sort-container select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sort-container select:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.sort-container select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}

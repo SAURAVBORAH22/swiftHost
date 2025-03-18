@@ -25,6 +25,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   userId: string | null = '';
   loading: boolean = false;
   searchedText: string = '';
+  sortBy: string = 'rating_desc';  // Default sorting order
 
   constructor(
     private route: ActivatedRoute,
@@ -193,6 +194,22 @@ export class ProductListComponent implements OnInit, OnDestroy {
         (!filters.maxPrice || product.price <= filters.maxPrice) &&
         (!filters.category || product.categoryId === filters.category)
       );
+    });
+  }
+
+  onSortChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.sortBy = target.value;
+    this.sortProducts();
+  }
+
+  sortProducts(): void {
+    this.productList.sort((a, b) => {
+      if (this.sortBy === 'rating_desc') return b.rating - a.rating;
+      if (this.sortBy === 'rating_asc') return a.rating - b.rating;
+      if (this.sortBy === 'price_asc') return a.price - b.price;
+      if (this.sortBy === 'price_desc') return b.price - a.price;
+      return 0;
     });
   }
 
