@@ -21,6 +21,7 @@ export class ProductDetailsComponent implements OnInit {
   zoomLensStyle = {};
   stars: { filled: boolean }[] = [];
   userId: string | null = '';
+  recommendationList: any[] = [];
 
   @ViewChild('mainImage') mainImage!: ElementRef<HTMLImageElement>;
 
@@ -45,6 +46,7 @@ export class ProductDetailsComponent implements OnInit {
       this.productDetails = product;
       this.selectedImage = product.images[0];
       this.generateStars(product.rating);
+      this.getProductsRecommendations();
     });
   }
 
@@ -139,4 +141,21 @@ export class ProductDetailsComponent implements OnInit {
     );
   }
 
+  getProductsRecommendations(): void {
+    this.productsService.getProductsRecommendation(this.productDetails.categoryId).subscribe(products => {
+      this.recommendationList = products;
+    });
+  }
+
+  scrollLeft(container: HTMLElement): void {
+    if (container) {
+      container.scrollBy({ left: -260, behavior: 'smooth' });
+    }
+  }
+
+  scrollRight(container: HTMLElement): void {
+    if (container) {
+      container.scrollBy({ left: 260, behavior: 'smooth' });
+    }
+  }
 }

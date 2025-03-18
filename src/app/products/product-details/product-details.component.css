@@ -253,3 +253,41 @@
 .add-to-wishlist::before {
     font-size: 18px;
 }
+
+.product-section {
+    padding: 48px;
+}
+
+.product-carousel {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.product-container.scrollable {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    /* Make it horizontally scrollable */
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    padding: 10px 0;
+    width: 100%;
+}
+
+/* Hide scrollbar but make it scrollable */
+.product-container.scrollable::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-btn {
+    background: #f1f1f1;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.scroll-btn:hover {
+    background: #ddd;
+}

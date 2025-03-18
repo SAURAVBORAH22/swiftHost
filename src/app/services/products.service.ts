@@ -103,4 +103,19 @@ export class ProductsService {
             })
         );
     }
+
+    getProductsRecommendation(categoryId: string): Observable<any[]> {
+        return this.firestore
+            .collection(this.product_collection, ref =>
+                ref.where('categoryId', '==', categoryId)
+            )
+            .snapshotChanges()
+            .pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as { [key: string]: any };
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
 }
