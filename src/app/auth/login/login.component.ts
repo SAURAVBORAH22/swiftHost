@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.toastService.showToast(this.translate.transform('ACCOUNT_HAS_BEEN_CREATED_SUCCESSFULLY'), 'error');
+        this.toastService.showToast('Processing error. Please try again after sometime.', 'error');
         this.loading = false;
       }
     });
