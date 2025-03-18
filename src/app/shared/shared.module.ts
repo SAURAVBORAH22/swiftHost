@@ -13,6 +13,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { FooterComponent } from './components/footer/footer.component';
         SidebarComponent,
         CarouselComponent,
         ProductCardComponent,
-        FooterComponent
+        FooterComponent,
+        ErrorPageComponent
     ],
     exports: [
         PageLoaderComponent,
@@ -36,7 +38,8 @@ import { FooterComponent } from './components/footer/footer.component';
         SidebarComponent,
         CarouselComponent,
         ProductCardComponent,
-        FooterComponent
+        FooterComponent,
+        ErrorPageComponent
     ],
     imports: [
         CommonModule,

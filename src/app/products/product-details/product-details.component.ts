@@ -145,6 +145,7 @@ export class ProductDetailsComponent implements OnInit {
 
   getProductsRecommendations(): void {
     this.productsService.getProductsRecommendation(this.productDetails.categoryId).subscribe(products => {
+      products = products.filter(p => p.id !== this.productDetails.id);
       this.recommendationList = products;
     });
   }

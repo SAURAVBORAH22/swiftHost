@@ -1,0 +1,57 @@
+<div class="contact-wrapper" style="margin-top: 32px;">
+    <div class="contact-info">
+        <div class="info-item">
+            <i class="bi bi-telephone-fill"></i>
+            <div class="info-text">
+                <h3>Call To Us</h3>
+                <p>We are available 24/7, 7 days a week.</p>
+                <p class="contact-detail">Phone: +880161112222</p>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="info-item">
+            <i class="bi bi-envelope-fill"></i>
+            <div class="info-text">
+                <h3>Write To Us</h3>
+                <p>Fill out our form and we will contact you within 24 hours.</p>
+                <p class="contact-detail">Emails: customer@exclusive.com</p>
+                <p class="contact-detail">Emails: support@exclusive.com</p>
+            </div>
+        </div>
+    </div>
+    <div class="contact-form">
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="input-container">
+                    <input type="text" formControlName="name" placeholder="Your Name *"
+                        [ngClass]="{ 'invalid': isInvalid('name') }" />
+                    <div *ngIf="isInvalid('name')" class="error-msg">Name is required (min 3 characters).</div>
+                </div>
+
+                <div class="input-container">
+                    <input type="email" formControlName="email" placeholder="Your Email *"
+                        [ngClass]="{ 'invalid': isInvalid('email') }" />
+                    <div *ngIf="isInvalid('email')" class="error-msg">Enter a valid email.</div>
+                </div>
+
+                <div class="input-container">
+                    <input type="text" formControlName="phone" placeholder="Your Phone *"
+                        [ngClass]="{ 'invalid': isInvalid('phone') }" />
+                    <div *ngIf="isInvalid('phone')" class="error-msg">Enter a valid phone number.</div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <textarea formControlName="message" placeholder="Your Message"
+                    [ngClass]="{ 'invalid': isInvalid('message') }"></textarea>
+                <div *ngIf="isInvalid('message')" class="error-msg">Message is required.</div>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" [disabled]="contactForm.invalid">Send Massage</button>
+            </div>
+        </form>
+    </div>
+</div>

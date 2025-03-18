@@ -1,4 +1,4 @@
-<div class="product-container">
+<div class="product-container" *ngIf="productDetails?.name; else productNotFound">
     <!-- Thumbnail Image Gallery -->
     <div class="image-gallery">
         <div *ngFor="let img of productDetails?.images" class="thumbnail" (click)="changeImage(img)">
@@ -61,7 +61,7 @@
         </div>
     </div>
 </div>
-<div class="product-section">
+<div class="product-section" *ngIf="recommendationList.length > 0">
     <div class="form-section-header">
         <span>Recommendations</span>
     </div>
@@ -73,3 +73,6 @@
         <button class="scroll-btn right" (click)="scrollRight(allProductContainer)">&#10095;</button>
     </div>
 </div>
+<ng-template #productNotFound>
+    <error-page></error-page>
+</ng-template>
