@@ -89,27 +89,27 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" [class.show]="dropdownOpen">
                         <li>
-                            <a class="dropdown-item" [routerLink]="'/manage-account'">
+                            <a class="dropdown-item cursor-pointer" [routerLink]="'/manage-account'">
                                 <i class="bi bi-person-circle me-2"></i> {{'MANAGE_MY_ACCOUNT' | translate}}
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" [routerLink]="'/orders'">
+                            <a class="dropdown-item cursor-pointer" [routerLink]="'/orders'">
                                 <i class="bi bi-bag-check me-2"></i> {{'MY_ORDERS' | translate}}
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" [routerLink]="'/cancellations'">
+                            <a class="dropdown-item cursor-pointer" [routerLink]="'/cancellations'">
                                 <i class="bi bi-x-circle me-2"></i> {{'MY_CANCELLATIONS' | translate}}
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" [routerLink]="'/reviews'">
+                            <a class="dropdown-item cursor-pointer" [routerLink]="'/reviews'">
                                 <i class="bi bi-star me-2"></i> {{'MY_REVIEWS' | translate}}
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" (click)="onLogout()">
+                            <a class="dropdown-item cursor-pointer" (click)="onLogout()">
                                 <i class="bi bi-box-arrow-right me-2"></i> {{ 'LOGOUT' | translate }}
                             </a>
                         </li>

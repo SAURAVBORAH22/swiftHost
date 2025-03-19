@@ -26,6 +26,11 @@ const routes: Routes = [
     path: 'contact',
     loadChildren: () => import('./contact/contact.module').then((m) => m.ContactModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then((m) => m.AboutModule),
+    canActivate: [AuthGuard]
   }
 ];
 
