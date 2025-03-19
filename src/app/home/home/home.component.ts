@@ -1,11 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserProfileDetails } from 'src/app/models/userProfileDetails';
-import { AuthService } from 'src/app/services/auth.service';
 import { HomePageService } from 'src/app/services/homePage.service';
 import { ProductsService } from 'src/app/services/products.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { UserProfileService } from 'src/app/services/userProfileService.service';
 import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
 
 @Component({
@@ -30,10 +26,6 @@ export class HomeComponent implements OnInit {
   bestSellersList: any[] = [];
 
   constructor(
-    private authService: AuthService,
-    private userProfileService: UserProfileService,
-    private toastService: ToastService,
-    private translate: TranslationPipe,
     private router: Router,
     private homePageService: HomePageService,
     private productsService: ProductsService
@@ -44,30 +36,11 @@ export class HomeComponent implements OnInit {
   }
 
   private loadAPIs(): void {
-    this.loadUserProfile();
     this.fetchCategories();
     this.getRecommendations();
     this.getAllProducts();
     this.getNewArrvials();
     this.getBestSellersList();
-  }
-
-  private loadUserProfile(): void {
-    this.loading = true;
-    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
-    if (this.userId) {
-      this.userProfileService.getUserProfileDetails(this.userId)
-        .subscribe((profile: UserProfileDetails | null) => {
-          if (profile === null) {
-            this.router.navigate(['/userProfile/edit']);
-            this.toastService.showToast(this.translate.transform('PLEASE_COMPLETE_YOUR_PROFILE'), 'info');
-          }
-          this.loading = false;
-        }, (error: any) => {
-          this.toastService.showToast(this.translate.transform('ERROR_FETCHING_USER_PROFILE'), 'error');
-          this.loading = false;
-        });
-    }
   }
 
   fetchCategories(): void {
