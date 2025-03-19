@@ -4,69 +4,82 @@
 
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="isEditing; else viewMode">
 
-            <!-- First Name -->
-            <div class="form-group">
-                <label>First Name</label>
-                <input type="text" formControlName="firstName" />
-                <div *ngIf="submitted && f.firstName.errors" class="error">
-                    <span *ngIf="f.firstName.errors.required">First Name is required</span>
-                    <span *ngIf="f.firstName.errors.minlength">Minimum 2 characters required</span>
+            <div class="form-grid">
+                <!-- First Name -->
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" formControlName="firstName" placeholder="Enter your first name" />
+                    <div *ngIf="f.firstName.touched && f.firstName.invalid" class="error">
+                        <span *ngIf="f.firstName.errors?.required">First Name is required</span>
+                        <span *ngIf="f.firstName.errors?.minlength">Min. 2 characters required</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Last Name -->
-            <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" formControlName="lastName" />
-                <div *ngIf="submitted && f.lastName.errors" class="error">
-                    <span *ngIf="f.lastName.errors.required">Last Name is required</span>
-                    <span *ngIf="f.lastName.errors.minlength">Minimum 2 characters required</span>
+                <!-- Last Name -->
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" formControlName="lastName" placeholder="Enter your last name" />
+                    <div *ngIf="f.lastName.touched && f.lastName.invalid" class="error">
+                        <span *ngIf="f.lastName.errors?.required">Last Name is required</span>
+                        <span *ngIf="f.lastName.errors?.minlength">Min. 2 characters required</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Email -->
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" formControlName="email" />
-                <div *ngIf="submitted && f.email.errors" class="error">
-                    <span *ngIf="f.email.errors.required">Email is required</span>
-                    <span *ngIf="f.email.errors.email">Invalid email format</span>
+                <!-- Email -->
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" formControlName="email" placeholder="Enter your email" />
+                    <div *ngIf="f.email.touched && f.email.invalid" class="error">
+                        <span *ngIf="f.email.errors?.required">Email is required</span>
+                        <span *ngIf="f.email.errors?.email">Invalid email format</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Address -->
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" formControlName="address" />
-                <div *ngIf="submitted && f.address.errors" class="error">
-                    <span *ngIf="f.address.errors.required">Address is required</span>
+                <!-- Phone -->
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" formControlName="phone" placeholder="Enter phone number" />
+                    <div *ngIf="f.phone.touched && f.phone.invalid" class="error">
+                        <span *ngIf="f.phone.errors?.required">Phone is required</span>
+                        <span *ngIf="f.phone.errors?.pattern">Invalid phone format (10 digits)</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Password Section -->
-            <h3>Password Changes</h3>
-
-            <!-- Current Password -->
-            <div class="form-group">
-                <label>Current Password</label>
-                <input type="password" formControlName="currentPassword" />
-            </div>
-
-            <!-- New Password -->
-            <div class="form-group">
-                <label>New Password</label>
-                <input type="password" formControlName="newPassword" />
-                <div *ngIf="submitted && f.newPassword.errors" class="error">
-                    <span *ngIf="f.newPassword.errors.minlength">Minimum 6 characters required</span>
+                <!-- Date of Birth -->
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" formControlName="dob" />
+                    <div *ngIf="f.dob.touched && f.dob.invalid" class="error">
+                        <span *ngIf="f.dob.errors?.required">Date of Birth is required</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Confirm New Password -->
-            <div class="form-group">
-                <label>Confirm New Password</label>
-                <input type="password" formControlName="confirmPassword" />
-                <div *ngIf="submitted && isPasswordMismatch()" class="error">
-                    <span>Passwords do not match</span>
+                <!-- Gender -->
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select formControlName="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Country -->
+                <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" formControlName="country" placeholder="Enter your country" />
+                    <div *ngIf="f.country.touched && f.country.invalid" class="error">
+                        <span *ngIf="f.country.errors?.required">Country is required</span>
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <div class="form-group full-width">
+                    <label>Address</label>
+                    <textarea formControlName="address" rows="3" placeholder="Enter your address"></textarea>
+                    <div *ngIf="f.address.touched && f.address.invalid" class="error">
+                        <span *ngIf="f.address.errors?.required">Address is required</span>
+                    </div>
                 </div>
             </div>
 
@@ -79,11 +92,18 @@
 
         <!-- View Mode -->
         <ng-template #viewMode>
-            <div class="view-group">
-                <p><strong>First Name:</strong> {{ profileForm.value.firstName }}</p>
-                <p><strong>Last Name:</strong> {{ profileForm.value.lastName }}</p>
-                <p><strong>Email:</strong> {{ profileForm.value.email }}</p>
-                <p><strong>Address:</strong> {{ profileForm.value.address }}</p>
+            <div class="profile-details">
+                <div class="profile-header">
+                    <h3>{{ profileForm.value.firstName }} {{ profileForm.value.lastName }}</h3>
+                    <p>{{ profileForm.value.email }}</p>
+                </div>
+                <div class="details-grid">
+                    <p><strong>Phone:</strong> {{ profileForm.value.phone }}</p>
+                    <p><strong>Date of Birth:</strong> {{ profileForm.value.dob | date }}</p>
+                    <p><strong>Gender:</strong> {{ profileForm.value.gender }}</p>
+                    <p><strong>Country:</strong> {{ profileForm.value.country }}</p>
+                    <p><strong>Address:</strong> {{ profileForm.value.address }}</p>
+                </div>
                 <button (click)="toggleEdit()">Edit Profile</button>
             </div>
         </ng-template>

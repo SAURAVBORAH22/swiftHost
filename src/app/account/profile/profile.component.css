@@ -1,58 +1,88 @@
 .container {
     width: 80%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 30px;
 }
 
 .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    transition: 0.3s;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.form-grid,
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
-    display: block;
+    font-weight: bold;
     margin-bottom: 5px;
+    color: #555;
 }
 
-input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
+input,
+select,
+textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 .btn-group {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 button {
-    padding: 10px 20px;
-    cursor: pointer;
+    padding: 12px 30px;
     border: none;
+    border-radius: 6px;
     color: #fff;
-    border-radius: 4px;
+    background: #007bff;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-button:first-of-type {
-    background-color: #ccc;
-}
-
-button:last-of-type {
-    background-color: #e74c3c;
+button:hover {
+    background: #0056b3;
 }
 
 button:disabled {
-    background-color: #bbb;
+    background: #ccc;
     cursor: not-allowed;
 }
 
-.view-group p {
-    margin: 10px 0;
+.full-width {
+    grid-column: span 2;
 }
