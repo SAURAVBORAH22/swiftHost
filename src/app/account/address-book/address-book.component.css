@@ -1,0 +1,88 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.add-btn-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-body p {
+    margin: 10px 0;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+}
+
+.actions button {
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.actions button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.checkbox-group {
+    margin-bottom: 16px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
