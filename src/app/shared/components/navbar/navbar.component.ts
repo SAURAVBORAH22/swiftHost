@@ -14,16 +14,17 @@ export class NavbarComponent implements OnInit {
   dropdownOpen: boolean = false;
   cartItemCount: number = 0;
   languageDropdownOpen: boolean = false;
+  isAuthenticated: boolean = false;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private translationService: TranslationService,
-    private cartService: CartService,
-    private cdr: ChangeDetectorRef
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.activeTab = event.urlAfterRedirects;
@@ -49,7 +50,7 @@ export class NavbarComponent implements OnInit {
 
   changeLanguage(language: string) {
     this.translationService.changeLanguage(language);
-    this.languageDropdownOpen = false; // Close the dropdown after selecting
+    this.languageDropdownOpen = false;
   }
 
   onLogout() {

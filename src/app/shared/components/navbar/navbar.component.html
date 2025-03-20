@@ -27,7 +27,7 @@
                         {{ 'ABOUT' | translate }}
                     </a>
                 </li>
-                <li class="nav-item">
+                <li *ngIf="!isAuthenticated" class="nav-item">
                     <a class="nav-link" routerLink="/signup" routerLinkActive="active">
                         {{ 'SIGN_UP' | translate }}
                     </a>
