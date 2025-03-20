@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Payment } from 'src/app/models/paymentMethod.model';
+import { AccountService } from 'src/app/services/account.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { EncryptionService } from 'src/app/services/encryption.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 export function matchValidator(field: string, confirmField: string): ValidatorFn {
   return (group: AbstractControl): ValidationErrors | null => {
@@ -15,12 +19,12 @@ export function matchValidator(field: string, confirmField: string): ValidatorFn
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent {
-  // Expose Object for template usage (if needed)
+export class PaymentComponent implements OnInit {
   Object = Object;
 
   selectedMethod: string = '';
   savedPayments: Payment[] = [];
+  userId: string | null = '';
 
   creditCardForm: FormGroup;
   upiForm: FormGroup;
@@ -28,8 +32,14 @@ export class PaymentComponent {
   payLaterForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private encryptionService: EncryptionService,
+    private authService: AuthService,
+    private accountService: AccountService,
+    private toastService: ToastService
   ) {
+    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+
     // Initialize Credit Card form with a confirm field and group validator
     this.creditCardForm = this.fb.group({
       cardHolderName: ['', Validators.required],
@@ -61,30 +71,54 @@ export class PaymentComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.loadAllSavedPaymentOptions();
+  }
+
+  loadAllSavedPaymentOptions(): void {
+    this.accountService.fetchAllPaymentOptionsForUser(this.userId || '').subscribe(payment_options => {
+      payment_options.forEach(payment_option => {
+        payment_option.details = this.encryptionService.decryptObject(payment_option.details);
+      })
+      this.savedPayments = payment_options;
+    });
+  }
+
   addPayment(form: FormGroup, method: string): void {
     form.markAllAsTouched();
     form.updateValueAndValidity();
 
     if (!form.valid) {
-      alert(`Please fill out all required fields for ${method}.`);
+      this.toastService.showToast(`Please fill out all required fields for ${method}.`, 'error');
       return;
     }
 
     const payment: Payment = {
-      id: new Date().getTime().toString(),
+      userId: this.userId || '',
       method,
-      details: form.value
+      details: this.encryptionService.encryptObject(form.value)
     };
-
-    this.savedPayments.push(payment);
-    form.reset();
-    form.updateValueAndValidity();
-    alert(`${method} added successfully!`);
-    this.selectedMethod = '';
+    this.accountService.savePaymentOption(payment).subscribe(success => {
+      if (success) {
+        this.toastService.showToast('Your details were saved successfully.', 'success');
+        form.reset();
+        form.updateValueAndValidity();
+        this.selectedMethod = '';
+      } else {
+        this.toastService.showToast('Something happened while processing your request.', 'error');
+      }
+    });
   }
 
   removePayment(payment: Payment): void {
-    this.savedPayments = this.savedPayments.filter(p => p !== payment);
+    this.accountService.deletePaymentOptionById(payment.id || '').subscribe(success => {
+      if (success) {
+        this.toastService.showToast('The payment option was deleted successfully', 'success');
+      } else {
+        this.toastService.showToast('Something issue while processing your request. Please try again.', 'error');
+      }
+    });
+    this.loadAllSavedPaymentOptions();
   }
 
   onMethodChange(): void {

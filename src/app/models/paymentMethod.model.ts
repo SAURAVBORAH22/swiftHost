@@ -1,5 +1,6 @@
 export interface Payment {
-    id: string;
+    id?: string;
+    userId: string;
     method: string;
     details: any;
 }

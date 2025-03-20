@@ -4,7 +4,8 @@
     <!-- Payment Method Selection -->
     <div class="form-group mb-4">
         <label for="paymentMethod">Select Payment Method</label>
-        <select id="paymentMethod" class="form-control" [(ngModel)]="selectedMethod" (change)="onMethodChange()">
+        <select id="paymentMethod" class="form-control cursor-pointer" [(ngModel)]="selectedMethod"
+            (change)="onMethodChange()">
             <option value="" disabled>Select a payment method</option>
             <option value="Credit/Debit Card">Credit/Debit Card</option>
             <option value="UPI">UPI</option>
@@ -30,7 +31,7 @@
 
                     <div class="form-group mb-3">
                         <label>Card Type</label>
-                        <select formControlName="cardType" class="form-control">
+                        <select formControlName="cardType" class="form-control cursor-pointer">
                             <option value="">Select Card Type</option>
                             <option value="Visa">Visa</option>
                             <option value="MasterCard">MasterCard</option>

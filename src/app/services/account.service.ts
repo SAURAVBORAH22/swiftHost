@@ -84,4 +84,35 @@ export class AccountService {
             catchError(() => of(false))
         );
     }
+
+    savePaymentOption(data: any): Observable<boolean> {
+        return from(this.firestore.collection(this.payment_option_collection).add(data)).pipe(
+            map(() => true),
+            catchError(error => {
+                return of(false);
+            })
+        );
+    }
+
+    fetchAllPaymentOptionsForUser(userId: string): Observable<any[]> {
+        return this.firestore
+            .collection(this.payment_option_collection, ref => ref.where('userId', '==', userId))
+            .snapshotChanges()
+            .pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as { [key: string]: any };
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
+
+    deletePaymentOptionById(docId: string): Observable<boolean> {
+        return from(this.firestore.collection(this.payment_option_collection).doc(docId).delete()).pipe(
+            map(() => true),
+            catchError(error => {
+                return of(false);
+            })
+        );
+    }
 }
