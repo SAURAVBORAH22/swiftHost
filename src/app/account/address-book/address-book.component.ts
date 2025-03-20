@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class AddressBookComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private accountService: AccountService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private confirmationDialogService: ConfirmationDialogService
   ) { }
 
   ngOnInit(): void {
@@ -93,14 +95,19 @@ export class AddressBookComponent implements OnInit {
   }
 
   deleteAddress(id: string): void {
-    this.accountService.deleteAddress(id).subscribe(success => {
-      if (success) {
-        this.toastService.showToast('The address was deleted successfully', 'success');
-      } else {
-        this.toastService.showToast('Something happened while processing your request.', 'error');
-      }
-    });
-    this.loadInitialAddresses();
+    this.confirmationDialogService.confirm('Confirm Action', 'Are you sure you want to delete this?')
+      .then(confirmed => {
+        if (confirmed) {
+          this.accountService.deleteAddress(id).subscribe(success => {
+            if (success) {
+              this.toastService.showToast('The address was deleted successfully', 'success');
+            } else {
+              this.toastService.showToast('Something happened while processing your request.', 'error');
+            }
+          });
+          this.loadInitialAddresses();
+        }
+      });
   }
 
   isFieldInvalid(index: number, field: string): boolean {

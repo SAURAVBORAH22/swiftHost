@@ -213,7 +213,8 @@
                         <p><strong>Vendor:</strong> {{ payment.details.paylaterVendor }}</p>
                         <p><strong>Pay Later ID:</strong> {{ payment.details.paylaterId }}</p>
                     </div>
-                    <button class="btn btn-danger mt-3" (click)="removePayment(payment)">Remove Payment</button>
+                    <button class="btn btn-danger mt-3" (click)="openRemovePaymentConfirmation(payment)">Remove
+                        Payment</button>
                 </div>
             </div>
         </div>

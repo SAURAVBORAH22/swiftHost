@@ -15,6 +15,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { FooterComponent } from './components/footer/footer.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { MaskNumberPipe } from './pipes/maskNumber.pipe';
+import { ConfirmationDialogComponent } from './modals/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { MaskNumberPipe } from './pipes/maskNumber.pipe';
         ProductCardComponent,
         FooterComponent,
         ErrorPageComponent,
-        MaskNumberPipe
+        MaskNumberPipe,
+        ConfirmationDialogComponent
     ],
     exports: [
         PageLoaderComponent,
@@ -42,7 +44,8 @@ import { MaskNumberPipe } from './pipes/maskNumber.pipe';
         ProductCardComponent,
         FooterComponent,
         ErrorPageComponent,
-        MaskNumberPipe
+        MaskNumberPipe,
+        ConfirmationDialogComponent
     ],
     imports: [
         CommonModule,

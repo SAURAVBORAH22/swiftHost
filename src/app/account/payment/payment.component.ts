@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, 
 import { Payment } from 'src/app/models/paymentMethod.model';
 import { AccountService } from 'src/app/services/account.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { ToastService } from 'src/app/services/toast.service';
 
@@ -36,7 +37,8 @@ export class PaymentComponent implements OnInit {
     private encryptionService: EncryptionService,
     private authService: AuthService,
     private accountService: AccountService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private confirmationDialogService: ConfirmationDialogService
   ) {
     this.userId = this.authService.getUserFromLocalStore()?.userId || null;
 
@@ -110,15 +112,20 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  removePayment(payment: Payment): void {
-    this.accountService.deletePaymentOptionById(payment.id || '').subscribe(success => {
-      if (success) {
-        this.toastService.showToast('The payment option was deleted successfully', 'success');
-      } else {
-        this.toastService.showToast('Something issue while processing your request. Please try again.', 'error');
-      }
-    });
-    this.loadAllSavedPaymentOptions();
+  openRemovePaymentConfirmation(payment: Payment) {
+    this.confirmationDialogService.confirm('Confirm Action', 'Are you sure you want to delete this?')
+      .then(confirmed => {
+        if (confirmed) {
+          this.accountService.deletePaymentOptionById(payment.id || '').subscribe(success => {
+            if (success) {
+              this.toastService.showToast('The payment option was deleted successfully', 'success');
+            } else {
+              this.toastService.showToast('Something issue while processing your request. Please try again.', 'error');
+            }
+          });
+          this.loadAllSavedPaymentOptions();
+        }
+      });
   }
 
   onMethodChange(): void {
