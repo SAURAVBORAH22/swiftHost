@@ -2,30 +2,30 @@
     <h3>Manage My Account</h3>
     <ul>
         <li [class.active]="isActive('/account/profile')">
-            <a routerLink="/account/profile">My Profile</a>
+            <a class="cursor-pointer" (click)="navigate('/account/profile')">My Profile</a>
         </li>
         <li [class.active]="isActive('/account/address-book')">
-            <a routerLink="/account/address-book">Address Book</a>
+            <a class="cursor-pointer" (click)="navigate('/account/address-book')">Address Book</a>
         </li>
         <li [class.active]="isActive('/account/payment')">
-            <a routerLink="/account/payment">My Payment Options</a>
+            <a class="cursor-pointer" (click)="navigate('/account/payment')">My Payment Options</a>
         </li>
     </ul>
 
     <h3>My Orders</h3>
     <ul>
         <li [class.active]="isActive('/account/returns')">
-            <a routerLink="/account/returns">My Returns</a>
+            <a class="cursor-pointer" (click)="navigate('/account/returns')">My Returns</a>
         </li>
         <li [class.active]="isActive('/account/cancellations')">
-            <a routerLink="/account/cancellations">My Cancellations</a>
+            <a class="cursor-pointer" (click)="navigate('/account/cancellations')">My Cancellations</a>
         </li>
     </ul>
 
     <h3>My Wishlist</h3>
     <ul>
         <li [class.active]="isActive('/account/wishlist')">
-            <a routerLink="/account/wishlist">My Wishlist</a>
+            <a class="cursor-pointer" (click)="navigate('/account/wishlist')">My Wishlist</a>
         </li>
     </ul>
 </div>

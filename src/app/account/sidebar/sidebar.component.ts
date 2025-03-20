@@ -10,6 +10,10 @@ export class SidebarComponent {
 
   constructor(private router: Router) { }
 
+  navigate(route: string): void {
+    this.router.navigate([route]);
+  }
+
   isActive(route: string): boolean {
     return this.router.url === route;
   }
