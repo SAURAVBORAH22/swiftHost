@@ -14,6 +14,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { MaskNumberPipe } from './pipes/maskNumber.pipe';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
         CarouselComponent,
         ProductCardComponent,
         FooterComponent,
-        ErrorPageComponent
+        ErrorPageComponent,
+        MaskNumberPipe
     ],
     exports: [
         PageLoaderComponent,
@@ -39,7 +41,8 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
         CarouselComponent,
         ProductCardComponent,
         FooterComponent,
-        ErrorPageComponent
+        ErrorPageComponent,
+        MaskNumberPipe
     ],
     imports: [
         CommonModule,

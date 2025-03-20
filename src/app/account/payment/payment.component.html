@@ -1,0 +1,220 @@
+<div class="container my-5">
+    <h2 class="text-center mb-4">Payment Options</h2>
+
+    <!-- Payment Method Selection -->
+    <div class="form-group mb-4">
+        <label for="paymentMethod">Select Payment Method</label>
+        <select id="paymentMethod" class="form-control" [(ngModel)]="selectedMethod" (change)="onMethodChange()">
+            <option value="" disabled>Select a payment method</option>
+            <option value="Credit/Debit Card">Credit/Debit Card</option>
+            <option value="UPI">UPI</option>
+            <option value="Net Banking">Net Banking</option>
+            <option value="Pay Later">Pay Later</option>
+        </select>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Credit/Debit Card Form -->
+        <div *ngIf="selectedMethod === 'Credit/Debit Card'" class="col-md-12">
+            <div class="card p-4 shadow-sm">
+                <h4>Credit/Debit Card</h4>
+                <form [formGroup]="creditCardForm" (ngSubmit)="addPayment(creditCardForm, 'Credit/Debit Card')">
+                    <div class="form-group mb-3">
+                        <label>Card Holder Name</label>
+                        <input type="text" formControlName="cardHolderName" class="form-control" />
+                        <div *ngIf="creditCardForm.get('cardHolderName')?.touched && creditCardForm.get('cardHolderName')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Card Type</label>
+                        <select formControlName="cardType" class="form-control">
+                            <option value="">Select Card Type</option>
+                            <option value="Visa">Visa</option>
+                            <option value="MasterCard">MasterCard</option>
+                            <option value="Amex">Amex</option>
+                        </select>
+                        <div *ngIf="creditCardForm.get('cardType')?.touched && creditCardForm.get('cardType')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Card Number</label>
+                        <input type="text" formControlName="cardNumber" class="form-control" />
+                        <div *ngIf="creditCardForm.get('cardNumber')?.touched && creditCardForm.get('cardNumber')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Confirm Card Number</label>
+                        <input type="text" formControlName="confirmCardNumber" class="form-control" />
+                        <div *ngIf="creditCardForm.get('confirmCardNumber')?.touched && creditCardForm.get('confirmCardNumber')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                        <div *ngIf="creditCardForm.errors?.mismatch && creditCardForm.get('confirmCardNumber')?.touched"
+                            class="text-danger">
+                            Card numbers do not match.
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Expiry Date</label>
+                        <input type="month" formControlName="expiryDate" class="form-control" />
+                        <div *ngIf="creditCardForm.get('expiryDate')?.touched && creditCardForm.get('expiryDate')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>CVV</label>
+                        <input type="text" formControlName="cvv" class="form-control" />
+                        <div *ngIf="creditCardForm.get('cvv')?.touched && creditCardForm.get('cvv')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3 w-100">Add Card</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- UPI Form -->
+        <div *ngIf="selectedMethod === 'UPI'" class="col-md-12">
+            <div class="card p-4 shadow-sm">
+                <h4>UPI</h4>
+                <form [formGroup]="upiForm" (ngSubmit)="addPayment(upiForm, 'UPI')">
+                    <div class="form-group mb-3">
+                        <label>UPI Number</label>
+                        <input type="text" formControlName="upiNumber" class="form-control" />
+                        <div *ngIf="upiForm.get('upiNumber')?.touched && upiForm.get('upiNumber')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3 w-100">Add UPI</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Net Banking Form -->
+        <div *ngIf="selectedMethod === 'Net Banking'" class="col-md-12">
+            <div class="card p-4 shadow-sm">
+                <h4>Net Banking</h4>
+                <form [formGroup]="netBankingForm" (ngSubmit)="addPayment(netBankingForm, 'Net Banking')">
+                    <div class="form-group mb-3">
+                        <label>Account Holder Name</label>
+                        <input type="text" formControlName="accountHolderName" class="form-control" />
+                        <div *ngIf="netBankingForm.get('accountHolderName')?.touched && netBankingForm.get('accountHolderName')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Account Number</label>
+                        <input type="text" formControlName="accountNumber" class="form-control" />
+                        <div *ngIf="netBankingForm.get('accountNumber')?.touched && netBankingForm.get('accountNumber')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Confirm Account Number</label>
+                        <input type="text" formControlName="confirmAccountNumber" class="form-control" />
+                        <div *ngIf="netBankingForm.get('confirmAccountNumber')?.touched && netBankingForm.get('confirmAccountNumber')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                        <div *ngIf="netBankingForm.errors?.mismatch && netBankingForm.get('confirmAccountNumber')?.touched"
+                            class="text-danger">
+                            Account numbers do not match.
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Bank Name</label>
+                        <input type="text" formControlName="bankName" class="form-control" />
+                        <div *ngIf="netBankingForm.get('bankName')?.touched && netBankingForm.get('bankName')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>IFSC Code</label>
+                        <input type="text" formControlName="ifscCode" class="form-control" />
+                        <div *ngIf="netBankingForm.get('ifscCode')?.touched && netBankingForm.get('ifscCode')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3 w-100">Add Net Banking</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Pay Later Form -->
+        <div *ngIf="selectedMethod === 'Pay Later'" class="col-md-12">
+            <div class="card p-4 shadow-sm">
+                <h4>Pay Later</h4>
+                <form [formGroup]="payLaterForm" (ngSubmit)="addPayment(payLaterForm, 'Pay Later')">
+                    <div class="form-group mb-3">
+                        <label>Vendor</label>
+                        <input type="text" formControlName="paylaterVendor" class="form-control" />
+                        <div *ngIf="payLaterForm.get('paylaterVendor')?.touched && payLaterForm.get('paylaterVendor')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Pay Later ID</label>
+                        <input type="text" formControlName="paylaterId" class="form-control" />
+                        <div *ngIf="payLaterForm.get('paylaterId')?.touched && payLaterForm.get('paylaterId')?.invalid"
+                            class="text-danger">
+                            This field is mandatory.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3 w-100">Add Pay Later</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Saved Payments -->
+    <div *ngIf="savedPayments.length" class="mt-5">
+        <h3>Saved Payments</h3>
+        <div class="row">
+            <div *ngFor="let payment of savedPayments" class="col-md-6 mb-4">
+                <div class="card p-4 shadow-sm">
+                    <h5>{{ payment.method }}</h5>
+                    <div *ngIf="payment.method === 'Credit/Debit Card'">
+                        <p><strong>Card Holder:</strong> {{ payment.details.cardHolderName }}</p>
+                        <p><strong>Card Type:</strong> {{ payment.details.cardType }}</p>
+                        <p><strong>Card Number:</strong> {{ payment.details.cardNumber | maskNumber }}</p>
+                        <p><strong>Expiry Date:</strong> {{ payment.details.expiryDate }}</p>
+                    </div>
+                    <div *ngIf="payment.method === 'UPI'">
+                        <p><strong>UPI Number:</strong> {{ payment.details.upiNumber }}</p>
+                    </div>
+                    <div *ngIf="payment.method === 'Net Banking'">
+                        <p><strong>Account Holder:</strong> {{ payment.details.accountHolderName }}</p>
+                        <p><strong>Account Number:</strong> {{ payment.details.accountNumber | maskNumber }}</p>
+                        <p><strong>Bank Name:</strong> {{ payment.details.bankName }}</p>
+                        <p><strong>IFSC Code:</strong> {{ payment.details.ifscCode }}</p>
+                    </div>
+                    <div *ngIf="payment.method === 'Pay Later'">
+                        <p><strong>Vendor:</strong> {{ payment.details.paylaterVendor }}</p>
+                        <p><strong>Pay Later ID:</strong> {{ payment.details.paylaterId }}</p>
+                    </div>
+                    <button class="btn btn-danger mt-3" (click)="removePayment(payment)">Remove Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 export class AccountService {
     user_info_collection: string = 'USER_INFO';
     address_book_collection: string = 'ADDRESS_BOOK';
+    payment_option_collection: string = 'PAYMENT_OPTIONS';
 
     constructor(private firestore: AngularFirestore) { }
 
