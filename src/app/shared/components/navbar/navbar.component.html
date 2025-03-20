@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Navbar Links -->
+        <!-- Navbar Links & Components -->
         <div class="collapse navbar-collapse navbar-links-container" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -32,12 +32,11 @@
                         {{ 'SIGN_UP' | translate }}
                     </a>
                 </li>
-
                 <!-- Language Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button"
                         (click)="toggleLanguageDropdown()">
-                        {{'LANGUAGE' | translate}}
+                        {{ 'LANGUAGE' | translate }}
                     </a>
                     <ul class="dropdown-menu" [class.show]="languageDropdownOpen">
                         <li><a class="dropdown-item" (click)="changeLanguage('en')">English</a></li>
@@ -50,8 +49,8 @@
             </ul>
 
             <!-- Search Bar -->
-            <form class="d-flex" role="search">
-                <div class="input-group">
+            <form class="d-flex w-100" role="search">
+                <div class="input-group search-input-group">
                     <input class="form-control" type="search" #searchInput
                         placeholder="{{ 'NAVBAR_SEARCH' | translate }}" aria-label="Search">
                     <button type="button" class="input-group-text" (click)="onSearch(searchInput.value)">
@@ -69,7 +68,6 @@
                         <i class="bi bi-heart fs-5" [ngClass]="{'text-danger': activeTab === '/wishlist'}"></i>
                     </button>
                 </li>
-
                 <!-- Cart -->
                 <li class="nav-item position-relative">
                     <button class="nav-link btn p-0 border-0 bg-transparent" (click)="navigateToCart()">
@@ -80,7 +78,6 @@
                         </span>
                     </button>
                 </li>
-
                 <!-- Profile Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="javascript:void(0)"
@@ -90,22 +87,22 @@
                     <ul class="dropdown-menu dropdown-menu-end" [class.show]="dropdownOpen">
                         <li>
                             <a class="dropdown-item cursor-pointer" [routerLink]="'/account/profile'">
-                                <i class="bi bi-person-circle me-2"></i> {{'MANAGE_MY_ACCOUNT' | translate}}
+                                <i class="bi bi-person-circle me-2"></i> {{ 'MANAGE_MY_ACCOUNT' | translate }}
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item cursor-pointer" [routerLink]="'/orders'">
-                                <i class="bi bi-bag-check me-2"></i> {{'MY_ORDERS' | translate}}
+                                <i class="bi bi-bag-check me-2"></i> {{ 'MY_ORDERS' | translate }}
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item cursor-pointer" [routerLink]="'/cancellations'">
-                                <i class="bi bi-x-circle me-2"></i> {{'MY_CANCELLATIONS' | translate}}
+                                <i class="bi bi-x-circle me-2"></i> {{ 'MY_CANCELLATIONS' | translate }}
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item cursor-pointer" [routerLink]="'/reviews'">
-                                <i class="bi bi-star me-2"></i> {{'MY_REVIEWS' | translate}}
+                                <i class="bi bi-star me-2"></i> {{ 'MY_REVIEWS' | translate }}
                             </a>
                         </li>
                         <li>

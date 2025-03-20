@@ -1,20 +1,32 @@
 .navbar-container {
-    height: 70px;
-    padding: 36px 100px;
+    min-height: 70px;
+    padding: 20px 60px;
     border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
 
     .navbar-brand {
-        font-size: 24px;
+        font-size: 1.5rem;
         font-weight: 600;
     }
 
     .navbar-links-container {
-        padding: 0 100px;
+        padding: 0 30px;
 
         .nav-item {
-            font-size: 18px;
+            font-size: 1rem;
             font-weight: 600;
-            margin: 0 16px;
+            margin: 0 10px;
+        }
+    }
+
+    /* Ensure the search bar expands and doesn't collapse */
+    form[role="search"] {
+        flex: 1;
+
+        .search-input-group {
+            flex: 1 1 auto;
+            min-width: 200px;
         }
     }
 
@@ -29,5 +41,59 @@
         border-radius: 50%;
         object-fit: cover;
         cursor: pointer;
+    }
+
+    .icons-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .navbar-container {
+        padding: 15px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 10px 20px;
+    }
+
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .navbar-links-container {
+        padding: 0;
+
+        .nav-item {
+            font-size: 0.9rem;
+            margin: 0 5px;
+        }
+    }
+
+    .icons-container {
+        gap: 10px;
+    }
+}
+
+/* Responsive Dropdown Adjustments */
+@media (max-width: 576px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Make dropdown menus full-width on small screens */
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        /* Optionally add padding or border adjustments */
+        padding: 0.5rem 0;
     }
 }
