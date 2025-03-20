@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { CouponsService } from 'src/app/services/coupons.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-cart',
@@ -28,7 +29,8 @@ export class CartComponent implements OnInit {
     private productsService: ProductsService,
     private couponsService: CouponsService,
     private toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private confirmationDialogService: ConfirmationDialogService
   ) { }
 
   ngOnInit(): void {
@@ -87,13 +89,18 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(item: any): void {
-    this.cartService.removeFromCart(item.id, this.userId || '')
-      .subscribe(success => {
-        if (!success) {
-          this.toastService.showToast('Some issue occured while removing this item from your cart. Please try again.', 'error');
-        } else {
-          this.loadAPIs();
-          this.updateCartCount();
+    this.confirmationDialogService.confirm('Confirm Action', 'Are you sure you want to remove this item from your cart?')
+      .then(confirmed => {
+        if (confirmed) {
+          this.cartService.removeFromCart(item.id, this.userId || '')
+            .subscribe(success => {
+              if (!success) {
+                this.toastService.showToast('Some issue occured while removing this item from your cart. Please try again.', 'error');
+              } else {
+                this.loadAPIs();
+                this.updateCartCount();
+              }
+            });
         }
       });
   }
@@ -125,13 +132,18 @@ export class CartComponent implements OnInit {
   }
 
   clearCart(): void {
-    this.cartService.clearCart(this.userId)
-      .subscribe(success => {
-        if (!success) {
-          this.toastService.showToast('Some issue occured while clearing your cart', 'error');
-        } else {
-          this.loadAPIs();
-          this.updateCartCount();
+    this.confirmationDialogService.confirm('Confirm Action', 'All items will be removed from your cart. Are you sure you want to clear your cart?')
+      .then(confirmed => {
+        if (confirmed) {
+          this.cartService.clearCart(this.userId)
+            .subscribe(success => {
+              if (!success) {
+                this.toastService.showToast('Some issue occured while clearing your cart', 'error');
+              } else {
+                this.loadAPIs();
+                this.updateCartCount();
+              }
+            });
         }
       });
   }
