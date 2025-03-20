@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AccountService } from 'src/app/services/account.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-address-book',
@@ -7,31 +10,32 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./address-book.component.css']
 })
 export class AddressBookComponent implements OnInit {
-
+  userId: string | null = '';
   addresses: any[] = [];
   addressForms: FormGroup[] = [];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private accountService: AccountService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
+    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
     this.loadInitialAddresses();
   }
 
   loadInitialAddresses(): void {
-    this.addresses = [
-      {
-        nickname: 'Home', fullName: 'John Doe', phoneNumber: '1234567890',
-        addressLine1: '123 Main St', addressLine2: '', city: 'Bangalore',
-        state: 'Karnataka', postalCode: '560001', country: 'India',
-        isDefault: true, isEditing: false
-      }
-    ];
-
-    this.addressForms = this.addresses.map(address => this.createAddressForm(address));
+    this.accountService.getAllAddresses(this.userId || '').subscribe(addresses => {
+      this.addresses = addresses;
+      this.addressForms = this.addresses.map(address => this.createAddressForm(address));
+    });
   }
 
   createAddressForm(address: any): FormGroup {
     return this.fb.group({
+      id: [address.id || null],
       nickname: [address.nickname, Validators.required],
       fullName: [address.fullName, Validators.required],
       phoneNumber: [address.phoneNumber, [Validators.required, Validators.pattern(/^\d{10}$/)]],
@@ -51,7 +55,6 @@ export class AddressBookComponent implements OnInit {
       addressLine1: '', addressLine2: '', city: '', state: '',
       postalCode: '', country: '', isDefault: false, isEditing: true
     };
-
     this.addresses.push(newAddress);
     this.addressForms.push(this.createAddressForm(newAddress));
   }
@@ -62,11 +65,26 @@ export class AddressBookComponent implements OnInit {
 
   saveAddress(index: number): void {
     if (this.addressForms[index].valid) {
-      this.addresses[index] = {
-        ...this.addresses[index],
-        ...this.addressForms[index].value,
-        isEditing: false
+      const formData = {
+        userId: this.userId,
+        ...this.addressForms[index].value
       };
+      if (formData.isDefault && this.addresses.some(address => (address.isDefault && formData.id !== address.id))) {
+        this.toastService.showToast('You already have one default address.', 'error');
+        return;
+      }
+      this.accountService.saveAddressInfo(formData).subscribe(success => {
+        if (success) {
+          this.toastService.showToast('Your details were saved successfully.', 'success');
+          this.addresses[index] = {
+            ...this.addresses[index],
+            ...this.addressForms[index].value,
+            isEditing: false
+          };
+        } else {
+          this.toastService.showToast('Something happened while processing your request.', 'error');
+        }
+      });
     }
   }
 
@@ -74,9 +92,15 @@ export class AddressBookComponent implements OnInit {
     this.addresses[index].isEditing = false;
   }
 
-  deleteAddress(index: number): void {
-    this.addresses.splice(index, 1);
-    this.addressForms.splice(index, 1);
+  deleteAddress(id: string): void {
+    this.accountService.deleteAddress(id).subscribe(success => {
+      if (success) {
+        this.toastService.showToast('The address was deleted successfully', 'success');
+      } else {
+        this.toastService.showToast('Something happened while processing your request.', 'error');
+      }
+    });
+    this.loadInitialAddresses();
   }
 
   isFieldInvalid(index: number, field: string): boolean {

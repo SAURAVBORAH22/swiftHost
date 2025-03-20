@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
       userId: this.userId,
       ...this.profileForm.value
     };
-    this.accountService.saveProfileInfo(formData).subscribe(success => {
+    this.accountService.saveProfileInfo(this.userId || '', formData).subscribe(success => {
       if (success) {
         this.toastService.showToast('Your details were saved successfully.', 'success');
         this.toggleEdit();
