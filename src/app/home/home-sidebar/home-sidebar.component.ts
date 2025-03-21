@@ -13,15 +13,22 @@ export class HomeSidebarComponent {
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
     if (this.isCollapsed) {
-      this.categories.forEach(category => category.expanded = false);
+      this.categories.forEach(category => {
+        category.expanded = false;
+      });
     }
   }
 
   toggleCategory(category: any) {
+    this.categories.forEach(cat => cat.active = false);
+    category.active = true;
     category.expanded = !category.expanded;
   }
 
   loadSubcategory(category: any, subcategory: string) {
+    this.categories.forEach(cat => cat.active = false);
+    category.active = true;
+
     this.dataEvent.emit({
       categoryId: category.id,
       subcategory: subcategory,
