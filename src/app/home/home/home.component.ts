@@ -1,22 +1,19 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomePageService } from 'src/app/services/homePage.service';
 import { ProductsService } from 'src/app/services/products.service';
-import { TranslationPipe } from 'src/app/shared/pipes/translation.pipe';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-  providers: [TranslationPipe, ProductsService]
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
   @ViewChild('categoryProductContainer', { static: false }) categoryProductContainer!: ElementRef;
   @ViewChild('allProductContainer', { static: false }) allProductContainer!: ElementRef;
-  @Output() cartUpdated = new EventEmitter<boolean>();
+
   loading: boolean = false;
-  userId: string | null = '';
-  categoriesList: any[] = [];
   recommendationList: any[] = [];
   productsList: any[] = [];
   isCategorySelected: boolean = false;
@@ -28,26 +25,28 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private homePageService: HomePageService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
     this.loadAPIs();
+
+    // Subscribe to selected category changes from the shared service
+    this.categoryService.currentCategory$.subscribe(category => {
+      if (category) {
+        this.selectedCategory = category;
+        this.isCategorySelected = true;
+        this.loadCategoryProducts(category);
+      }
+    });
   }
 
   private loadAPIs(): void {
-    this.fetchCategories();
     this.getRecommendations();
     this.getAllProducts();
     this.getNewArrvials();
     this.getBestSellersList();
-  }
-
-  fetchCategories(): void {
-    this.homePageService.getCategoriesData().subscribe(categories => {
-      this.categoriesList = categories;
-      this.categoriesList.sort((a, b) => a.sequence - b.sequence);
-    });
   }
 
   getRecommendations(): void {
@@ -71,6 +70,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  loadCategoryProducts(category: any) {
+    this.productsService.getProductsByCategory(category.categoryId, category.subcategory)
+      .subscribe(products => {
+        this.productByCategoryList = products;
+      });
+  }
+
   scrollLeft(container: HTMLElement): void {
     if (container) {
       container.scrollBy({ left: -260, behavior: 'smooth' });
@@ -81,20 +87,6 @@ export class HomeComponent implements OnInit {
     if (container) {
       container.scrollBy({ left: 260, behavior: 'smooth' });
     }
-  }
-
-
-  updateCartCount(event: boolean) {
-    this.cartUpdated.emit(event);
-  }
-
-  receiveData(data: string) {
-    this.isCategorySelected = true;
-    this.selectedCategory = data;
-    this.productsService.getProductsByCategory(this.selectedCategory.categoryId, this.selectedCategory.subcategory)
-      .subscribe(products => {
-        this.productByCategoryList = products;
-      });
   }
 
   getNewArrvials() {

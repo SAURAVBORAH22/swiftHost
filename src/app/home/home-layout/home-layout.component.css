@@ -1,0 +1,13 @@
+.main-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+app-sidebar {
+    width: 25%;
+}
+
+.content {
+    width: 75%;
+    padding: 20px;
+}

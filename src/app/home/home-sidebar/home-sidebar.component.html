@@ -1,0 +1,20 @@
+<div class="sidebar">
+    <h3>Categories</h3>
+    <ul>
+        <li *ngFor="let category of categories" [class.active]="category.active">
+            <a class="cursor-pointer" (click)="toggleCategory(category)">
+                <i class="bi" [ngClass]="category.icon"></i>
+                <span>{{ category.name }}</span>
+                <i class="bi ms-auto" [ngClass]="category.expanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+            </a>
+            <ul class="sub-menu" *ngIf="category.expanded">
+                <li *ngFor="let sub of category.subcategories">
+                    <a class="cursor-pointer" (click)="loadSubcategory(category, sub.name)">
+                        <i class="bi" [ngClass]="sub.icon"></i>
+                        <span>{{ sub.name }}</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
