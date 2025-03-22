@@ -38,7 +38,6 @@
             <button (click)="increaseQuantity()" [disabled]="quantity >= productDetails?.quantity">+</button>
         </div>
 
-        <button class="buy-now" [disabled]="productDetails?.quantity === 0">Buy Now</button>
         <div class="action-buttons">
             <button class="add-to-cart" (click)="addToCart()" [disabled]="productDetails?.quantity === 0">
                 🛒 Add to Cart

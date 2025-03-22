@@ -157,4 +157,8 @@ export class CartComponent implements OnInit {
   navigateToDetails(item: any): void {
     this.router.navigate(['/products/', item.id]);
   }
+
+  navigateToCheckout() {
+    this.router.navigate(['/products/checkout']);
+  }
 }

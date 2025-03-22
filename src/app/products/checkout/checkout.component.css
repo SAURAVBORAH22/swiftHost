@@ -1,0 +1,357 @@
+/* checkout.component.css */
+
+/* General Layout */
+.container {
+    padding: 30px;
+}
+
+/* Alternative Stylish Headings */
+h3,
+h4 {
+    font-family: 'Roboto Slab', serif;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0 20px;
+    /* Added margin above and below */
+}
+
+/* Specific heading backgrounds */
+h3 {
+    background: linear-gradient(135deg, #ff6b6b, #f06595);
+    font-size: 24px;
+}
+
+h4 {
+    background: linear-gradient(135deg, #4dabf7, #5c7cfa);
+    font-size: 20px;
+}
+
+/* Additional spacing for elements following headings */
+.mt-3 {
+    margin-top: 1rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+/* Scrollable Address Container */
+.address-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Address Card Styling */
+.address-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 15px;
+}
+
+.address-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.address-card.selected {
+    border: 2px solid #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Address Card Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header-text h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.badges {
+    margin-top: 5px;
+}
+
+.badge {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    margin-right: 5px;
+    color: #fff;
+}
+
+.default-badge {
+    background: #28a745;
+}
+
+.nickname-badge {
+    background: #17a2b8;
+}
+
+/* Radio Button Styling for Address */
+.header .radio input[type="radio"] {
+    width: 18px;
+    height: 18px;
+}
+
+/* Address Content Styling */
+.address-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Improved Order Items Section Styling */
+.products-container {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+.products-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table Header Styling */
+.products-container th {
+    background: #f8f9fa;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #343a40;
+    border-bottom: 1px solid #e0e0e0;
+    height: 80px;
+}
+
+/* Table Data Styling */
+.products-container td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+    height: 80px;
+}
+
+.products-container tr:last-child td {
+    border-bottom: none;
+}
+
+.products-container tr:hover {
+    background: #f1f1f1;
+}
+
+/* Fixed Product Image Styling */
+.product-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Responsive adjustments for Order Items */
+@media (max-width: 767px) {
+
+    .products-container td,
+    .products-container th {
+        padding: 8px;
+        height: auto;
+    }
+}
+
+/* Order Summary Styling */
+.order-summary {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+}
+
+/* Payment Type Selection Styling */
+.payment-type-selection {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.payment-type-selection label {
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    padding-left: 28px;
+    margin-right: 20px;
+    user-select: none;
+}
+
+.payment-type-selection input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.payment-type-selection .radio-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.payment-type-selection label:hover input~.radio-btn {
+    background-color: #ccc;
+}
+
+.payment-type-selection input:checked~.radio-btn {
+    background-color: #007bff;
+}
+
+.payment-type-selection .radio-btn:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.payment-type-selection input:checked~.radio-btn:after {
+    display: block;
+}
+
+.payment-type-selection .radio-btn:after {
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+}
+
+/* Payment Container Styling */
+.payment-container {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-top: 15px;
+}
+
+/* Payment Card Styling */
+.payment-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 15px;
+}
+
+.payment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.payment-card.selected {
+    border: 2px solid #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Payment Card Header */
+.payment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.payment-header input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+.payment-method {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Payment Details Styling */
+.payment-details p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* COD Section Styling */
+.cod-section {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Button Styling */
+.btn-danger {
+    background: #dc3545;
+    border: none;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+    transform: scale(1.05);
+}
+
+/* Custom Scrollbar Styling for Address, Products, and Payment Containers */
+.address-container,
+.products-container,
+.payment-container {
+    scrollbar-width: thin;
+    scrollbar-color: #bbb transparent;
+}
+
+.address-container::-webkit-scrollbar,
+.products-container::-webkit-scrollbar,
+.payment-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.address-container::-webkit-scrollbar-thumb,
+.products-container::-webkit-scrollbar-thumb,
+.payment-container::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 4px;
+}
+
+.address-container::-webkit-scrollbar-thumb:hover,
+.products-container::-webkit-scrollbar-thumb:hover,
+.payment-container::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

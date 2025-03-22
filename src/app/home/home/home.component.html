@@ -41,7 +41,8 @@
                     <img [src]="newArrivalList[0].images[0]" alt="{{ newArrivalList[0].name }}">
                     <div class="overlay">
                         <h3>{{ newArrivalList[0].name }}</h3>
-                        <a href="#" class="shop-now">Shop Now</a>
+                        <button class="view-product-btn" (click)="navigateToProductDetails(newArrivalList[0].id)">View
+                            Product</button>
                     </div>
                 </div>
             </div>
@@ -52,7 +53,8 @@
                             <img [src]="newArrivalList[1].images[0]" alt="{{ newArrivalList[1].name }}">
                             <div class="overlay">
                                 <h3>{{ newArrivalList[1].name }}</h3>
-                                <a href="#" class="shop-now">Shop Now</a>
+                                <button class="view-product-btn"
+                                    (click)="navigateToProductDetails(newArrivalList[1].id)">View Product</button>
                             </div>
                         </div>
                     </div>
@@ -61,7 +63,8 @@
                             <img [src]="newArrivalList[2].images[0]" alt="{{ newArrivalList[2].name }}">
                             <div class="overlay">
                                 <h3>{{ newArrivalList[2].name }}</h3>
-                                <a href="#" class="shop-now">Shop Now</a>
+                                <button class="view-product-btn"
+                                    (click)="navigateToProductDetails(newArrivalList[2].id)">View Product</button>
                             </div>
                         </div>
                     </div>
@@ -70,7 +73,8 @@
                             <img [src]="newArrivalList[3].images[0]" alt="{{ newArrivalList[3].name }}">
                             <div class="overlay">
                                 <h3>{{ newArrivalList[3].name }}</h3>
-                                <a href="#" class="shop-now">Shop Now</a>
+                                <button class="view-product-btn"
+                                    (click)="navigateToProductDetails(newArrivalList[3].id)">View Product</button>
                             </div>
                         </div>
                     </div>

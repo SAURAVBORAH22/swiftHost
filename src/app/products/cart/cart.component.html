@@ -96,7 +96,8 @@
                     <p>Subtotal: <span class="fw-bold">{{ getTotalPrice() | currency:'INR' }}</span></p>
                     <p>Shipping: <span class="fw-bold">Free</span></p>
                     <h4 class="fw-bold">Total: {{ getTotalPrice() | currency:'INR' }}</h4>
-                    <button class="btn btn-danger w-100 mt-3">Proceed to Checkout</button>
+                    <button class="btn btn-danger w-100 mt-3" (click)="navigateToCheckout()">Proceed to
+                        Checkout</button>
                 </div>
             </div>
         </div>

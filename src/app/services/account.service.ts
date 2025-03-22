@@ -67,10 +67,13 @@ export class AccountService {
             .pipe(
                 map(snapshot => {
                     if (!snapshot.empty) {
-                        return snapshot.docs.map(doc => ({
-                            id: doc.id,
-                            ...(doc.data() as object)
-                        }));
+                        return snapshot.docs.map(doc => {
+                            const data = doc.data() as object;
+                            return {
+                                ...data,
+                                id: doc.id,
+                            };
+                        });
                     }
                     return [];
                 }),

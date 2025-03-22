@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  navigateToProductList(type: string) {
+  navigateToProductList(type: string): void {
     const query_params: any = { type };
     if (type === 'category' && this.selectedCategory) {
       Object.assign(query_params, {
@@ -110,5 +110,9 @@ export class HomeComponent implements OnInit {
       });
     }
     this.router.navigate(['/products/list'], { queryParams: query_params });
+  }
+
+  navigateToProductDetails(productId: string): void {
+    this.router.navigate(['/products/', productId]);
   }
 }

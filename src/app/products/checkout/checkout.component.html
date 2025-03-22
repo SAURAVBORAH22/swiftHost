@@ -1,0 +1,168 @@
+<!-- checkout.component.html -->
+<div class="container">
+    <div class="row">
+        <!-- Left Column: Address Selection and Payment Options -->
+        <div class="col-md-5">
+            <!-- Address Selection Section -->
+            <h3>Select Address</h3>
+            <div *ngIf="isLoadingAddresses" class="text-center my-3">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+            <div *ngIf="!isLoadingAddresses">
+                <div class="address-container">
+                    <div *ngFor="let address of saved_addresses; trackBy: trackByAddressId" class="card address-card"
+                        [class.selected]="address.id === selectedAddressId" (click)="selectAddress(address.id)">
+                        <div class="card-body">
+                            <div class="header">
+                                <div class="header-text">
+                                    <h5>{{ address.fullName }}</h5>
+                                    <div class="badges">
+                                        <span *ngIf="address.isDefault" class="badge default-badge">Default</span>
+                                        <span class="badge nickname-badge">{{ address.nickname }}</span>
+                                    </div>
+                                </div>
+                                <div class="radio">
+                                    <input type="radio" name="selectedAddress"
+                                        [checked]="address.id === selectedAddressId"
+                                        (change)="selectAddress(address.id)" />
+                                </div>
+                            </div>
+                            <div class="address-content">
+                                <p class="mb-1"><strong>Address:</strong></p>
+                                <p class="text-muted">
+                                    {{ address.addressLine1 }}, {{ address.addressLine2 }}<br />
+                                    {{ address.city }}, {{ address.state }} - {{ address.postalCode }}<br />
+                                    {{ address.country }}
+                                </p>
+                                <p class="mb-0"><strong>Phone:</strong> {{ address.phoneNumber }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="saved_addresses.length === 0" class="text-center my-3">
+                    <p>No saved addresses found.</p>
+                </div>
+            </div>
+
+            <!-- Payment Options Section -->
+            <h4 class="mt-4">Payment Options</h4>
+            <div class="payment-type-selection mb-3">
+                <label class="custom-radio">
+                    <input type="radio" name="paymentType" value="Online" [(ngModel)]="selectedPaymentType">
+                    <span class="radio-btn"></span>
+                    Online Payments
+                </label>
+                <label class="custom-radio ml-3">
+                    <input type="radio" name="paymentType" value="COD" [(ngModel)]="selectedPaymentType">
+                    <span class="radio-btn"></span>
+                    Cash on Delivery
+                </label>
+            </div>
+            <div *ngIf="selectedPaymentType==='Online'">
+                <div *ngIf="isLoadingPayments" class="text-center my-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+                <div *ngIf="!isLoadingPayments">
+                    <div class="payment-container">
+                        <div *ngFor="let payment of saved_payments; trackBy: trackByPaymentId" class="card payment-card"
+                            [class.selected]="payment.id === selectedPaymentId" (click)="selectPayment(payment.id)">
+                            <div class="card-body">
+                                <div class="payment-header">
+                                    <input type="radio" name="selectedPayment"
+                                        [checked]="payment.id === selectedPaymentId"
+                                        (change)="selectPayment(payment.id)" />
+                                    <span class="payment-method">{{ payment.method }}</span>
+                                </div>
+                                <div class="payment-details">
+                                    <div *ngIf="payment.method === 'Credit/Debit Card'">
+                                        <p><strong>Card Holder:</strong> {{ payment.details.cardHolderName }}</p>
+                                        <p><strong>Card Type:</strong> {{ payment.details.cardType }}</p>
+                                        <p><strong>Card Number:</strong> {{ payment.details.cardNumber | maskNumber }}
+                                        </p>
+                                        <p><strong>Expiry Date:</strong> {{ payment.details.expiryDate }}</p>
+                                    </div>
+                                    <div *ngIf="payment.method === 'UPI'">
+                                        <p><strong>UPI Number:</strong> {{ payment.details.upiNumber }}</p>
+                                    </div>
+                                    <div *ngIf="payment.method === 'Net Banking'">
+                                        <p><strong>Account Holder:</strong> {{ payment.details.accountHolderName }}</p>
+                                        <p><strong>Account Number:</strong> {{ payment.details.accountNumber |
+                                            maskNumber }}</p>
+                                        <p><strong>Bank Name:</strong> {{ payment.details.bankName }}</p>
+                                        <p><strong>IFSC Code:</strong> {{ payment.details.ifscCode }}</p>
+                                    </div>
+                                    <div *ngIf="payment.method === 'Pay Later'">
+                                        <p><strong>Vendor:</strong> {{ payment.details.paylaterVendor }}</p>
+                                        <p><strong>Pay Later ID:</strong> {{ payment.details.paylaterId }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="saved_payments.length === 0" class="text-center my-3">
+                            <p>No saved payment options found.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedPaymentType==='COD'" class="cod-section">
+                <p>Cash on Delivery will be applied.</p>
+            </div>
+        </div>
+
+        <!-- Right Column: Order Items and Order Summary -->
+        <div class="col-md-7">
+            <h4>Order Items</h4>
+            <div *ngIf="isLoadingProducts" class="text-center my-3">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+            <div *ngIf="!isLoadingProducts">
+                <div class="products-container">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th class="text-right">Price (₹)</th>
+                                <th class="text-center">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of selected_products">
+                                <td>
+                                    <img [src]="product.images[0]" alt="{{ product.name }}" class="product-img">
+                                </td>
+                                <td>{{ product.name }}</td>
+                                <td class="text-right">{{ product.price }}</td>
+                                <td class="text-center">{{ product.cartQuantity || 1 }}</td>
+                            </tr>
+                            <tr *ngIf="selected_products.length === 0">
+                                <td colspan="4" class="text-center">No products selected.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <h4 class="mt-3">Order Summary</h4>
+            <div class="order-summary mb-3">
+                <p><strong>Subtotal:</strong> ₹1750</p>
+                <p><strong>Shipping:</strong> Free</p>
+                <p><strong>Total:</strong> ₹1750</p>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-danger w-100"
+                    [disabled]="!selectedAddressId || (selectedPaymentType === 'Online' && !selectedPaymentId)"
+                    (click)="placeOrder()">
+                    Place Order
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
