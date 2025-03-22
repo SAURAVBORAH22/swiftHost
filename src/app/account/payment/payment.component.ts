@@ -32,6 +32,8 @@ export class PaymentComponent implements OnInit {
   netBankingForm: FormGroup;
   payLaterForm: FormGroup;
 
+  isLoading: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private encryptionService: EncryptionService,
@@ -78,11 +80,16 @@ export class PaymentComponent implements OnInit {
   }
 
   loadAllSavedPaymentOptions(): void {
+    this.isLoading = true;
     this.accountService.fetchAllPaymentOptionsForUser(this.userId || '').subscribe(payment_options => {
       payment_options.forEach(payment_option => {
         payment_option.details = this.encryptionService.decryptObject(payment_option.details);
-      })
+      });
       this.savedPayments = payment_options;
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
+      this.toastService.showToast('Error loading payment options.', 'error');
     });
   }
 
@@ -95,20 +102,26 @@ export class PaymentComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
     const payment: Payment = {
       userId: this.userId || '',
       method,
       details: this.encryptionService.encryptObject(form.value)
     };
     this.accountService.savePaymentOption(payment).subscribe(success => {
+      this.isLoading = false;
       if (success) {
         this.toastService.showToast('Your details were saved successfully.', 'success');
         form.reset();
         form.updateValueAndValidity();
         this.selectedMethod = '';
+        this.loadAllSavedPaymentOptions();
       } else {
         this.toastService.showToast('Something happened while processing your request.', 'error');
       }
+    }, error => {
+      this.isLoading = false;
+      this.toastService.showToast('Error while processing your request.', 'error');
     });
   }
 
@@ -116,14 +129,19 @@ export class PaymentComponent implements OnInit {
     this.confirmationDialogService.confirm('Confirm Action', 'Are you sure you want to delete this?')
       .then(confirmed => {
         if (confirmed) {
+          this.isLoading = true;
           this.accountService.deletePaymentOptionById(payment.id || '').subscribe(success => {
+            this.isLoading = false;
             if (success) {
               this.toastService.showToast('The payment option was deleted successfully', 'success');
+              this.loadAllSavedPaymentOptions();
             } else {
-              this.toastService.showToast('Something issue while processing your request. Please try again.', 'error');
+              this.toastService.showToast('Something went wrong while processing your request. Please try again.', 'error');
             }
+          }, error => {
+            this.isLoading = false;
+            this.toastService.showToast('Error while deleting the payment option.', 'error');
           });
-          this.loadAllSavedPaymentOptions();
         }
       });
   }

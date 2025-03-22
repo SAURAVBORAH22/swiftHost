@@ -4,22 +4,69 @@
     <div class="add-btn-container">
         <button class="btn btn-primary" (click)="addNewAddress()">➕ Add New Address</button>
     </div>
+    <div *ngIf="isLoading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
-    <div class="address-list">
+    <div class="address-list" *ngIf="!isLoading">
         <div *ngFor="let address of addresses; let i = index" class="card">
-
-            <!-- View Mode -->
-            <div *ngIf="!address.isEditing" class="card-content">
-                <div class="card-header">
-                    <h3>{{ address.nickname || 'No Nickname' }}
-                        <span *ngIf="address.isDefault">⭐ Default</span>
-                    </h3>
-                    <div class="actions">
-                        <button class="btn btn-edit" (click)="editAddress(i)">✏️ Edit</button>
-                        <button class="btn btn-delete" (click)="deleteAddress(address.id)">🗑️ Delete</button>
+            <form *ngIf="address.isEditing && addressForms[i]" [formGroup]="addressForms[i]" (ngSubmit)="saveAddress(i)"
+                class="form">
+                <div class="form-row">
+                    <div class="form-group"
+                        *ngFor="let field of ['nickname', 'fullName', 'phoneNumber', 'addressLine1', 'addressLine2', 'city', 'state', 'postalCode', 'country']">
+                        <label>{{ field | titlecase }}</label>
+                        <input [formControlName]="field" placeholder="{{ field | titlecase }}"
+                            [class.invalid]="isFieldInvalid(i, field)" class="form-control" />
+                        <div *ngIf="isFieldInvalid(i, field)" class="error">
+                            <small>{{ field | titlecase }} is invalid.</small>
+                        </div>
                     </div>
                 </div>
 
+                <div class="checkbox-group form-check">
+                    <input type="checkbox" formControlName="isDefault" id="default-{{ i }}" class="form-check-input" />
+                    <label for="default-{{ i }}" class="form-check-label">Set as Default</label>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-success"
+                        [disabled]="addressForms[i].invalid || savingIndex === i">
+                        <ng-container *ngIf="savingIndex === i">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </ng-container>
+                        <ng-container *ngIf="savingIndex !== i">
+                            <i class="fas fa-save"></i> Save
+                        </ng-container>
+                    </button>
+                    <button type="button" class="btn btn-warning" (click)="cancelEdit(i)">
+                        ❌ Cancel
+                    </button>
+                </div>
+            </form>
+            <div *ngIf="!address.isEditing" class="card-content">
+                <div class="card-header">
+                    <h3>
+                        {{ address.nickname || 'No Nickname' }}
+                        <span *ngIf="address.isDefault" class="badge badge-warning">⭐ Default</span>
+                    </h3>
+                    <div class="actions">
+                        <button class="btn btn-secondary btn-sm" (click)="editAddress(i)">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-danger btn-sm" (click)="deleteAddress(address.id)"
+                            [disabled]="deletingId === address.id">
+                            <ng-container *ngIf="deletingId === address.id">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            </ng-container>
+                            <ng-container *ngIf="deletingId !== address.id">
+                                <i class="fas fa-trash"></i> Delete
+                            </ng-container>
+                        </button>
+                    </div>
+                </div>
                 <div class="card-body">
                     <p *ngIf="address.fullName">{{ address.fullName }}</p>
                     <p *ngIf="address.phoneNumber">{{ address.phoneNumber }}</p>
@@ -31,33 +78,6 @@
                     <p *ngIf="address.country">{{ address.country }}</p>
                 </div>
             </div>
-
-            <!-- Edit Mode -->
-            <form *ngIf="address.isEditing && addressForms[i]" [formGroup]="addressForms[i]" (ngSubmit)="saveAddress(i)"
-                class="form">
-
-                <div class="form-row">
-                    <div class="form-group"
-                        *ngFor="let field of ['nickname', 'fullName', 'phoneNumber', 'addressLine1', 'addressLine2', 'city', 'state', 'postalCode', 'country']">
-                        <label>{{ field | titlecase }}</label>
-                        <input [formControlName]="field" placeholder="{{ field | titlecase }}"
-                            [class.invalid]="isFieldInvalid(i, field)" />
-                        <div *ngIf="isFieldInvalid(i, field)" class="error">
-                            <small>{{ field | titlecase }} is invalid.</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" formControlName="isDefault" id="default-{{i}}" />
-                    <label for="default-{{i}}">Set as Default</label>
-                </div>
-
-                <div class="form-buttons">
-                    <button type="submit" class="btn btn-save" [disabled]="addressForms[i].invalid">💾 Save</button>
-                    <button type="button" class="btn btn-cancel" (click)="cancelEdit(i)">❌ Cancel</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>

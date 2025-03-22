@@ -1,6 +1,13 @@
 <div class="container my-5">
     <h2 class="text-center mb-4">Payment Options</h2>
 
+    <!-- Global Loading Spinner for Saved Payments -->
+    <div *ngIf="isLoading" class="text-center my-3">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
     <!-- Payment Method Selection -->
     <div class="form-group mb-4">
         <label for="paymentMethod">Select Payment Method</label>
@@ -83,7 +90,11 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mt-3 w-100">Add Card</button>
+                    <button type="submit" class="btn btn-primary mt-3 w-100" [disabled]="isLoading">
+                        <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-2" role="status"
+                            aria-hidden="true"></span>
+                        Add Card
+                    </button>
                 </form>
             </div>
         </div>
@@ -101,7 +112,11 @@
                             This field is mandatory.
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3 w-100">Add UPI</button>
+                    <button type="submit" class="btn btn-primary mt-3 w-100" [disabled]="isLoading">
+                        <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-2" role="status"
+                            aria-hidden="true"></span>
+                        Add UPI
+                    </button>
                 </form>
             </div>
         </div>
@@ -155,7 +170,11 @@
                             This field is mandatory.
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3 w-100">Add Net Banking</button>
+                    <button type="submit" class="btn btn-primary mt-3 w-100" [disabled]="isLoading">
+                        <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-2" role="status"
+                            aria-hidden="true"></span>
+                        Add Net Banking
+                    </button>
                 </form>
             </div>
         </div>
@@ -181,7 +200,11 @@
                             This field is mandatory.
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3 w-100">Add Pay Later</button>
+                    <button type="submit" class="btn btn-primary mt-3 w-100" [disabled]="isLoading">
+                        <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-2" role="status"
+                            aria-hidden="true"></span>
+                        Add Pay Later
+                    </button>
                 </form>
             </div>
         </div>
@@ -213,8 +236,12 @@
                         <p><strong>Vendor:</strong> {{ payment.details.paylaterVendor }}</p>
                         <p><strong>Pay Later ID:</strong> {{ payment.details.paylaterId }}</p>
                     </div>
-                    <button class="btn btn-danger mt-3" (click)="openRemovePaymentConfirmation(payment)">Remove
-                        Payment</button>
+                    <button class="btn btn-danger mt-3" (click)="openRemovePaymentConfirmation(payment)"
+                        [disabled]="isLoading">
+                        <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-2" role="status"
+                            aria-hidden="true"></span>
+                        Remove Payment
+                    </button>
                 </div>
             </div>
         </div>

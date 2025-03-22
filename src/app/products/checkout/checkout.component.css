@@ -355,3 +355,23 @@ h4 {
 .payment-container::-webkit-scrollbar-thumb:hover {
     background: #999;
 }
+
+/* Info Link Styling */
+.info-link {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 0 4px;
+    border: 1px solid #17a2b8;
+    /* Info color */
+    border-radius: 4px;
+    background-color: #e9f7fc;
+    color: #17a2b8;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.info-link:hover {
+    background-color: #17a2b8;
+    color: #fff;
+}

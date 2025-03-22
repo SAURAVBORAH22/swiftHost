@@ -14,6 +14,9 @@ export class AddressBookComponent implements OnInit {
   userId: string | null = '';
   addresses: any[] = [];
   addressForms: FormGroup[] = [];
+  isLoading: boolean = false;
+  savingIndex: number | null = null;
+  deletingId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -29,10 +32,18 @@ export class AddressBookComponent implements OnInit {
   }
 
   loadInitialAddresses(): void {
-    this.accountService.getAllAddresses(this.userId || '').subscribe(addresses => {
-      this.addresses = addresses;
-      this.addressForms = this.addresses.map(address => this.createAddressForm(address));
-    });
+    this.isLoading = true;
+    this.accountService.getAllAddresses(this.userId || '').subscribe(
+      addresses => {
+        this.addresses = addresses;
+        this.addressForms = this.addresses.map(address => this.createAddressForm(address));
+        this.isLoading = false;
+      },
+      error => {
+        this.toastService.showToast('Failed to load addresses', 'error');
+        this.isLoading = false;
+      }
+    );
   }
 
   createAddressForm(address: any): FormGroup {
@@ -40,7 +51,10 @@ export class AddressBookComponent implements OnInit {
       id: [address.id || null],
       nickname: [address.nickname, Validators.required],
       fullName: [address.fullName, Validators.required],
-      phoneNumber: [address.phoneNumber, [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      phoneNumber: [
+        address.phoneNumber,
+        [Validators.required, Validators.pattern(/^\d{10}$/)]
+      ],
       addressLine1: [address.addressLine1, Validators.required],
       addressLine2: [address.addressLine2],
       city: [address.city, Validators.required],
@@ -53,9 +67,17 @@ export class AddressBookComponent implements OnInit {
 
   addNewAddress(): void {
     const newAddress = {
-      nickname: '', fullName: '', phoneNumber: '',
-      addressLine1: '', addressLine2: '', city: '', state: '',
-      postalCode: '', country: '', isDefault: false, isEditing: true
+      nickname: '',
+      fullName: '',
+      phoneNumber: '',
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      state: '',
+      postalCode: '',
+      country: '',
+      isDefault: false,
+      isEditing: true
     };
     this.addresses.push(newAddress);
     this.addressForms.push(this.createAddressForm(newAddress));
@@ -71,22 +93,36 @@ export class AddressBookComponent implements OnInit {
         userId: this.userId,
         ...this.addressForms[index].value
       };
-      if (formData.isDefault && this.addresses.some(address => (address.isDefault && formData.id !== address.id))) {
+
+      if (
+        formData.isDefault &&
+        this.addresses.some(
+          address => address.isDefault && formData.id !== address.id
+        )
+      ) {
         this.toastService.showToast('You already have one default address.', 'error');
         return;
       }
-      this.accountService.saveAddressInfo(formData).subscribe(success => {
-        if (success) {
-          this.toastService.showToast('Your details were saved successfully.', 'success');
-          this.addresses[index] = {
-            ...this.addresses[index],
-            ...this.addressForms[index].value,
-            isEditing: false
-          };
-        } else {
-          this.toastService.showToast('Something happened while processing your request.', 'error');
+      this.savingIndex = index;
+      this.accountService.saveAddressInfo(formData).subscribe(
+        success => {
+          this.savingIndex = null;
+          if (success) {
+            this.toastService.showToast('Your details were saved successfully.', 'success');
+            this.addresses[index] = {
+              ...this.addresses[index],
+              ...this.addressForms[index].value,
+              isEditing: false
+            };
+          } else {
+            this.toastService.showToast('Something happened while processing your request.', 'error');
+          }
+        },
+        error => {
+          this.savingIndex = null;
+          this.toastService.showToast('Error saving address', 'error');
         }
-      });
+      );
     }
   }
 
@@ -95,17 +131,30 @@ export class AddressBookComponent implements OnInit {
   }
 
   deleteAddress(id: string): void {
-    this.confirmationDialogService.confirm('Confirm Action', 'Are you sure you want to delete this?')
+    this.confirmationDialogService
+      .confirm('Confirm Action', 'Are you sure you want to delete this?')
       .then(confirmed => {
         if (confirmed) {
-          this.accountService.deleteAddress(id).subscribe(success => {
-            if (success) {
-              this.toastService.showToast('The address was deleted successfully', 'success');
-            } else {
-              this.toastService.showToast('Something happened while processing your request.', 'error');
+          this.deletingId = id;
+          this.accountService.deleteAddress(id).subscribe(
+            success => {
+              this.deletingId = null;
+              if (success) {
+                this.toastService.showToast('The address was deleted successfully', 'success');
+                const index = this.addresses.findIndex(address => address.id === id);
+                if (index > -1) {
+                  this.addresses.splice(index, 1);
+                  this.addressForms.splice(index, 1);
+                }
+              } else {
+                this.toastService.showToast('Something happened while processing your request.', 'error');
+              }
+            },
+            error => {
+              this.deletingId = null;
+              this.toastService.showToast('Error deleting address', 'error');
             }
-          });
-          this.loadInitialAddresses();
+          );
         }
       });
   }

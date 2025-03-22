@@ -2,8 +2,15 @@
     <div class="card">
         <h2>{{ isEditing ? 'Edit Your Profile' : 'View Profile' }}</h2>
 
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="isEditing; else viewMode">
+        <!-- Global loading spinner -->
+        <div *ngIf="isLoading" class="text-center my-4">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
 
+        <!-- Edit Mode -->
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading && isEditing; else viewMode">
             <div class="form-grid">
                 <!-- First Name -->
                 <div class="form-group">
@@ -86,13 +93,18 @@
             <!-- Buttons -->
             <div class="btn-group">
                 <button type="button" (click)="toggleEdit()">Cancel</button>
-                <button type="submit" [disabled]="profileForm.invalid">Save Changes</button>
+                <button type="submit" [disabled]="profileForm.invalid || isSubmitting">
+                    <!-- Spinner inside submit button -->
+                    <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm mr-2" role="status"
+                        aria-hidden="true"></span>
+                    Save Changes
+                </button>
             </div>
         </form>
 
         <!-- View Mode -->
         <ng-template #viewMode>
-            <div class="profile-details">
+            <div *ngIf="!isLoading" class="profile-details">
                 <div class="profile-header">
                     <h3>{{ profileForm.value.firstName }} {{ profileForm.value.lastName }}</h3>
                     <p>{{ profileForm.value.email }}</p>

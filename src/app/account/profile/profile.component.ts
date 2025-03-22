@@ -13,6 +13,8 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   isEditing: boolean = false;
   submitted: boolean = false;
+  isLoading: boolean = false;
+  isSubmitting: boolean = false;
   userId: string | null = '';
 
   constructor(
@@ -44,10 +46,15 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfileDetails() {
+    this.isLoading = true;
     this.accountService.getProfileInfo(this.userId || '').subscribe(profileInfo => {
       if (profileInfo) {
         this.profileForm.patchValue(profileInfo);
       }
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
+      this.toastService.showToast('Failed to load profile details.', 'error');
     });
   }
 
@@ -57,17 +64,22 @@ export class ProfileComponent implements OnInit {
       this.profileForm.markAllAsTouched();
       return;
     }
+    this.isSubmitting = true;
     const formData = {
       userId: this.userId,
       ...this.profileForm.value
     };
     this.accountService.saveProfileInfo(this.userId || '', formData).subscribe(success => {
+      this.isSubmitting = false;
       if (success) {
         this.toastService.showToast('Your details were saved successfully.', 'success');
         this.toggleEdit();
       } else {
         this.toastService.showToast('Something happened while processing your request.', 'error');
       }
+    }, error => {
+      this.isSubmitting = false;
+      this.toastService.showToast('An error occurred while saving your details.', 'error');
     });
   }
 
