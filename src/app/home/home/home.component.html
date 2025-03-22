@@ -1,15 +1,21 @@
-<page-loader *ngIf="loading"></page-loader>
-
-<div class="content-section">
+<div *ngIf="loading" class="d-flex justify-content-center align-items-center" style="height:100vh;">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="content-section" *ngIf="!loading">
     <carousel [products]="recommendationList" [autoSlide]="true" [slideInterval]="4000"></carousel>
-
     <div *ngIf="isCategorySelected" class="product-section">
         <div class="form-section-header">
             <span>{{ selectedCategory.name }}</span>
             <button (click)="navigateToProductList('category')">View All</button>
         </div>
-
-        <div class="product-carousel">
+        <div *ngIf="categoryLoading" class="d-flex justify-content-center align-items-center" style="height:150px;">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div class="product-carousel" *ngIf="!categoryLoading">
             <button class="scroll-btn left" (click)="scrollLeft(categoryProductContainer)">&#10094;</button>
             <div class="product-container" #categoryProductContainer>
                 <product-card *ngFor="let product of productByCategoryList" [product]="product"></product-card>
@@ -17,7 +23,6 @@
             <button class="scroll-btn right" (click)="scrollRight(categoryProductContainer)">&#10095;</button>
         </div>
     </div>
-
     <div class="product-section">
         <div class="form-section-header">
             <span>All Products</span>
@@ -33,11 +38,11 @@
         </div>
     </div>
 
-    <div *ngIf="newArrivalList.length" class="form-section-header new-arrival-header">New Arrivals</div>
-    <div *ngIf="newArrivalList.length" class="container custom-container">
+    <div *ngIf="newArrivalList?.length" class="form-section-header new-arrival-header">New Arrivals</div>
+    <div *ngIf="newArrivalList?.length" class="container custom-container">
         <div class="row">
             <div class="col-md-6">
-                <div class="image-card large">
+                <div class="image-card large" *ngIf="newArrivalList[0]?.images?.length">
                     <img [src]="newArrivalList[0].images[0]" alt="{{ newArrivalList[0].name }}">
                     <div class="overlay">
                         <h3>{{ newArrivalList[0].name }}</h3>
@@ -48,7 +53,7 @@
             </div>
             <div class="col-md-6">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12" *ngIf="newArrivalList[1]?.images?.length">
                         <div class="image-card medium">
                             <img [src]="newArrivalList[1].images[0]" alt="{{ newArrivalList[1].name }}">
                             <div class="overlay">
@@ -58,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6" *ngIf="newArrivalList[2]?.images?.length">
                         <div class="image-card small">
                             <img [src]="newArrivalList[2].images[0]" alt="{{ newArrivalList[2].name }}">
                             <div class="overlay">
@@ -68,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6" *ngIf="newArrivalList[3]?.images?.length">
                         <div class="image-card small">
                             <img [src]="newArrivalList[3].images[0]" alt="{{ newArrivalList[3].name }}">
                             <div class="overlay">

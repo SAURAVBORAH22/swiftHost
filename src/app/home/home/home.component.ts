@@ -12,8 +12,11 @@ import { CategoryService } from 'src/app/services/category.service';
 export class HomeComponent implements OnInit {
   @ViewChild('categoryProductContainer', { static: false }) categoryProductContainer!: ElementRef;
   @ViewChild('allProductContainer', { static: false }) allProductContainer!: ElementRef;
+  @ViewChild('bestSellersContainer', { static: false }) bestSellersContainer!: ElementRef;
 
-  loading: boolean = false;
+  loading: boolean = true;
+  categoryLoading: boolean = false;
+
   recommendationList: any[] = [];
   productsList: any[] = [];
   isCategorySelected: boolean = false;
@@ -31,12 +34,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAPIs();
-
-    // Subscribe to selected category changes from the shared service
     this.categoryService.currentCategory$.subscribe(category => {
       if (category) {
         this.selectedCategory = category;
         this.isCategorySelected = true;
+        this.categoryLoading = true;
         this.loadCategoryProducts(category);
       }
     });
@@ -45,13 +47,15 @@ export class HomeComponent implements OnInit {
   private loadAPIs(): void {
     this.getRecommendations();
     this.getAllProducts();
-    this.getNewArrvials();
+    this.getNewArrivals();
     this.getBestSellersList();
   }
 
   getRecommendations(): void {
     this.productsService.getAllProducts().subscribe(products => {
       this.recommendationList = this.getRandomProducts(products, 5);
+      // Stop global loading when recommendations are loaded
+      this.loading = false;
     });
   }
 
@@ -70,10 +74,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  loadCategoryProducts(category: any) {
+  loadCategoryProducts(category: any): void {
     this.productsService.getProductsByCategory(category.categoryId, category.subcategory)
       .subscribe(products => {
         this.productByCategoryList = products;
+        this.categoryLoading = false;
       });
   }
 
@@ -89,13 +94,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  getNewArrvials() {
+  getNewArrivals(): void {
     this.productsService.getNewArrvials().subscribe(products => {
       this.newArrivalList = products;
     });
   }
 
-  getBestSellersList() {
+  getBestSellersList(): void {
     this.productsService.getAllHighRatedProducts().subscribe(products => {
       this.bestSellersList = products;
     });

@@ -1,3 +1,4 @@
+/* Global Section Styles */
 .content-section {
     padding: 32px;
 }
@@ -6,6 +7,7 @@
     margin-top: 24px;
 }
 
+/* Carousel Styles */
 .product-carousel {
     display: flex;
     align-items: center;
@@ -21,9 +23,9 @@
     overflow-x: auto;
     scroll-behavior: smooth;
     scrollbar-width: none;
-    /* Hide scrollbar for Firefox */
+    /* Firefox */
     -ms-overflow-style: none;
-    /* Hide scrollbar for IE/Edge */
+    /* IE/Edge */
     white-space: nowrap;
 }
 
@@ -54,12 +56,12 @@
     right: 10px;
 }
 
+/* Product Card Width */
 product-card {
     flex: 0 0 250px;
-    /* Set each card's fixed width */
 }
 
-/* Set max height for the container */
+/* Custom Container for New Arrivals */
 .custom-container {
     padding: 16px 48px;
     max-width: 100%;
@@ -67,7 +69,7 @@ product-card {
     background-color: rgb(211, 211, 211);
 }
 
-/* Image Card - common styles */
+/* Image Card Common Styles */
 .image-card {
     position: relative;
     overflow: hidden;
@@ -81,7 +83,7 @@ product-card {
     border-radius: 10px;
 }
 
-/* Overlay for text */
+/* Overlay for Image Cards */
 .overlay {
     position: absolute;
     bottom: 20px;
@@ -93,19 +95,16 @@ product-card {
     width: calc(100% - 40%);
 }
 
-/* Stylish View Product button - Small size */
+/* View Product Button */
 .view-product-btn {
     display: inline-block;
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
     border: none;
     padding: 6px 12px;
-    /* Smaller padding */
     font-size: 14px;
-    /* Smaller font size */
     font-weight: bold;
     border-radius: 20px;
-    /* Smaller, rounded corners */
     text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
@@ -119,7 +118,7 @@ product-card {
     transform: translateY(-2px);
 }
 
-/* Different sizes */
+/* Different sizes for Image Cards */
 .large {
     height: 400px;
 }
@@ -133,10 +132,12 @@ product-card {
     height: 190px;
 }
 
+/* New Arrival Header */
 .new-arrival-header {
     margin-top: 32px;
 }
 
+/* Form Section Header */
 .form-section-header {
     display: flex;
     align-items: center;
