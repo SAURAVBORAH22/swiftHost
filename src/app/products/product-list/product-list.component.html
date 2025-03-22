@@ -1,34 +1,43 @@
-<page-loader *ngIf="loading"></page-loader>
-<div class="product-page-container">
-    <app-product-list-filter (filterChanged)="applyFilters($event)"></app-product-list-filter>
-    <div class="product-list-container">
-        <div class="sort-container">
-            <label for="sort">Sort by:</label>
-            <select id="sort" (change)="onSortChange($event)">
-                <option value="rating_desc">Rating (High to Low)</option>
-                <option value="rating_asc">Rating (Low to High)</option>
-                <option value="price_asc">Price (Low to High)</option>
-                <option value="price_desc">Price (High to Low)</option>
-            </select>
+<ng-container *ngIf="loading; else loadedContent">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
-        <div class="wishlist-actions" *ngIf="type === 'wishlist' && productList.length > 0">
-            <button (click)="moveToCart()" class="move-to-cart-btn">
-                🛒 Move All to Cart
-            </button>
-        </div>
-        <div *ngIf="productList && productList.length > 0; else noProducts" class="product-list">
-            <product-card *ngFor="let product of productList" [product]="product"></product-card>
-        </div>
-
-        <ng-template #noProducts>
-            <div class="no-products">
-                <span *ngIf="type === 'wishlist'; else notWishlist">
-                    🛒 Wishlist is empty. Add some products to your wishlist!
-                </span>
-                <ng-template #notWishlist>
-                    <span>🛒 No products available. Check back later!</span>
-                </ng-template>
-            </div>
-        </ng-template>
     </div>
-</div>
+</ng-container>
+
+<ng-template #loadedContent>
+    <div class="product-page-container">
+        <app-product-list-filter (filterChanged)="applyFilters($event)"></app-product-list-filter>
+        <div class="product-list-container">
+            <div class="sort-container">
+                <label for="sort">Sort by:</label>
+                <select id="sort" (change)="onSortChange($event)">
+                    <option value="rating_desc">Rating (High to Low)</option>
+                    <option value="rating_asc">Rating (Low to High)</option>
+                    <option value="price_asc">Price (Low to High)</option>
+                    <option value="price_desc">Price (High to Low)</option>
+                </select>
+            </div>
+            <div class="wishlist-actions" *ngIf="type === 'wishlist' && productList.length > 0">
+                <button (click)="moveToCart()" class="move-to-cart-btn">
+                    🛒 Move All to Cart
+                </button>
+            </div>
+            <div *ngIf="productList && productList.length > 0; else noProducts" class="product-list">
+                <product-card *ngFor="let product of productList" [product]="product"></product-card>
+            </div>
+
+            <ng-template #noProducts>
+                <div class="no-products">
+                    <span *ngIf="type === 'wishlist'; else notWishlist">
+                        🛒 Wishlist is empty. Add some products to your wishlist!
+                    </span>
+                    <ng-template #notWishlist>
+                        <span>🛒 No products available. Check back later!</span>
+                    </ng-template>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</ng-template>

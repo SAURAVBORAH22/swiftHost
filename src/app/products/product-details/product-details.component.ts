@@ -14,7 +14,8 @@ import { WishListService } from 'src/app/services/wishlist.service';
 })
 export class ProductDetailsComponent implements OnInit {
   productId: string = '';
-  productDetails: any;
+  productDetails: any = null;
+  productLoading: boolean = true;
   selectedImage: string = '';
   quantity: number = 1;
   selectedSize: string = 'M';
@@ -22,6 +23,7 @@ export class ProductDetailsComponent implements OnInit {
   stars: { filled: boolean }[] = [];
   userId: string | null = '';
   recommendationList: any[] = [];
+  recommendationsLoading: boolean = true;
 
   @ViewChild('mainImage') mainImage!: ElementRef<HTMLImageElement>;
 
@@ -44,12 +46,32 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProductDetails(): void {
-    this.productsService.getProductById(this.productId).subscribe(product => {
-      this.productDetails = product;
-      this.selectedImage = product.images[0];
-      this.generateStars(product.rating);
-      this.getProductsRecommendations();
-    });
+    this.productLoading = true;
+    this.productsService.getProductById(this.productId).subscribe(
+      product => {
+        this.productDetails = product;
+        this.productLoading = false;
+        this.selectedImage = product.images[0];
+        this.generateStars(product.rating);
+        this.getProductsRecommendations();
+      },
+      error => {
+        this.productLoading = false;
+      }
+    );
+  }
+
+  getProductsRecommendations(): void {
+    this.recommendationsLoading = true;
+    this.productsService.getProductsRecommendation(this.productDetails.categoryId).subscribe(
+      products => {
+        this.recommendationList = products.filter(p => p.id !== this.productDetails.id);
+        this.recommendationsLoading = false;
+      },
+      error => {
+        this.recommendationsLoading = false;
+      }
+    );
   }
 
   changeImage(image: string) {
@@ -138,16 +160,9 @@ export class ProductDetailsComponent implements OnInit {
         }
       },
       error => {
-        this.toastService.showToast('Error occured while adding product to wishlist', 'error');
+        this.toastService.showToast('Error occurred while adding product to wishlist', 'error');
       }
     );
-  }
-
-  getProductsRecommendations(): void {
-    this.productsService.getProductsRecommendation(this.productDetails.categoryId).subscribe(products => {
-      products = products.filter(p => p.id !== this.productDetails.id);
-      this.recommendationList = products;
-    });
   }
 
   scrollLeft(container: HTMLElement): void {

@@ -1,76 +1,88 @@
-<div class="product-container" *ngIf="productDetails?.name; else productNotFound">
-    <!-- Thumbnail Image Gallery -->
-    <div class="image-gallery">
-        <div *ngFor="let img of productDetails?.images" class="thumbnail" (click)="changeImage(img)">
-            <img [src]="img" [class.active]="img === selectedImage" />
-        </div>
-    </div>
-
-    <!-- Main Image with Zoom Effect -->
-    <div class="main-image-container">
-        <div class="main-image" (mousemove)="zoomImage($event)" (mouseleave)="resetZoom()">
-            <img [src]="selectedImage" #mainImage />
-            <div class="zoom-lens" [ngStyle]="zoomLensStyle"></div>
-        </div>
-    </div>
-
-    <!-- Product Details -->
-    <div class="product-info">
-        <h2>{{ productDetails?.name }}</h2>
-
-        <!-- Star Rating -->
-        <div class="rating">
-            <span *ngFor="let star of stars" class="bi"
-                [ngClass]="{'bi-star-fill': star.filled, 'bi-star': !star.filled}"></span>
-            {{ productDetails?.rating }} (150 Reviews) |
-            <span class="stock" [ngClass]="{'out-of-stock': productDetails?.quantity === 0}">
-                {{ productDetails?.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
-            </span>
-        </div>
-
-        <h3 class="price">{{ productDetails?.price | currency:'INR'}}</h3>
-        <p>{{ productDetails?.description }}</p>
-
-        <!-- Quantity Selector -->
-        <div class="quantity-selector">
-            <button (click)="decreaseQuantity()" [disabled]="quantity <= 1">-</button>
-            <span>{{ quantity }}</span>
-            <button (click)="increaseQuantity()" [disabled]="quantity >= productDetails?.quantity">+</button>
-        </div>
-
-        <div class="action-buttons">
-            <button class="add-to-cart" (click)="addToCart()" [disabled]="productDetails?.quantity === 0">
-                🛒 Add to Cart
-            </button>
-            <button class="add-to-wishlist" (click)="addToWishlist()">
-                ❤️ Add to Wishlist
-            </button>
-        </div>
-
-        <!-- Delivery Info -->
-        <div class="delivery-info">
-            <div class="free-delivery">
-                🚚 Free Delivery <br />
-                <small>Enter your postal code for Delivery Availability</small>
+<ng-container *ngIf="!productLoading && productDetails; else loadingProduct">
+    <div class="product-container">
+        <div class="image-gallery">
+            <div *ngFor="let img of productDetails?.images" class="thumbnail" (click)="changeImage(img)">
+                <img [src]="img" [class.active]="img === selectedImage" />
             </div>
-            <div class="return-policy">
-                🔄 Return Delivery <br />
-                <small>Free 30 Days Delivery Returns. <a href="#">Details</a></small>
+        </div>
+        <div class="main-image-container">
+            <div class="main-image" (mousemove)="zoomImage($event)" (mouseleave)="resetZoom()">
+                <img [src]="selectedImage" #mainImage />
+                <div class="zoom-lens" [ngStyle]="zoomLensStyle"></div>
+            </div>
+        </div>
+        <div class="product-info">
+            <h2>{{ productDetails?.name }}</h2>
+            <div class="rating">
+                <span *ngFor="let star of stars" class="bi"
+                    [ngClass]="{'bi-star-fill': star.filled, 'bi-star': !star.filled}"></span>
+                {{ productDetails?.rating }} (150 Reviews) |
+                <span class="stock" [ngClass]="{'out-of-stock': productDetails?.quantity === 0}">
+                    {{ productDetails?.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
+                </span>
+            </div>
+            <h3 class="price">{{ productDetails?.price | currency:'INR' }}</h3>
+            <p>{{ productDetails?.description }}</p>
+            <div class="quantity-selector">
+                <button (click)="decreaseQuantity()" [disabled]="quantity <= 1">-</button>
+                <span>{{ quantity }}</span>
+                <button (click)="increaseQuantity()" [disabled]="quantity >= productDetails?.quantity">+</button>
+            </div>
+            <div class="action-buttons">
+                <button class="add-to-cart" (click)="addToCart()" [disabled]="productDetails?.quantity === 0">
+                    🛒 Add to Cart
+                </button>
+                <button class="add-to-wishlist" (click)="addToWishlist()">
+                    ❤️ Add to Wishlist
+                </button>
+            </div>
+            <div class="delivery-info">
+                <div class="free-delivery">
+                    🚚 Free Delivery <br />
+                    <small>Enter your postal code for Delivery Availability</small>
+                </div>
+                <div class="return-policy">
+                    🔄 Return Delivery <br />
+                    <small>Free 30 Days Delivery Returns. <a href="#">Details</a></small>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="product-section" *ngIf="recommendationList.length > 0">
+</ng-container>
+<ng-template #loadingProduct>
+    <div class="d-flex justify-content-center align-items-center" style="height: 400px;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading product details...</span>
+        </div>
+    </div>
+</ng-template>
+<div class="product-section">
     <div class="form-section-header">
         <span>Recommendations</span>
     </div>
-    <div class="product-carousel">
-        <button class="scroll-btn left" (click)="scrollLeft(allProductContainer)">&#10094;</button>
-        <div class="product-container scrollable" #allProductContainer>
-            <product-card *ngFor="let product of recommendationList" [product]="product"></product-card>
+    <ng-container *ngIf="!recommendationsLoading; else loadingRecommendations">
+        <ng-container *ngIf="recommendationList.length > 0; else noRecommendations">
+            <div class="product-carousel">
+                <button class="scroll-btn left" (click)="scrollLeft(allProductContainer)">&#10094;</button>
+                <div class="product-container scrollable" #allProductContainer>
+                    <product-card *ngFor="let product of recommendationList" [product]="product"></product-card>
+                </div>
+                <button class="scroll-btn right" (click)="scrollRight(allProductContainer)">&#10095;</button>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-template #loadingRecommendations>
+        <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading recommendations...</span>
+            </div>
         </div>
-        <button class="scroll-btn right" (click)="scrollRight(allProductContainer)">&#10095;</button>
-    </div>
+    </ng-template>
+    <ng-template #noRecommendations>
+        <div class="text-center mt-3">
+            <p>No recommendations available.</p>
+        </div>
+    </ng-template>
 </div>
 <ng-template #productNotFound>
     <error-page></error-page>
