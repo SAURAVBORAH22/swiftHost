@@ -6,7 +6,9 @@ import { AccountService } from 'src/app/services/account.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
+import { OrderService } from 'src/app/services/order.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-checkout',
@@ -20,14 +22,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   selectedAddressId: string | null = null;
   selectedPaymentId: string | null = null;
   selectedPaymentType: string = 'Online'; // 'Online' or 'COD'
-  productId: string = '';
   selected_products: any[] = [];
   cartItems: any[] = [];
-
-  // Loader flags for showing Bootstrap spinners
+  selectedCoupon: any;
   isLoadingAddresses: boolean = false;
   isLoadingPayments: boolean = false;
   isLoadingProducts: boolean = false;
+  selected_address: any;
+  selected_payment: any;
 
   private ngUnsubscribe = new Subject<void>();
 
@@ -37,10 +39,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     private encryptionService: EncryptionService,
     private route: ActivatedRoute,
     private productsService: ProductsService,
-    private cartService: CartService
+    private cartService: CartService,
+    private toastService: ToastService,
+    private orderService: OrderService
   ) { }
 
   ngOnInit(): void {
+    this.route.queryParams
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(params => {
+        if (params.selectedCoupon) {
+          this.selectedCoupon = JSON.parse(params.selectedCoupon);
+        }
+      });
+
     this.userId = this.authService.getUserFromLocalStore()?.userId || null;
     if (this.userId) {
       this.fetchAllAddresses();
@@ -55,7 +67,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(
         addresses => {
-          // Sort addresses so that default addresses appear on top
           this.saved_addresses = addresses.sort((a, b) => {
             if (a.isDefault && !b.isDefault) {
               return -1;
@@ -68,11 +79,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           if (this.saved_addresses.length > 0) {
             const defaultAddress = this.saved_addresses.find(addr => addr.isDefault);
             this.selectedAddressId = defaultAddress ? defaultAddress.id : this.saved_addresses[0].id;
+            this.selected_address = defaultAddress;
           }
           this.isLoadingAddresses = false;
         },
         error => {
-          console.error('Error fetching addresses:', error);
           this.isLoadingAddresses = false;
         }
       );
@@ -90,11 +101,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           this.saved_payments = payment_options;
           if (this.saved_payments.length > 0) {
             this.selectedPaymentId = this.saved_payments[0].id;
+            this.selected_payment = this.saved_payments[0];
           }
           this.isLoadingPayments = false;
         },
         error => {
-          console.error('Error fetching payment options:', error);
           this.isLoadingPayments = false;
         }
       );
@@ -111,12 +122,40 @@ export class CheckoutComponent implements OnInit, OnDestroy {
               products => {
                 this.selected_products = products.map(product => {
                   const cartItem = this.cartItems.find(c => c.productId === product.id);
-                  return { ...product, cartQuantity: cartItem?.quantity || 1 };
+                  const requestedQuantity = cartItem?.quantity || 1;
+                  const availableQuantity = product.quantity ?? requestedQuantity;
+                  if (availableQuantity === 0) {
+                    return {
+                      ...product,
+                      cartQuantity: 0,
+                      outOfStock: true,
+                      limited: true
+                    };
+                  }
+                  const effectiveQuantity = requestedQuantity > availableQuantity ? availableQuantity : requestedQuantity;
+                  const limited = requestedQuantity > availableQuantity;
+                  return {
+                    ...product,
+                    cartQuantity: effectiveQuantity,
+                    limited,
+                    outOfStock: false
+                  };
                 });
+                if (this.selectedCoupon && this.selected_products.length > 0) {
+                  this.selected_products = this.selected_products.map(product => {
+                    const isApplicable = !this.selectedCoupon.categoryId ||
+                      this.selectedCoupon.categoryId === product.categoryId;
+                    return isApplicable
+                      ? { ...product, discountedPrice: product.price * ((100 - this.selectedCoupon.discount) / 100) }
+                      : { ...product, discountedPrice: undefined };
+                  });
+                }
+                if (this.isAnyProductOutOfStock()) {
+                  this.toastService.showToast('Some items in your cart are currently out of stock. Please update your cart before placing your order.', 'info');
+                }
                 this.isLoadingProducts = false;
               },
               error => {
-                console.error('Error fetching products:', error);
                 this.isLoadingProducts = false;
               }
             );
@@ -126,7 +165,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         }
       },
       error => {
-        console.error('Error fetching cart items:', error);
         this.isLoadingProducts = false;
       }
     );
@@ -145,12 +183,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       );
   }
 
-  selectAddress(id: string): void {
-    this.selectedAddressId = id;
+  selectAddress(address: any): void {
+    this.selectedAddressId = address.id;
+    this.selected_address = address;
   }
 
-  selectPayment(id: string): void {
-    this.selectedPaymentId = id;
+  selectPayment(payment: any): void {
+    this.selectedPaymentId = payment.id;
+    this.selected_payment = payment;
   }
 
   trackByAddressId(index: number, address: any): string {
@@ -162,14 +202,44 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   placeOrder(): void {
-    if (this.selectedAddressId && (this.selectedPaymentType === 'COD' || this.selectedPaymentId)) {
-      console.log('Order placed with address ID:', this.selectedAddressId);
-      console.log('Payment Type:', this.selectedPaymentType);
-      if (this.selectedPaymentType === 'Online') {
-        console.log('Payment selected:', this.selectedPaymentId);
-      }
-      // Add order placement logic here
+    const orderDetails = {
+      products: this.selected_products,
+      address: this.selected_address,
+      paymentType: this.selectedPaymentType,
+      payment: this.encryptionService.encryptObject(this.selected_payment)
     }
+    this.orderService.addNewOrder(orderDetails).subscribe(success => {
+      if (success) {
+        this.toastService.showToast('Thank you for shopping with us! Your order has been successfully placed. We are getting it ready and will update you as soon as it is on its way.', 'success');
+        this.cartService.clearCart(this.userId)
+          .subscribe(success => {
+            this.cartService.getCartItemCount(this.userId || '').subscribe(cartCount => {
+              this.cartService.updateCartCount(cartCount);
+            });
+          });
+      }
+    });
+  }
+
+  isAnyProductOutOfStock(): boolean {
+    return this.selected_products.some(product => product.outOfStock);
+  }
+
+  getSubtotal(): number {
+    if (!this.selected_products || this.selected_products.length === 0) {
+      return 0;
+    }
+    return this.selected_products.reduce((total, product) => {
+      const price = product.discountedPrice || product.price;
+      const quantity = product.cartQuantity;
+      return total + (price * quantity);
+    }, 0);
+  }
+
+  getTotal(): number {
+    const subtotal = this.getSubtotal();
+    const shippingCost = 0;
+    return subtotal + shippingCost;
   }
 
   ngOnDestroy(): void {

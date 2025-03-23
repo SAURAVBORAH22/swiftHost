@@ -159,6 +159,9 @@ export class CartComponent implements OnInit {
   }
 
   navigateToCheckout() {
-    this.router.navigate(['/products/checkout']);
+    const query_params = {
+      selectedCoupon: JSON.stringify(this.selectedCoupon)
+    };
+    this.router.navigate(['/products/checkout'], { queryParams: query_params });
   }
 }
