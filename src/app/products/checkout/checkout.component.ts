@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account.service';
@@ -42,7 +42,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     private productsService: ProductsService,
     private cartService: CartService,
     private toastService: ToastService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -210,7 +211,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       address: this.selected_address,
       paymentType: this.selectedPaymentType,
       payment: this.encryptionService.encryptObject(this.selected_payment),
-      orderDate: currentDate
+      orderDate: currentDate,
+      userId: this.userId
     };
     this.orderService.addNewOrder(orderDetails).subscribe(success => {
       if (success) {
@@ -222,6 +224,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
               this.cartService.updateCartCount(cartCount);
             });
           });
+        this.router.navigate(['products/orders']);
       }
     });
   }

@@ -1,0 +1,91 @@
+<div class="orders-container">
+    <h2 class="page-title">Order History</h2>
+    <div *ngIf="loading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div *ngIf="!loading && orders.length === 0" class="no-orders">
+        <p>No orders found.</p>
+    </div>
+    <div *ngIf="!loading && orders.length > 0" class="orders-list">
+        <div *ngFor="let order of orders | orderByDate" class="order-card">
+            <div class="order-header">
+                <div>
+                    <h5 class="order-id">Order ID: <span>{{ order.id }}</span></h5>
+                    <span class="order-date">{{ order.orderDate }}</span>
+                </div>
+            </div>
+            <hr class="divider" />
+            <div class="order-details">
+                <div class="order-section">
+                    <h6 class="section-title">Shipping Address</h6>
+                    <p class="section-content">
+                        <strong>{{ order.address.fullName }}</strong><br />
+                        {{ order.address.addressLine1 }}, {{ order.address.addressLine2 }}<br />
+                        {{ order.address.city }}, {{ order.address.state }} - {{ order.address.postalCode }}<br />
+                        <small>Phone: {{ order.address.phoneNumber }}</small>
+                    </p>
+                </div>
+                <div class="order-section">
+                    <h6 class="section-title">Payment Details</h6>
+                    <div class="payment-info">
+                        <p><strong>Type:</strong> {{ order.paymentType }}</p>
+                        <div *ngIf="order.paymentType != 'COD'">
+                            <p><strong>Method:</strong> {{ order.payment.method }}</p>
+                            <ng-container *ngIf="order.payment.method === 'Credit Card'">
+                                <p><strong>Card Holder:</strong> {{ order.payment.cardHolderName }}</p>
+                                <p><strong>Card Type:</strong> {{ order.payment.cardType }}</p>
+                                <p>
+                                    <strong>Card Number:</strong>{{ order.payment.cardNumber | maskNumber }}
+                                </p>
+                                <p><strong>Expiry:</strong> {{ order.payment.expiryDate }}</p>
+                            </ng-container>
+                            <ng-container *ngIf="order.payment.method === 'UPI'">
+                                <p><strong>UPI Number:</strong> {{ order.payment.details.upiNumber }}</p>
+                            </ng-container>
+                            <ng-container *ngIf="order.payment.method === 'Net Banking'">
+                                <p><strong>Account Holder:</strong> {{ order.payment.details.accountHolderName }}</p>
+                                <p>
+                                    <strong>Account Number:</strong>{{ order.payment.details.accountNumber | maskNumber
+                                    }}
+                                </p>
+                                <p><strong>Bank:</strong> {{ order.payment.details.bankName }}</p>
+                                <p><strong>IFSC:</strong> {{ order.payment.details.ifscCode }}</p>
+                            </ng-container>
+                            <ng-container *ngIf="order.payment.method === 'Pay Later'">
+                                <p><strong>Vendor:</strong> {{ order.payment.details.paylaterVendor }}</p>
+                                <p><strong>ID:</strong> {{ order.payment.details.paylaterId }}</p>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-products">
+                <h6 class="section-title">Products</h6>
+                <div *ngFor="let product of order.products" class="product-item">
+                    <img [src]="product.images[0]" alt="{{ product.name }}" class="product-img" />
+                    <div class="product-info">
+                        <h5 class="product-name">{{ product.name }}</h5>
+                        <p class="product-desc" *ngIf="product.description">{{ product.description }}</p>
+                        <div class="product-price">
+                            <span class="price-label">Price:</span>
+                            <ng-container
+                                *ngIf="product.discountedPrice && product.discountedPrice < product.price; else noDiscount">
+                                <span class="discounted">₹{{ product.discountedPrice }}</span>
+                                <span class="original">₹{{ product.price }}</span>
+                            </ng-container>
+                            <ng-template #noDiscount>
+                                <span class="normal">₹{{ product.price }}</span>
+                            </ng-template>
+                        </div>
+                        <div class="product-meta">
+                            <span>Quantity: {{ product.quantity }}</span>
+                            <span class="rating">⭐ {{ product.rating }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

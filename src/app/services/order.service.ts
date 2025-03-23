@@ -7,12 +7,12 @@ import { map, catchError } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class OrderService {
-    query_collection: string = 'ORDERS';
+    order_collection: string = 'ORDERS';
 
     constructor(private firestore: AngularFirestore) { }
 
     addNewOrder(data: any): Observable<boolean> {
-        const addQuery$ = from(this.firestore.collection(this.query_collection).add(data));
+        const addQuery$ = from(this.firestore.collection(this.order_collection).add(data));
         return addQuery$.pipe(
             map(() => {
                 return true;
@@ -21,5 +21,18 @@ export class OrderService {
                 return [false];
             })
         );
+    }
+
+    getAllOrdersForUser(userId: string | null): Observable<any[]> {
+        return this.firestore
+            .collection(this.order_collection, ref => ref.where('userId', '==', userId))
+            .snapshotChanges()
+            .pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as Record<string, any>;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
     }
 }

@@ -8,6 +8,7 @@ import { CartComponent } from "./cart/cart.component";
 import { FormsModule } from "@angular/forms";
 import { ProductListFilterComponent } from './product-list-filter/product-list-filter.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
     {
@@ -27,6 +28,10 @@ const routes: Routes = [
         component: CheckoutComponent
     },
     {
+        path: 'orders',
+        component: OrdersComponent
+    },
+    {
         path: ':id',
         component: ProductDetailsComponent
     }
@@ -44,7 +49,8 @@ const routes: Routes = [
         ProductDetailsComponent,
         CartComponent,
         ProductListFilterComponent,
-        CheckoutComponent
+        CheckoutComponent,
+        OrdersComponent
     ]
 })
 export class ProductModule { }

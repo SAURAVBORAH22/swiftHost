@@ -16,6 +16,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { MaskNumberPipe } from './pipes/maskNumber.pipe';
 import { ConfirmationDialogComponent } from './modals/confirmation-dialog/confirmation-dialog.component';
+import { OrderByDatePipe } from './pipes/orderByDate.pipe';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { ConfirmationDialogComponent } from './modals/confirmation-dialog/confir
         FooterComponent,
         ErrorPageComponent,
         MaskNumberPipe,
-        ConfirmationDialogComponent
+        ConfirmationDialogComponent,
+        OrderByDatePipe
     ],
     exports: [
         PageLoaderComponent,
@@ -45,7 +47,8 @@ import { ConfirmationDialogComponent } from './modals/confirmation-dialog/confir
         FooterComponent,
         ErrorPageComponent,
         MaskNumberPipe,
-        ConfirmationDialogComponent
+        ConfirmationDialogComponent,
+        OrderByDatePipe
     ],
     imports: [
         CommonModule,
