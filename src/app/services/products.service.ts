@@ -118,4 +118,21 @@ export class ProductsService {
                 }))
             );
     }
+
+    updateProducts(products: any[]): Observable<boolean> {
+        return new Observable(observer => {
+            const batch = this.firestore.firestore.batch();
+            products.forEach(product => {
+                const { id, ...updateData } = product;
+                const docRef = this.firestore.collection(this.product_collection).doc(id).ref;
+                batch.update(docRef, updateData);
+            });
+            batch.commit()
+                .then(() => {
+                    observer.next(true);
+                    observer.complete();
+                })
+                .catch(error => observer.error(error));
+        });
+    }
 }

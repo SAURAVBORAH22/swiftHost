@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of, Subject } from 'rxjs';
@@ -202,15 +203,19 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   placeOrder(): void {
+    const datePipe = new DatePipe('en-IN');
+    const currentDate = datePipe.transform(new Date(), 'dd-MMM-yyyy hh:mm a');
     const orderDetails = {
       products: this.selected_products,
       address: this.selected_address,
       paymentType: this.selectedPaymentType,
-      payment: this.encryptionService.encryptObject(this.selected_payment)
-    }
+      payment: this.encryptionService.encryptObject(this.selected_payment),
+      orderDate: currentDate
+    };
     this.orderService.addNewOrder(orderDetails).subscribe(success => {
       if (success) {
         this.toastService.showToast('Thank you for shopping with us! Your order has been successfully placed. We are getting it ready and will update you as soon as it is on its way.', 'success');
+        this.updateProductQuantity(this.selected_products);
         this.cartService.clearCart(this.userId)
           .subscribe(success => {
             this.cartService.getCartItemCount(this.userId || '').subscribe(cartCount => {
@@ -240,6 +245,25 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     const subtotal = this.getSubtotal();
     const shippingCost = 0;
     return subtotal + shippingCost;
+  }
+
+  updateProductQuantity(selected_products: any): void {
+    const selected_product_ids: string[] = selected_products.map((p: any) => p.id);
+    this.productsService.getProductsByIds(selected_product_ids).subscribe(
+      (available_products: any) => {
+        selected_products.forEach((selected_product: any) => {
+          available_products.forEach((available_product: any) => {
+            if (selected_product.id === available_product.id) {
+              available_product.quantity -= selected_product.cartQuantity;
+            }
+          });
+        });
+        this.productsService.updateProducts(available_products).subscribe(
+          success => {
+          }
+        );
+      }
+    );
   }
 
   ngOnDestroy(): void {
