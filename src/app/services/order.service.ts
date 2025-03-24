@@ -50,4 +50,19 @@ export class OrderService {
             })
         );
     }
+
+    getAllOrdersForUserByStatus(userId: string | null, status: string): Observable<any[]> {
+        return this.firestore
+            .collection(this.order_collection, ref =>
+                ref.where('userId', '==', userId).where('orderStatus', '==', status)
+            )
+            .snapshotChanges()
+            .pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as Record<string, any>;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
 }

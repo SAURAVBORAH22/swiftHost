@@ -18,10 +18,12 @@
             <a class="cursor-pointer" (click)="navigate('/products/orders')">My Orders</a>
         </li>
         <li [class.active]="isActive('/account/returns')">
-            <a class="cursor-pointer" (click)="navigate('/account/returns')">My Returns</a>
+            <a class="cursor-pointer" (click)="navigate('/products/order-status', { status: 'Returned' })">My
+                Returns</a>
         </li>
         <li [class.active]="isActive('/account/cancellations')">
-            <a class="cursor-pointer" (click)="navigate('/account/cancellations')">My Cancellations</a>
+            <a class="cursor-pointer" (click)="navigate('/products/order-status', { status: 'Cancelled' })">My
+                Cancellations</a>
         </li>
     </ul>
 </div>

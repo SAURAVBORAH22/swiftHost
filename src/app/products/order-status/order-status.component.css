@@ -1,0 +1,283 @@
+/* Define color scheme using CSS variables */
+:root {
+    --primary-color: #ff6f61;
+    /* Warm, energetic tone */
+    --secondary-color: #2c3e50;
+    /* Dark slate for text */
+    --accent-color: #f39c12;
+    /* Accent for highlights */
+    --bg-color: #e9ecef;
+    /* Overall page background */
+    --card-bg: #ffffff;
+    /* Base white for cards */
+    --card-gradient: linear-gradient(135deg, #ffffff, #f7f7f7);
+    /* Subtle gradient overlay */
+    --divider-color: #dcdcdc;
+    --text-muted: #7f8c8d;
+}
+
+/* Global Container with contrasting background */
+.orders-container {
+    min-height: 100vh;
+    background: var(--bg-color);
+    padding: 40px 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Page Title */
+.page-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+/* No Orders Message */
+.no-orders {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-top: 20px;
+}
+
+/* Orders List */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Order Card with gradient background, subtle pattern overlay, and light border */
+.order-card {
+    background: var(--card-gradient);
+    border: 1px solid var(--divider-color);
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    background-image:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%),
+        linear-gradient(315deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Order Header */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.order-id {
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.order-id span {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.order-date {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+/* Order Status Tag Base Style */
+.order-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+/* Specific Status Colors */
+.order-status.ready-to-ship {
+    background-color: #e0f7fa;
+    /* Light cyan */
+    color: #00796b;
+    /* Teal */
+}
+
+.order-status.cancelled {
+    background-color: #ffebee;
+    /* Light red/pink */
+    color: #c62828;
+    /* Dark red */
+}
+
+.order-status.returned {
+    background-color: #fff8e1;
+    /* Light amber */
+    color: #f57c00;
+    /* Orange */
+}
+
+.order-status.complete {
+    background-color: #e8f5e9;
+    /* Light green */
+    color: #2e7d32;
+    /* Dark green */
+}
+
+/* Action Buttons */
+.order-actions {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.order-actions .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.cancel-btn {
+    background-color: #c62828;
+    /* Dark red */
+}
+
+.return-btn {
+    background-color: #f57c00;
+    /* Orange */
+}
+
+/* Divider */
+.divider {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid var(--divider-color);
+}
+
+/* Order Details */
+.order-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.order-section {
+    flex: 1 1 320px;
+}
+
+.section-title {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.section-content {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--secondary-color);
+}
+
+/* Payment Info styling */
+.payment-info p {
+    margin: 4px 0;
+    font-size: 0.95rem;
+    color: var(--secondary-color);
+}
+
+/* Order Products */
+.order-products {
+    margin-top: 25px;
+}
+
+.product-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.product-item:last-child {
+    border-bottom: none;
+}
+
+.product-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-name {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.product-desc {
+    margin: 0 0 12px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.product-price {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.price-label {
+    font-weight: 600;
+    margin-right: 5px;
+    color: var(--primary-color);
+}
+
+.discounted {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.original {
+    margin-left: 10px;
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.normal {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.product-meta {
+    font-size: 0.95rem;
+    display: flex;
+    gap: 20px;
+    color: var(--text-muted);
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}

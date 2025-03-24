@@ -10,8 +10,12 @@ export class SidebarComponent {
 
   constructor(private router: Router) { }
 
-  navigate(route: string): void {
-    this.router.navigate([route]);
+  navigate(route: string, queryParams?: any): void {
+    if (queryParams) {
+      this.router.navigate([route], { queryParams });
+    } else {
+      this.router.navigate([route]);
+    }
   }
 
   isActive(route: string): boolean {

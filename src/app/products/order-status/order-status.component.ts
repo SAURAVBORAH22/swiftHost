@@ -1,42 +1,50 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { OrderByDatePipe } from 'src/app/shared/pipes/orderByDate.pipe';
-
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.css'],
+  selector: 'app-order-status',
+  templateUrl: './order-status.component.html',
+  styleUrls: ['./order-status.component.css'],
   providers: [OrderByDatePipe]
 })
-export class OrdersComponent implements OnInit {
+export class OrderStatusComponent implements OnInit {
   userId: string | null = '';
   orders: any[] = [];
   loading: boolean = false;
+  status: string = 'Cancelled';
 
   constructor(
     private ordersService: OrderService,
     private authService: AuthService,
     private encryptionService: EncryptionService,
     private orderByDate: OrderByDatePipe,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.route.queryParams
+      .subscribe(params => {
+        if (params.status) {
+          this.status = params.status;
+        }
+      });
     const user = this.authService.getUserFromLocalStore();
     this.userId = user?.userId || null;
 
     if (this.userId) {
-      this.fetchAllOrdersForAUser();
+      this.fetchAllOrdersForAUserByStatus();
     }
   }
 
-  fetchAllOrdersForAUser() {
+  fetchAllOrdersForAUserByStatus() {
     if (!this.userId) return;
     this.loading = true;
-    this.ordersService.getAllOrdersForUser(this.userId).subscribe(
+    this.ordersService.getAllOrdersForUserByStatus(this.userId, this.status).subscribe(
       orders => {
         this.orders = orders.map(order => ({
           ...order,
@@ -67,19 +75,5 @@ export class OrdersComponent implements OnInit {
       default:
         return '';
     }
-  }
-
-  updateOrderStatus(orderId: string, status: string): void {
-    this.ordersService.updateOrderStatus(orderId, status).subscribe(
-      isSuccess => {
-        if (isSuccess) {
-          this.toastService.showToast(`Your order was ${status} successfully.`, 'success');
-          this.fetchAllOrdersForAUser();
-        }
-      },
-      error => {
-        this.toastService.showToast('Processing error, please try again.', 'error');
-      }
-    );
   }
 }
