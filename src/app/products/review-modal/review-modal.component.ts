@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AccountService } from 'src/app/services/account.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { ReviewsService } from 'src/app/services/reviews.service';
@@ -25,7 +26,8 @@ export class ReviewModalComponent implements OnInit {
     private productService: ProductsService,
     private authService: AuthService,
     private reviewsService: ReviewsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
@@ -36,25 +38,26 @@ export class ReviewModalComponent implements OnInit {
     this.fetchReviews();
   }
 
-  checkIfReviewAlreadyAddedByUser() {
+  checkIfReviewAlreadyAddedByUser(): void {
     this.loading = true;
-    this.reviewsService.checkIfReviewAlreadyAddedByUser(this.productId, this.userId || '').subscribe((success) => {
-      if (success) {
-        this.reviewAlreadyExists = true;
-      } else {
-        this.reviewAlreadyExists = false;
-      }
-    });
-    this.loading = false;
+    this.reviewsService.checkIfReviewAlreadyAddedByUser(this.productId, this.userId || '').subscribe(
+      (success) => {
+        this.reviewAlreadyExists = success;
+        this.loading = false;
+      },
+      () => this.loading = false
+    );
   }
 
-  fetchProductDetails() {
+  fetchProductDetails(): void {
     this.loading = true;
-    this.productService.getProductById(this.productId).subscribe((product) => {
-      this.productDetails = product;
-      this.loading = false;
-    });
-    this.loading = false;
+    this.productService.getProductById(this.productId).subscribe(
+      (product) => {
+        this.productDetails = product;
+        this.loading = false;
+      },
+      () => this.loading = false
+    );
   }
 
   fetchReviews(): void {
@@ -62,11 +65,19 @@ export class ReviewModalComponent implements OnInit {
     this.reviewsService.getAllReviewsForProduct(this.productId).subscribe(
       (reviews: any[]) => {
         this.reviews = reviews;
-        this.loading = false;
+        const userIds: string[] = [...new Set(this.reviews.map((r) => r.userId))];
+        this.accountService.fetchAllUserProfilesByIds(userIds).subscribe(
+          (userProfiles) => {
+            this.reviews.forEach((review) => {
+              const user = userProfiles.find((u: any) => u.userId === review.userId);
+              review.fullName = user ? `${user.firstName} ${user.lastName}` : 'Anonymous User';
+            });
+            this.loading = false;
+          },
+          () => this.loading = false
+        );
       },
-      error => {
-        this.loading = false;
-      }
+      () => this.loading = false
     );
   }
 
@@ -76,7 +87,7 @@ export class ReviewModalComponent implements OnInit {
 
   submitReview(): void {
     if (this.reviewAlreadyExists) {
-      this.toastService.showToast('You have already submitted review for this product.', 'error');
+      this.toastService.showToast('You have already submitted a review for this product.', 'error');
       return;
     }
     const reviewPayload = {
@@ -99,7 +110,6 @@ export class ReviewModalComponent implements OnInit {
     );
   }
 
-  // Called when backdrop or close button is clicked
   close(): void {
     this.closeModal.emit();
   }

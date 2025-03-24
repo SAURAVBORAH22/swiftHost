@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, from, of } from 'rxjs';
+import { Observable, combineLatest, from, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 @Injectable({
@@ -43,6 +43,30 @@ export class AccountService {
                 }),
                 catchError(() => of(null))
             );
+    }
+
+    fetchAllUserProfilesByIds(userIds: string[]): Observable<any[]> {
+        if (!userIds || userIds.length === 0) {
+            return of([]);
+        }
+        const profileRequests = userIds.map(id =>
+            this.firestore
+                .collection(this.user_info_collection, ref => ref.where('userId', '==', id).limit(1))
+                .get()
+                .pipe(
+                    map(snapshot => {
+                        if (!snapshot.empty) {
+                            const data = snapshot.docs[0].data();
+                            return data ? { userId: id, ...(data as object) } : null;
+                        }
+                        return null;
+                    }),
+                    catchError(() => of(null))
+                )
+        );
+        return combineLatest(profileRequests).pipe(
+            map(results => results.filter(profile => profile !== null))
+        );
     }
 
     saveAddressInfo(data: any): Observable<boolean> {
