@@ -96,7 +96,8 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item cursor-pointer" [routerLink]="'/cancellations'">
+                            <a class="dropdown-item cursor-pointer" [routerLink]="'products/order-status'"
+                                [queryParams]="{ status: 'Cancelled' }">
                                 <i class="bi bi-x-circle me-2"></i> {{ 'MY_CANCELLATIONS' | translate }}
                             </a>
                         </li>
