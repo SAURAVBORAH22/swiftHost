@@ -35,4 +35,19 @@ export class OrderService {
                 }))
             );
     }
+
+    updateOrderStatus(orderId: string, newStatus: string): Observable<boolean> {
+        const updateQuery$ = from(
+            this.firestore
+                .collection(this.order_collection)
+                .doc(orderId)
+                .update({ orderStatus: newStatus })
+        );
+        return updateQuery$.pipe(
+            map(() => true),
+            catchError((error) => {
+                return [false];
+            })
+        );
+    }
 }

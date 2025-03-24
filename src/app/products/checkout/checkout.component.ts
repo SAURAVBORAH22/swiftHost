@@ -212,7 +212,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       paymentType: this.selectedPaymentType,
       payment: this.encryptionService.encryptObject(this.selected_payment),
       orderDate: currentDate,
-      userId: this.userId
+      userId: this.userId,
+      orderStatus: 'Ready To Ship'
     };
     this.orderService.addNewOrder(orderDetails).subscribe(success => {
       if (success) {

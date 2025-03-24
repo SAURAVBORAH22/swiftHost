@@ -97,6 +97,72 @@
     color: var(--text-muted);
 }
 
+/* Order Status Tag Base Style */
+.order-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+/* Specific Status Colors */
+.order-status.ready-to-ship {
+    background-color: #e0f7fa;
+    /* Light cyan */
+    color: #00796b;
+    /* Teal */
+}
+
+.order-status.cancelled {
+    background-color: #ffebee;
+    /* Light red/pink */
+    color: #c62828;
+    /* Dark red */
+}
+
+.order-status.returned {
+    background-color: #fff8e1;
+    /* Light amber */
+    color: #f57c00;
+    /* Orange */
+}
+
+.order-status.complete {
+    background-color: #e8f5e9;
+    /* Light green */
+    color: #2e7d32;
+    /* Dark green */
+}
+
+/* Action Buttons */
+.order-actions {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.order-actions .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.cancel-btn {
+    background-color: #c62828;
+    /* Dark red */
+}
+
+.return-btn {
+    background-color: #f57c00;
+    /* Orange */
+}
+
 /* Divider */
 .divider {
     margin: 20px 0;
