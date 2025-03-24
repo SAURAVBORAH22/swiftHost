@@ -15,6 +15,7 @@ export class OrdersComponent implements OnInit {
   userId: string | null = '';
   orders: any[] = [];
   loading: boolean = false;
+  selectedProductId: string | null = null; // For review modal
 
   constructor(
     private ordersService: OrderService,
@@ -33,7 +34,7 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  fetchAllOrdersForAUser() {
+  fetchAllOrdersForAUser(): void {
     if (!this.userId) return;
     this.loading = true;
     this.ordersService.getAllOrdersForUser(this.userId).subscribe(
@@ -45,6 +46,7 @@ export class OrdersComponent implements OnInit {
         this.loading = false;
       },
       error => {
+        console.error('Error fetching orders:', error);
         this.loading = false;
       }
     );
@@ -81,5 +83,13 @@ export class OrdersComponent implements OnInit {
         this.toastService.showToast('Processing error, please try again.', 'error');
       }
     );
+  }
+
+  openReviewModal(productId: string): void {
+    this.selectedProductId = productId;
+  }
+
+  closeReviewModal(): void {
+    this.selectedProductId = null;
   }
 }

@@ -1,0 +1,158 @@
+/* Modal Overlay: Full viewport with a dark translucent background */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s;
+}
+
+/* Modal Container: Increased size */
+.custom-modal {
+    background: #fff;
+    border-radius: 8px;
+    width: 800px;
+    max-width: 95%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.3s ease-out;
+    overflow: hidden;
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Product Details Section */
+.modal-product-details {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    background: #fafafa;
+}
+
+.product-image {
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.product-name {
+    font-size: 1.4rem;
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.product-description {
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    color: #555;
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff6f61;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 1.5rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.review-list {
+    padding: 0;
+    margin: 0;
+}
+
+.review-item {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.review-rating {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.review-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Add Review Section */
+.add-review h6 {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.star-rating .star {
+    font-size: 1.8rem;
+    color: #ccc;
+    cursor: pointer;
+    margin-right: 0.2rem;
+}
+
+.star-rating .star.filled {
+    color: #ff6f61;
+}
+
+/* Modal Footer: Button alignment */
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    /* Cancel left, Submit right */
+    background: #f8f9fa;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

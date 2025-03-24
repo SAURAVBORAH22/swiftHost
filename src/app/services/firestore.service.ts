@@ -17,6 +17,5 @@ export class FirestoreService {
         });
 
         await batch.commit(); // Commit all writes
-        console.log('Bulk upload completed!');
     }
 }

@@ -10,6 +10,7 @@ import { ProductListFilterComponent } from './product-list-filter/product-list-f
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderStatusComponent } from './order-status/order-status.component';
+import { ReviewModalComponent } from './review-modal/review-modal.component';
 
 const routes: Routes = [
     {
@@ -56,7 +57,8 @@ const routes: Routes = [
         ProductListFilterComponent,
         CheckoutComponent,
         OrdersComponent,
-        OrderStatusComponent
+        OrderStatusComponent,
+        ReviewModalComponent
     ]
 })
 export class ProductModule { }

@@ -281,3 +281,14 @@
     align-items: center;
     font-size: 1rem;
 }
+
+/* Stylish Review Button with a solid background */
+.review-btn {
+    background-color: #ff6f61;
+    /* Example color: warm red */
+    border: none;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+}
