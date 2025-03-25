@@ -155,7 +155,7 @@
                                         <img [src]="product.images[0]" alt="{{ product.name }}"
                                             class="product-img img-fluid">
                                     </td>
-                                    <td>{{ product.name }}</td>
+                                    <td><span class="cursor-pointer" (click)="navigateToDetails(product)">{{ product.name }}</span></td>
                                     <td class="text-right">
                                         <span *ngIf="product.discountedPrice; else originalPrice">
                                             <del class="text-muted">{{ product.price | currency:'INR' }}</del>

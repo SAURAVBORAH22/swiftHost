@@ -41,7 +41,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="add-review mt-4">
+            <div *ngIf="allowReview" class="add-review mt-4">
                 <h6 class="mb-2">Add Your Review</h6>
                 <div class="star-rating mb-2">
                     <ng-container *ngFor="let star of [1,2,3,4,5]">
@@ -56,7 +56,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="submitReview()">Submit</button>
+            <button *ngIf="allowReview" type="button" class="btn btn-primary" (click)="submitReview()">Submit</button>
         </div>
     </div>
 </div>

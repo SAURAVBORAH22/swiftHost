@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -22,7 +23,8 @@ export class OrdersComponent implements OnInit {
     private authService: AuthService,
     private encryptionService: EncryptionService,
     private orderByDate: OrderByDatePipe,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -91,5 +93,9 @@ export class OrdersComponent implements OnInit {
 
   closeReviewModal(): void {
     this.selectedProductId = null;
+  }
+
+  navigateToDetails(item: any): void {
+    this.router.navigate(['/products/', item.id]);
   }
 }

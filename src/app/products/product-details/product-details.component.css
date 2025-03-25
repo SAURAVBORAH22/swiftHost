@@ -291,3 +291,13 @@
 .scroll-btn:hover {
     background: #ddd;
 }
+
+.review-btn {
+    background-color: #ff6f61;
+    /* Example color: warm red */
+    border: none;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+}

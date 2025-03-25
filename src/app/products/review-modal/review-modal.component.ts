@@ -12,6 +12,7 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class ReviewModalComponent implements OnInit {
   @Input() productId!: string;
+  @Input() allowReview!: boolean;
   @Output() closeModal = new EventEmitter<void>();
 
   reviews: any[] = [];

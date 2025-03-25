@@ -270,6 +270,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     );
   }
 
+  navigateToDetails(item: any): void {
+    this.router.navigate(['/products/', item.id]);
+  }
+
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();

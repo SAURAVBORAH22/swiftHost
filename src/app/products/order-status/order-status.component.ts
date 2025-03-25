@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -23,7 +23,8 @@ export class OrderStatusComponent implements OnInit {
     private encryptionService: EncryptionService,
     private orderByDate: OrderByDatePipe,
     private toastService: ToastService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -75,5 +76,10 @@ export class OrderStatusComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+
+  navigateToDetails(item: any): void {
+    this.router.navigate(['/products/', item.id]);
   }
 }

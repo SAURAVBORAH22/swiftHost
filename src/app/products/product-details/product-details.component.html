@@ -36,6 +36,11 @@
                     ❤️ Add to Wishlist
                 </button>
             </div>
+            <div class="product-review mt-2">
+                <button class="btn review-btn" (click)="openReviewModal(productDetails.id)">
+                   View Reviews
+                </button>
+            </div>
             <div class="delivery-info">
                 <div class="free-delivery">
                     🚚 Free Delivery <br />
@@ -87,3 +92,6 @@
 <ng-template #productNotFound>
     <error-page></error-page>
 </ng-template>
+
+<app-review-modal *ngIf="selectedProductId" [allowReview]="false" [productId]="selectedProductId" (closeModal)="closeReviewModal()">
+</app-review-modal>

@@ -24,6 +24,7 @@ export class ProductDetailsComponent implements OnInit {
   userId: string | null = '';
   recommendationList: any[] = [];
   recommendationsLoading: boolean = true;
+  selectedProductId: string | null = null;
 
   @ViewChild('mainImage') mainImage!: ElementRef<HTMLImageElement>;
 
@@ -175,5 +176,13 @@ export class ProductDetailsComponent implements OnInit {
     if (container) {
       container.scrollBy({ left: 260, behavior: 'smooth' });
     }
+  }
+
+  openReviewModal(productId: string): void {
+    this.selectedProductId = productId;
+  }
+
+  closeReviewModal(): void {
+    this.selectedProductId = null;
   }
 }

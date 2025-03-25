@@ -84,7 +84,7 @@
                 <div *ngFor="let product of order.products" class="product-item">
                     <img [src]="product.images[0]" alt="{{ product.name }}" class="product-img" />
                     <div class="product-info">
-                        <h5 class="product-name">{{ product.name }}</h5>
+                        <h5 class="product-name cursor-pointer" (click)="navigateToDetails(product)">{{ product.name }}</h5>
                         <p class="product-desc" *ngIf="product.description">
                             {{ product.description }}
                         </p>
@@ -116,5 +116,5 @@
     </div>
 </div>
 
-<app-review-modal *ngIf="selectedProductId" [productId]="selectedProductId" (closeModal)="closeReviewModal()">
+<app-review-modal *ngIf="selectedProductId" [allowReview]="true" [productId]="selectedProductId" (closeModal)="closeReviewModal()">
 </app-review-modal>
