@@ -1,0 +1,47 @@
+<div class="container mt-4">
+    <h2 class="mb-4">My Reviews</h2>
+    <div *ngIf="loading; else content">
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <ng-template #content>
+        <div *ngIf="reviews.length > 0; else noReviews">
+            <div *ngFor="let review of reviews; trackBy: trackById" class="review-card">
+                <div *ngIf="productLoading; else reviewContent" class="card-loader">
+                    <div class="card-placeholder">
+                        <div class="image-placeholder"></div>
+                        <div class="text-placeholder"></div>
+                        <div class="text-placeholder"></div>
+                        <div class="rating-placeholder"></div>
+                    </div>
+                </div>
+                <ng-template #reviewContent>
+                    <div class="product-image">
+                        <img [src]="review.product?.images[0]" alt="{{ review.product?.name }}" />
+                    </div>
+                    <div class="review-content cursor-pointer" (click)="navigateToDetails(review.product)">
+                        <h4>{{ review.product?.name }}</h4>
+                        <p class="description">{{ review.product?.description }}</p>
+                        <p class="price">₹{{ review.product?.price | number }}</p>
+                        <div class="rating-container">
+                            <div class="rating">
+                                <span *ngFor="let star of getStarArray(review.rating)"
+                                    [class.filled]="star <= review.rating" class="star">
+                                    &#9733;
+                                </span>
+                            </div>
+                            <span class="rating-text">({{ review.rating }} / 5)</span>
+                        </div>
+                        <p class="review-text">"{{ review.review }}"</p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #noReviews>
+        <p>No reviews found.</p>
+    </ng-template>
+</div>

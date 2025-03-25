@@ -1,0 +1,154 @@
+/* Container styling */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Review card */
+.review-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Product image */
+.product-image img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.product-image img:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+/* Review content */
+.review-content {
+    flex: 1;
+}
+
+h4 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+}
+
+.description {
+    color: #555;
+    font-size: 1rem;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.price {
+    font-size: 1.2rem;
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Rating */
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rating {
+    display: inline-block;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #ccc;
+    transition: color 0.3s;
+}
+
+.star.filled {
+    color: #f39c12;
+    /* Gold color for filled stars */
+}
+
+.rating-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Review text */
+.review-text {
+    font-style: italic;
+    color: #444;
+    margin-top: 10px;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .review-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .product-image img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+}
+
+.card-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+    background: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-placeholder {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-placeholder {
+    width: 150px;
+    height: 150px;
+    background: #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.text-placeholder {
+    width: 80%;
+    height: 15px;
+    background: #ccc;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+.rating-placeholder {
+    width: 60%;
+    height: 15px;
+    background: #ccc;
+    margin: 5px 0;
+    border-radius: 4px;
+}

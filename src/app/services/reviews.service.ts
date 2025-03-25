@@ -65,4 +65,19 @@ export class ReviewsService {
                 })
             );
     }
+
+    getAllReviewsByUser(userId: string): Observable<any[]> {
+        return this.firestore
+            .collection(this.review_collection, ref =>
+                ref.where('userId', '==', userId)
+            )
+            .snapshotChanges()
+            .pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as { [key: string]: any };
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
 }

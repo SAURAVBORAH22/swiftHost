@@ -11,6 +11,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderStatusComponent } from './order-status/order-status.component';
 import { ReviewModalComponent } from './review-modal/review-modal.component';
+import { MyReviewsComponent } from './my-reviews/my-reviews.component';
 
 const routes: Routes = [
     {
@@ -38,6 +39,10 @@ const routes: Routes = [
         component: OrderStatusComponent
     },
     {
+        path: 'my-reviews',
+        component: MyReviewsComponent
+    },
+    {
         path: ':id',
         component: ProductDetailsComponent
     }
@@ -58,7 +63,8 @@ const routes: Routes = [
         CheckoutComponent,
         OrdersComponent,
         OrderStatusComponent,
-        ReviewModalComponent
+        ReviewModalComponent,
+        MyReviewsComponent
     ]
 })
 export class ProductModule { }
