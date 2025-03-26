@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ReviewsService } from './reviews.service';
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,10 @@ import { map } from 'rxjs/operators';
 export class ProductsService {
     product_collection: string = 'PRODUCT';
 
-    constructor(private firestore: AngularFirestore) { }
+    constructor(
+        private firestore: AngularFirestore,
+        private reviewsService: ReviewsService
+    ) { }
 
     getAllProducts(): Observable<any[]> {
         return this.firestore.collection(this.product_collection).snapshotChanges().pipe(
@@ -133,6 +137,20 @@ export class ProductsService {
                     observer.complete();
                 })
                 .catch(error => observer.error(error));
+        });
+    }
+
+    updateProductRating(product: any): void {
+        this.reviewsService.getAllReviewsForProduct(product.id).subscribe((reviews) => {
+            if (reviews.length > 0) {
+                const totalRating = reviews.reduce((acc, curr) => acc + curr.rating, 0);
+                product.rating = totalRating / reviews.length;
+                product.numberOfReviews = reviews.length;
+            } else {
+                product.rating = 0;
+                product.numberOfReviews = 0;
+            }
+            this.updateProducts([product]).subscribe();
         });
     }
 }

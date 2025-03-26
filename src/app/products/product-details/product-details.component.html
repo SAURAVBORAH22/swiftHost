@@ -16,7 +16,7 @@
             <div class="rating">
                 <span *ngFor="let star of stars" class="bi"
                     [ngClass]="{'bi-star-fill': star.filled, 'bi-star': !star.filled}"></span>
-                {{ productDetails?.rating }} (150 Reviews) |
+                {{ productDetails?.rating }} ({{productDetails?.numberOfReviews}} Reviews) |
                 <span class="stock" [ngClass]="{'out-of-stock': productDetails?.quantity === 0}">
                     {{ productDetails?.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
                 </span>
@@ -38,7 +38,7 @@
             </div>
             <div class="product-review mt-2">
                 <button class="btn review-btn" (click)="openReviewModal(productDetails.id)">
-                   View Reviews
+                    View Reviews
                 </button>
             </div>
             <div class="delivery-info">
@@ -93,5 +93,6 @@
     <error-page></error-page>
 </ng-template>
 
-<app-review-modal *ngIf="selectedProductId" [allowReview]="false" [productId]="selectedProductId" (closeModal)="closeReviewModal()">
+<app-review-modal *ngIf="selectedProductId" [allowReview]="false" [productId]="selectedProductId"
+    (closeModal)="closeReviewModal()">
 </app-review-modal>

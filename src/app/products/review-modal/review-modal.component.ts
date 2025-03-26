@@ -101,6 +101,7 @@ export class ReviewModalComponent implements OnInit {
       (success) => {
         if (success) {
           this.toastService.showToast('Your review was submitted successfully.', 'success');
+          this.productService.updateProductRating(this.productDetails);
           this.fetchReviews();
           this.reviewText = '';
           this.rating = 0;
