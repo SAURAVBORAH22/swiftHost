@@ -28,7 +28,7 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+    this.userId = this.authService.getUserFromSession()?.userId || null;
   }
 
   onSubmit(): void {

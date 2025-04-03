@@ -23,7 +23,7 @@ export class MyReviewsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+    this.userId = this.authService.getUserFromSession()?.userId || null;
 
     if (!this.userId) {
       this.loading = false;

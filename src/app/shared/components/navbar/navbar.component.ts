@@ -73,7 +73,7 @@ export class NavbarComponent implements OnInit {
   }
 
   loadCartCount() {
-    const userId = this.authService.getUserFromLocalStore()?.userId;
+    const userId = this.authService.getUserFromSession()?.userId;
     if (!userId) {
       return;
     }

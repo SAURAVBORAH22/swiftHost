@@ -28,7 +28,7 @@ export class OrdersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const user = this.authService.getUserFromLocalStore();
+    const user = this.authService.getUserFromSession();
     this.userId = user?.userId || null;
 
     if (this.userId) {

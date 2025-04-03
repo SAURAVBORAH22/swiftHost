@@ -1,21 +1,19 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { Observable } from "rxjs";
-import { Store } from "@ngrx/store";
-import { map } from "rxjs/operators";
-import { AuthService } from "../services/auth.service";
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthGuard implements CanActivate {
-    constructor(
-        private router: Router,
-        private authService: AuthService
-    ) { }
+  constructor(private router: Router) {}
 
-    canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        if (!this.authService.isAuthenticated()) {
-            return this.router.createUrlTree(['login']);
-        }
-        return true;
+  canActivate(): boolean {
+    const userData = sessionStorage.getItem('userData');
+    if (userData) {
+      return true;
     }
+    window.location.href = `${environment.authAppUrl}`;
+    return false;
+  }
 }

@@ -39,7 +39,7 @@ export class ProductCardComponent {
 
   addToCart(event: Event) {
     event.stopPropagation();
-    const userId = this.authService.getUserFromLocalStore()?.userId;
+    const userId = this.authService.getUserFromSession()?.userId;
     if (!userId) {
       return;
     }
@@ -66,7 +66,7 @@ export class ProductCardComponent {
   toggleWishlist(event: Event) {
     event.stopPropagation();
     this.isWishlisted = !this.isWishlisted;
-    const userId = this.authService.getUserFromLocalStore()?.userId;
+    const userId = this.authService.getUserFromSession()?.userId;
     if (!userId) {
       return;
     }

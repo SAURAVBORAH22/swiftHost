@@ -42,7 +42,7 @@ export class PaymentComponent implements OnInit {
     private toastService: ToastService,
     private confirmationDialogService: ConfirmationDialogService
   ) {
-    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+    this.userId = this.authService.getUserFromSession()?.userId || null;
 
     // Initialize Credit Card form with a confirm field and group validator
     this.creditCardForm = this.fb.group({

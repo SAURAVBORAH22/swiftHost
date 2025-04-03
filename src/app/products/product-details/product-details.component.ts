@@ -39,7 +39,7 @@ export class ProductDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+    this.userId = this.authService.getUserFromSession()?.userId || null;
     this.route.paramMap.subscribe(params => {
       this.productId = params.get('id') || '';
       this.getProductDetails();

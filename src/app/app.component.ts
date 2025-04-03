@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +7,25 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'SwiftHost';
-  showNavbar: boolean = false;
-
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.showNavbar = !event.url.includes('/login') && !event.url.includes('/signup');
+    console.log("AppComponent loaded. URL:", window.location.href);
+
+    const params = new URLSearchParams(window.location.search);
+    const sessionData = params.get("session");
+
+    if (sessionData) {
+      console.log("Extracted session data:", sessionData);
+      try {
+        const decodedData = JSON.parse(atob(sessionData));
+        sessionStorage.setItem('userData', JSON.stringify(decodedData));
+
+        // Remove session from URL and reload home
+        this.router.navigate(['/home'], { replaceUrl: true });
+      } catch (error) {
+        console.error('Error parsing session data:', error);
       }
-    });
+    }
   }
 }

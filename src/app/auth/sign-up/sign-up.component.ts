@@ -51,7 +51,7 @@ export class SignUpComponent implements OnInit {
       next: (authResponseModel: AuthResponseModel) => {
         if (authResponseModel) {
           const user = this.authService.formatUser(authResponseModel);
-          this.authService.setUserInLocalStorage(user);
+          this.authService.setUserInSessionStorage(user);
           this.router.navigate(['home']);
           this.toastService.showToast(this.translate.transform('INVALID_LOGIN_CREDENTIALS'), 'error');
         }

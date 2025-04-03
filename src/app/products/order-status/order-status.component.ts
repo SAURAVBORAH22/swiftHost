@@ -34,7 +34,7 @@ export class OrderStatusComponent implements OnInit {
           this.status = params.status;
         }
       });
-    const user = this.authService.getUserFromLocalStore();
+    const user = this.authService.getUserFromSession();
     this.userId = user?.userId || null;
 
     if (this.userId) {

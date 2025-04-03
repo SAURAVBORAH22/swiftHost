@@ -32,7 +32,7 @@ export class ReviewModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const user = this.authService.getUserFromLocalStore();
+    const user = this.authService.getUserFromSession();
     this.userId = user?.userId || null;
     this.checkIfReviewAlreadyAddedByUser();
     this.fetchProductDetails();

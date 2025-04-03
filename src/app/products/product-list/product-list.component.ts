@@ -94,7 +94,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   getAllWishListedProductIds(): Observable<string[]> {
-    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+    this.userId = this.authService.getUserFromSession()?.userId || null;
     if (!this.userId) return of([]);
 
     return new Observable(observer => {
@@ -118,7 +118,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   moveToCart() {
-    const userId = this.authService.getUserFromLocalStore()?.userId || '';
+    const userId = this.authService.getUserFromSession()?.userId || '';
     if (this.productList.length) {
       let operationsInProgress = this.productList.length;
 

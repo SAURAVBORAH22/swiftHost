@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       next: (authResponseModel: AuthResponseModel) => {
         if (authResponseModel) {
           const user = this.authService.formatUser(authResponseModel);
-          this.authService.setUserInLocalStorage(user);
+          this.authService.setUserInSessionStorage(user);
           this.router.navigate(['home']);
         }
         this.loading = false;

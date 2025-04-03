@@ -13,7 +13,8 @@ export const environment = {
     appId: "1:98635351619:web:7af19c15d82931d32db6f6",
     measurementId: "G-VC3QWDBR7Y"
   },
-  encryptionKey: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
+  encryptionKey: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef',
+  authAppUrl: 'http://localhost:4200'
 };
 
 /*

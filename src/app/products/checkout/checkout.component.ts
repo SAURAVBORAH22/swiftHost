@@ -55,7 +55,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.userId = this.authService.getUserFromLocalStore()?.userId || null;
+    this.userId = this.authService.getUserFromSession()?.userId || null;
     if (this.userId) {
       this.fetchAllAddresses();
       this.fetchAllPaymentOptions();

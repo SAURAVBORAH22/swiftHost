@@ -5,6 +5,7 @@ import { AuthResponseModel } from "../models/authResponseModel";
 import { map } from "rxjs/operators";
 import { User } from "../models/userModel";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -34,9 +35,8 @@ export class AuthService {
     }
 
     formatUser(data: AuthResponseModel): User {
-        const expirationDate = new Date(new Date().getTime() + +data.expiresIn * 1000)
-        const user = new User(data.email, data.refreshToken, data.localId, expirationDate);
-        return user;
+        const expirationDate = new Date(new Date().getTime() + +data.expiresIn * 1000);
+        return new User(data.email, data.refreshToken, data.localId, expirationDate);
     }
 
     runTimeoutInterval(user: User): void {
@@ -45,26 +45,16 @@ export class AuthService {
         const timeInterval = expirationDate - todaysDate;
         this.timeoutInterval = setTimeout(() => {
             this.logoutUserFromSession();
-        }, timeInterval)
+        }, timeInterval);
     }
 
-    setUserInLocalStorage(user: User): void {
-        localStorage.setItem('userData', JSON.stringify(user));
+    setUserInSessionStorage(user: User): void {
+        sessionStorage.setItem('userData', JSON.stringify(user));
         this.runTimeoutInterval(user);
     }
 
-    logoutUserFromSession(): void {
-        localStorage.removeItem('userData');
-        localStorage.removeItem('localisation');
-        if (this.timeoutInterval) {
-            clearTimeout(this.timeoutInterval);
-            this.timeoutInterval = null;
-        }
-        this.router.navigate(['login']);
-    }
-
-    getUserFromLocalStore() {
-        const userDataString = localStorage.getItem('userData');
+    getUserFromSession(): User | null {
+        const userDataString = sessionStorage.getItem('userData');
         if (userDataString) {
             const userData = JSON.parse(userDataString);
             const expirationDate = new Date(userData.expirationDate);
@@ -72,13 +62,19 @@ export class AuthService {
             this.runTimeoutInterval(user);
             return user;
         }
-        return null
+        return null;
+    }
+
+    logoutUserFromSession(): void {
+        sessionStorage.removeItem('userData');
+        if (this.timeoutInterval) {
+            clearTimeout(this.timeoutInterval);
+            this.timeoutInterval = null;
+        }
+        window.location.href = `${environment.authAppUrl}`;
     }
 
     isAuthenticated(): boolean {
-        if (this.getUserFromLocalStore() !== null) {
-            return true;
-        }
-        return false;
+        return this.getUserFromSession() !== null;
     }
 }
