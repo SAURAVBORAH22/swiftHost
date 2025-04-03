@@ -10,5 +10,5 @@ export const environment = {
     measurementId: "G-VC3QWDBR7Y"
   },
   encryptionKey: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef',
-  authAppUrl: 'http://localhost:4200'
+  authAppUrl: 'https://swift-host-login.vercel.app'
 };

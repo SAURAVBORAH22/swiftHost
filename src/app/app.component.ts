@@ -10,7 +10,6 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log("AppComponent loaded. URL:", window.location.href);
 
     const params = new URLSearchParams(window.location.search);
     const sessionData = params.get("session");
